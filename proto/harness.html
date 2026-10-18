@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>肥鱼爱大米 · 部件检视台</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #f7f4ec; overflow: hidden; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="stage" width="2400" height="1100"></canvas>
+
+<script src="parts/00_util.js"></script>
+<script src="parts/10_head.js"></script>
+<script src="parts/20_hair.js"></script>
+<script src="parts/30_accessories.js"></script>
+<script src="parts/40_body.js"></script>
+<script src="parts/50_arms.js"></script>
+<script src="parts/60_legs_tail.js"></script>
+<script src="parts/99_assemble.js"></script>
+
+<script>
+(function () {
+  const q = new URLSearchParams(location.search);
+  const part = q.get('part') || 'full';
+  const yaws = (q.get('yaws') || '-78,-40,0,40,78,180').split(',').map(Number);
+  const expr = q.get('expr') || 'normal';
+  const pose = q.get('pose') || 'stand';
+  const t = parseFloat(q.get('t') || '0');
+  const pitch = parseFloat(q.get('pitch') || '0');
+  const scale = parseFloat(q.get('scale') || '1.55');
+
+  const c = document.getElementById('stage');
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#f7f4ec';
+  ctx.fillRect(0, 0, c.width, c.height);
+
+  // 顶部标题
+  ctx.save();
+  ctx.fillStyle = '#5a5348';
+  ctx.font = '600 26px "Microsoft YaHei", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('肥鱼爱大米 · ' + part.toUpperCase() + ' 部件检视台   expr=' + expr + '  pose=' + pose + '  t=' + t + 's', c.width / 2, 44);
+  ctx.restore();
+
+  const margin = 190;
+  const spread = (c.width - margin * 2) / Math.max(1, yaws.length - 1);
+  const baseY = 610;
+
+  yaws.forEach(function (yaw, i) {
+    const cx = yaws.length === 1 ? c.width / 2 : margin + i * spread;
+    const S = makeFishState({ yaw: yaw, expr: expr, pose: pose, t: t, pitch: pitch });
+
+    // 地面基准线与中心线
+    ctx.save();
+    ctx.strokeStyle = 'rgba(90, 83, 72, 0.18)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(cx - 150, 1000); ctx.lineTo(cx + 150, 1000); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx, 120); ctx.lineTo(cx, 1000); ctx.stroke();
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(cx, baseY);
+    ctx.scale(scale, scale);
+
+    switch (part) {
+      case 'head':
+        if (window.drawHead) drawHead(ctx, S);
+        break;
+      case 'hair':
+        if (window.drawHairBack) drawHairBack(ctx, S);
+        if (window.drawHead) drawHead(ctx, S);
+        if (window.drawHairFront) drawHairFront(ctx, S);
+        break;
+      case 'accessories':
+        if (window.drawHairBack) drawHairBack(ctx, S);
+        if (window.drawHead) drawHead(ctx, S);
+        if (window.drawHairFront) drawHairFront(ctx, S);
+        if (window.drawAccessories) drawAccessories(ctx, S);
+        break;
+      case 'body':
+        if (window.drawBody) drawBody(ctx, S);
+        break;
+      case 'arms':
+        if (window.drawBody) drawBody(ctx, S);
+        if (window.drawArms) drawArms(ctx, S);
+        break;
+      case 'legs':
+        if (window.drawLegs) drawLegs(ctx, S);
+        break;
+      case 'tail':
+        if (window.drawTail) drawTail(ctx, S);
+        break;
+      case 'full':
+      default:
+        if (window.assembleFish) assembleFish(ctx, S);
+        break;
+    }
+    ctx.restore();
+
+    // 标签
+    ctx.save();
+    ctx.fillStyle = '#5a5348';
+    ctx.font = '600 24px "Microsoft YaHei", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('yaw ' + yaw + '°', cx, 1044);
+    ctx.restore();
+  });
+
+  window.__READY__ = true;
+})();
+</script>
+</body>
+</html>

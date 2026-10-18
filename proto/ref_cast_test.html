@@ -1,0 +1,34 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+html,body{margin:0;background:#f6f0e4;overflow:hidden}
+canvas{display:block}
+</style></head>
+<body>
+<canvas id="c" width="2100" height="1250"></canvas>
+<script src="../references/let-me-go-code-mv-main/v2/assets/vendor/gsap.min.js"></script>
+<script src="../references/let-me-go-code-mv-main/v2/src/song.js"></script>
+<script src="../references/let-me-go-code-mv-main/v2/src/lib.js"></script>
+<script src="../references/let-me-go-code-mv-main/v2/src/cast.js"></script>
+<script src="../references/let-me-go-code-mv-main/v2/src/props.js"></script>
+<script>
+const c=document.getElementById('c'),x=c.getContext('2d');
+x.fillStyle='#f6f0e4';x.fillRect(0,0,c.width,c.height);
+const list=[
+ {label:'open',    p:{x:250, y:1010, s:1.55, face:'open'}},
+ {label:'sing',    p:{x:660, y:1010, s:1.55, face:'sing', mouth:0.7}},
+ {label:'happy',   p:{x:1070,y:1010, s:1.55, face:'happy'}},
+ {label:'smug',    p:{x:1480,y:1010, s:1.55, face:'smug'}},
+ {label:'mic hold',p:{x:1880,y:1010, s:1.45, face:'open', lArm:32, lBend:135, lHold:'mic'}},
+];
+if(window.CAST){
+ list.forEach(o=>{
+   try{ CAST.fish(x,o.p); }catch(e){ console.log('ERR '+o.label+': '+e.message); }
+   x.save();x.fillStyle='#5a5348';x.font='600 22px sans-serif';x.textAlign='center';
+   x.fillText(o.label,o.p.x,1200);x.restore();
+ });
+}else{
+ x.fillStyle='red';x.font='28px sans-serif';x.fillText('CAST missing',40,60);
+}
+window.__READY__=true;
+</script>
+</body></html>

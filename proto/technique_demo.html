@@ -1,0 +1,1399 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>肥鱼爱大米 · 绘图技法研究 Demo</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #ece2cf; overflow: hidden; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="stage" width="1800" height="1100"></canvas>
+<script>
+'use strict';
+
+/* ============================================================================
+ * 肥鱼爱大米 · LLM / Canvas 2D 绘图技法验证
+ * 5 个面板，全部由代码生成，无外部图片、无 CSS 滤镜。
+ * A. 2.5D yaw 参数化 + 近侧单眼可见性
+ * B. 侧脸解剖锚点（额头→眉弓→鼻根→鼻尖→人中→唇→下巴）+ 成品
+ * C. 蕾丝扇贝重复模块（直线 / 圆弧）
+ * D. 金线卷草 + 贝壳纹样（三色金 + 中心高光）
+ * E. 赛璐璐 vs 水彩（同一贝壳，两种上色）
+ * ========================================================================== */
+
+window.addEventListener('error', function (ev) {
+  var d = document.createElement('div');
+  d.style.cssText = 'position:fixed;left:0;top:0;z-index:9;background:#7d1d1d;color:#fff;' +
+    'font:14px/1.5 Consolas,monospace;padding:8px 14px;max-width:1700px;';
+  d.textContent = 'JS ERROR: ' + ev.message + ' @ line ' + (ev.lineno || '?');
+  document.body.appendChild(d);
+});
+
+const W = 1800, H = 1100;
+const cv = document.getElementById('stage');
+const ctx = cv.getContext('2d');
+
+const C = {
+  paper: '#f2e9d8', paper2: '#fbf6ec', panel: '#fffdf8',
+  ink: '#1b2138', ink2: '#3b4260', muted: '#7d7465', faint: '#aaa08e',
+  hairD: '#24345f', hairM: '#3b5fa8', hairB: '#6a9fe0', hairL: '#b7dcfb',
+  skin: '#fff2ea', skinS: '#f4d7cc', skinD: '#e7c0b6', blush: '#f28c95',
+  navy: '#1b2340', navy2: '#28335c',
+  goldL: '#f4d79a', gold: '#dfb05a', goldD: '#8d5b1d', goldH: '#fff6cf',
+  lace: '#fbf8f1', laceLine: '#c3c8d9', laceShade: '#e6e8f1',
+  blue: '#5aa7ea', coral: '#d05f63', guide: 'rgba(60,97,174,0.55)'
+};
+
+/* ------------------------------------------------------------------ 基础工具 */
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+function smoothstep(e0, e1, x) {
+  const t = clamp((x - e0) / ((e1 - e0) || 1e-6), 0, 1);
+  return t * t * (3 - 2 * t);
+}
+function hash(n) {
+  const x = Math.sin(n * 127.1 + 311.7) * 43758.5453123;
+  return x - Math.floor(x);
+}
+function rr(g, x, y, w, h, r) {
+  r = Math.min(r, w / 2, h / 2);
+  g.beginPath();
+  g.moveTo(x + r, y);
+  g.arcTo(x + w, y, x + w, y + h, r);
+  g.arcTo(x + w, y + h, x, y + h, r);
+  g.arcTo(x, y + h, x, y, r);
+  g.arcTo(x, y, x + w, y, r);
+  g.closePath();
+}
+function label(g, txt, x, y, size, color, align, weight) {
+  g.save();
+  g.fillStyle = color || C.muted;
+  g.font = (weight || 500) + ' ' + (size || 12) + 'px "Microsoft YaHei","PingFang SC",sans-serif';
+  g.textAlign = align || 'left';
+  g.textBaseline = 'middle';
+  g.fillText(txt, x, y);
+  g.restore();
+}
+function dashed(g, x1, y1, x2, y2, color, dash, w) {
+  g.save();
+  g.strokeStyle = color; g.lineWidth = w || 1; g.setLineDash(dash || [5, 5]);
+  g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2, y2); g.stroke();
+  g.restore();
+}
+function dot(g, x, y, r, color, ring) {
+  g.save();
+  if (ring) { g.strokeStyle = ring; g.lineWidth = 1; g.beginPath(); g.arc(x, y, r + 2.6, 0, 6.2832); g.stroke(); }
+  g.fillStyle = color; g.beginPath(); g.arc(x, y, r, 0, 6.2832); g.fill();
+  g.restore();
+}
+function traceSmooth(g, pts, closed) {
+  const n = pts.length;
+  if (n < 2) return;
+  g.moveTo(pts[0].x, pts[0].y);
+  if (closed) {
+    for (let i = 0; i < n; i++) {
+      const p0 = pts[(i - 1 + n) % n], p1 = pts[i];
+      const p2 = pts[(i + 1) % n], p3 = pts[(i + 2) % n];
+      g.bezierCurveTo(
+        p1.x + (p2.x - p0.x) / 6, p1.y + (p2.y - p0.y) / 6,
+        p2.x - (p3.x - p1.x) / 6, p2.y - (p3.y - p1.y) / 6,
+        p2.x, p2.y);
+    }
+    g.closePath();
+  } else {
+    for (let i = 0; i < n - 1; i++) {
+      const p0 = pts[Math.max(0, i - 1)], p1 = pts[i];
+      const p2 = pts[i + 1], p3 = pts[Math.min(n - 1, i + 2)];
+      g.bezierCurveTo(
+        p1.x + (p2.x - p0.x) / 6, p1.y + (p2.y - p0.y) / 6,
+        p2.x - (p3.x - p1.x) / 6, p2.y - (p3.y - p1.y) / 6,
+        p2.x, p2.y);
+    }
+  }
+}
+function wash(g, cx, cy, rx, ry, color, alpha, seed, pass) {
+  g.save();
+  g.fillStyle = color;
+  const n = pass || 3;
+  for (let k = 0; k < n; k++) {
+    g.globalAlpha = alpha * (0.55 + k * 0.26);
+    const wob = 1 + (hash(seed * 7.7 + k) - 0.5) * 0.14;
+    g.beginPath();
+    g.ellipse(cx + (hash(seed + k * 3) - 0.5) * 2.2, cy + (hash(seed + k * 5) - 0.5) * 1.8,
+      Math.max(0.5, rx * wob), Math.max(0.5, ry * (2 - wob)), (hash(seed + k) - 0.5) * 0.28, 0, 6.2832);
+    g.fill();
+  }
+  g.restore();
+}
+
+/* ============================================================== 2.5D 脸部模型 */
+/* 以“面朝左”为规范坐标：脸缘在前方 = 负 x，后脑 = 正 x。
+ * yaw < 0 直接画；yaw > 0 用 scale(-1,1) 镜像。                         */
+const PF = [
+  [-58, 0], [-54, 20], [-50, 29], [-46, 35], [-42, 38.5], [-37, 41],
+  [-32, 42.6], [-27, 43.4], [-23, 43.0], [-19, 41.9], [-15, 41.3],
+  [-10, 41.6], [-5, 42.5], [0, 43.8], [5, 45.6], [10, 47.9],
+  [14, 50.3], [18, 52.9], [21, 55.0], [22.5, 55.8], [24, 50.6],
+  [26, 47.9], [28, 48.3], [31, 50.2], [34, 49.1], [37, 50.4],
+  [40, 49.0], [44, 46.4], [48, 42.8], [51, 37.6], [54, 28.0]
+];
+const PB = [
+  [-58, 0], [-54, 22], [-50, 31], [-46, 37], [-42, 41], [-37, 44],
+  [-32, 46], [-27, 47.2], [-22, 47.8], [-17, 47.4], [-12, 46.5],
+  [-6, 45], [0, 43.2], [6, 41], [12, 38.3], [18, 35.2], [24, 31.8],
+  [30, 28], [35, 24], [40, 19], [44, 14], [48, 7], [51, -2], [54, -28]
+];
+function sampleTable(tab, y) {
+  if (y <= tab[0][0]) return tab[0][1];
+  if (y >= tab[tab.length - 1][0]) return tab[tab.length - 1][1];
+  for (let i = 0; i < tab.length - 1; i++) {
+    const a = tab[i], b = tab[i + 1];
+    if (y >= a[0] && y <= b[0]) {
+      const t = (y - a[0]) / ((b[0] - a[0]) || 1e-6);
+      return lerp(a[1], b[1], t);
+    }
+  }
+  return tab[tab.length - 1][1];
+}
+/* 正面椭圆半宽：脸顶 -58、下巴 54，最宽 42 */
+function halfW(y) {
+  const t = (y + 2) / 56;
+  return 42 * Math.sqrt(Math.max(0, 1 - t * t));
+}
+function edgeWeights(turn) {
+  return {
+    pf: smoothstep(0.45, 0.98, turn),
+    pb: smoothstep(0.25, 0.92, turn)
+  };
+}
+function faceFrontAt(turn, y) {
+  const w = edgeWeights(turn);
+  return -((1 - w.pf) * halfW(y) + w.pf * sampleTable(PF, y));
+}
+function faceBackAt(turn, y) {
+  const w = edgeWeights(turn);
+  return (1 - w.pb) * halfW(y) + w.pb * sampleTable(PB, y);
+}
+function facePoints(turn) {
+  const N = 32, pts = [];
+  for (let i = 0; i <= N; i++) {
+    const y = -58 + 112 * (i / N);
+    pts.push({ x: faceFrontAt(turn, y), y: y });
+  }
+  for (let i = N - 1; i >= 1; i--) {
+    const y = -58 + 112 * (i / N);
+    pts.push({ x: faceBackAt(turn, y), y: y });
+  }
+  return pts;
+}
+function makeFacePath(turn) {
+  const p = new Path2D();
+  traceSmooth(p, facePoints(turn), true);
+  return p;
+}
+
+/* 眼睛：turn = |sin(yaw)|。规范坐标下，近眼 = 角色右眼（x=+21）。 */
+function eyeLayout(turn) {
+  const c = Math.sqrt(Math.max(0, 1 - turn * turn));
+  const nearX0 = 21 * c - 46 * turn;
+  const nearZ = 21 * turn + 46 * c;
+  const farX0 = -21 * c - 46 * turn;
+  const farZ = -21 * turn + 46 * c;
+  const nearW = 18 * lerp(1, 0.60, turn);
+  const front = faceFrontAt(turn, 4);
+  const nearX = Math.max(nearX0, front + nearW * 0.78 + 1.5);
+
+  const farScale = lerp(1, 0.52, smoothstep(0.12, 0.68, turn));
+  const farW = 18 * farScale;
+  let farX = farX0;
+  const farMin = front + farW * 0.72 + 2;
+  if (farX < farMin) farX = farMin;
+  const farVisible = farZ > 14 && turn < 0.74;
+
+  return {
+    near: { x: nearX, y: 4, w: nearW, h: 19 * lerp(1, 0.94, turn), outward: 1, z: nearZ },
+    far: farVisible ? { x: farX, y: 4, w: farW, h: 19 * lerp(1, 0.94, turn), outward: -1, z: farZ } : null,
+    farVisible: farVisible
+  };
+}
+
+function eyeWhitePath(ew, eh) {
+  const p = new Path2D();
+  p.moveTo(-ew, 1.8);
+  p.bezierCurveTo(-ew * 0.92, -eh * 0.94, ew * 0.44, -eh * 1.06, ew * 0.98, -eh * 0.12);
+  p.bezierCurveTo(ew * 0.94, eh * 0.58, ew * 0.1, eh * 0.96, -ew * 0.55, eh * 0.6);
+  p.bezierCurveTo(-ew * 0.9, eh * 0.42, -ew * 0.99, eh * 0.22, -ew, 1.8);
+  p.closePath();
+  return p;
+}
+function drawEye(g, E, turn) {
+  const ew = E.w, eh = E.h, outward = E.outward;
+  const prof = smoothstep(0.35, 0.95, turn);
+  g.save();
+  g.translate(E.x, E.y);
+  g.rotate(outward * (0.01 + prof * 0.05));
+
+  const white = eyeWhitePath(ew, eh);
+  g.fillStyle = '#fffdfa';
+  g.fill(white);
+
+  g.save();
+  g.clip(white);
+  /* 上眼睑在眼球上的投影 */
+  g.fillStyle = 'rgba(190,208,236,0.72)';
+  g.beginPath();
+  g.ellipse(0, -eh * 0.5, ew * 0.99, eh * 0.48, 0, Math.PI, Math.PI * 2);
+  g.fill();
+
+  /* 虹膜：侧脸时向鼻侧偏 */
+  const irisW = ew * 0.84, irisH = eh * 0.86;
+  const irisX = -outward * prof * ew * 0.16;
+  const grad = g.createLinearGradient(0, -irisH, 0, irisH);
+  grad.addColorStop(0, '#111f4a');
+  grad.addColorStop(0.44, '#2d68c0');
+  grad.addColorStop(0.84, '#78c3fa');
+  grad.addColorStop(1, '#bceaff');
+  g.fillStyle = grad;
+  g.beginPath(); g.ellipse(irisX, 1.4, irisW, irisH, 0, 0, 6.2832); g.fill();
+
+  g.fillStyle = 'rgba(196,238,255,0.82)';
+  g.beginPath(); g.arc(irisX, 4.2, irisW * 0.8, 0.1 * Math.PI, 0.9 * Math.PI); g.fill();
+
+  g.fillStyle = '#0d1738';
+  g.beginPath(); g.ellipse(irisX, 2, irisW * 0.42, irisH * 0.44, 0, 0, 6.2832); g.fill();
+
+  /* 固定光源：左上大高光 + 右下小反光 */
+  g.fillStyle = '#ffffff';
+  g.beginPath();
+  g.ellipse(-ew * 0.33, -eh * 0.37, Math.max(2.0, ew * 0.24), Math.max(2.2, eh * 0.19), -0.35, 0, 6.2832);
+  g.fill();
+  g.beginPath(); g.arc(ew * 0.34, eh * 0.36, Math.max(1.1, ew * 0.1), 0, 6.2832); g.fill();
+  g.fillStyle = 'rgba(255,255,255,0.55)';
+  g.beginPath(); g.ellipse(irisX, -eh * 0.6, irisW * 0.58, eh * 0.08, 0, 0, 6.2832); g.fill();
+  g.restore();
+
+  /* 上眼睑：外眼角更厚 */
+  const lid = new Path2D();
+  lid.moveTo(-ew - 2.2, 1.4);
+  lid.bezierCurveTo(-ew * 0.55, -eh - 5.4, ew * 0.46, -eh - 5.8, ew + 3.0, -eh * 0.02);
+  lid.lineTo(ew + 0.8, -eh * 0.02 + 2.8);
+  lid.bezierCurveTo(ew * 0.4, -eh + 1.9, -ew * 0.55, -eh + 2.1, -ew - 1.0, 3.2);
+  lid.closePath();
+  g.fillStyle = C.ink;
+  g.fill(lid);
+
+  /* 双眼皮 */
+  g.strokeStyle = '#4a3550';
+  g.lineWidth = clamp(ew * 0.075, 0.8, 1.5);
+  g.lineCap = 'round';
+  g.beginPath();
+  g.moveTo(-ew * 0.68, -eh - 1.6);
+  g.quadraticCurveTo(0, -eh - (4 + prof * 2), ew * 0.68, -eh - 1.2);
+  g.stroke();
+
+  /* 睫毛：外眼角 3 根，侧脸更明显 */
+  g.strokeStyle = C.ink;
+  g.lineWidth = clamp(ew * 0.095, 1.0, 2.2);
+  for (let k = 0; k < 3; k++) {
+    const bx = ew * (0.66 + k * 0.12), by = -eh * (0.1 + k * 0.1);
+    g.beginPath();
+    g.moveTo(bx, by);
+    g.quadraticCurveTo(
+      bx + outward * (4.2 + k * 0.8), by - 2.2 - k * 0.6,
+      bx + outward * (7.4 + k * 1.5), by - 4.4 - k * 0.8);
+    g.stroke();
+  }
+
+  /* 下眼睑淡线 */
+  g.strokeStyle = 'rgba(70,48,66,0.55)';
+  g.lineWidth = clamp(ew * 0.05, 0.6, 1.2);
+  g.beginPath();
+  g.moveTo(-ew * 0.45, eh * 0.62);
+  g.quadraticCurveTo(ew * 0.2, eh * 0.9, ew * 0.72, eh * 0.16);
+  g.stroke();
+  g.restore();
+}
+
+/* -------------------------------------------------------------------- 头发 */
+function drawHairBack(g, turn) {
+  const cx = 8 * turn, cy = -38;
+  const rx = 61 + 3 * turn, ry = 74;
+  g.save();
+
+  /* 后发主体 */
+  const grad = g.createLinearGradient(0, -112, 0, 40);
+  grad.addColorStop(0, C.hairB);
+  grad.addColorStop(0.52, C.hairM);
+  grad.addColorStop(1, C.hairD);
+  g.fillStyle = grad;
+  g.beginPath();
+  g.ellipse(cx, cy, rx, ry, 0, 0, 6.2832);
+  g.fill();
+
+  /* 下方发束 */
+  const locks = [
+    [[-52, 18], [-60, 44], [-52, 62], [-38, 66], [-40, 48], [-38, 30], [-30, 14]],
+    [[-12, 30], [-20, 54], [-10, 67], [4, 62], [0, 46], [4, 34], [8, 24]],
+    [[30, 16], [42, 40], [48, 54], [60, 50], [50, 32], [42, 20], [38, 10]]
+  ];
+  for (let i = 0; i < locks.length; i++) {
+    const q = locks[i];
+    g.beginPath();
+    g.moveTo(q[0][0], q[0][1]);
+    g.bezierCurveTo(q[1][0], q[1][1], q[2][0], q[2][1], q[3][0], q[3][1]);
+    g.bezierCurveTo(q[4][0], q[4][1], q[5][0], q[5][1], q[6][0], q[6][1]);
+    g.closePath();
+    g.fill();
+  }
+
+  /* 发丝暗部 + 高光 */
+  g.save();
+  g.beginPath(); g.ellipse(cx, cy, rx, ry, 0, 0, 6.2832); g.clip();
+  g.globalAlpha = 0.42;
+  g.fillStyle = C.hairD;
+  g.beginPath(); g.ellipse(cx + 30, -6, 26, 48, -0.2, 0, 6.2832); g.fill();
+  g.globalAlpha = 0.34;
+  g.fillStyle = C.hairL;
+  g.beginPath(); g.ellipse(-24, -78, 26, 12, -0.45, 0, 6.2832); g.fill();
+  g.globalAlpha = 0.22;
+  g.strokeStyle = C.hairL;
+  g.lineWidth = 1.4;
+  for (let i = 0; i < 5; i++) {
+    g.beginPath();
+    g.moveTo(-30 + i * 12, -100 + i * 4);
+    g.quadraticCurveTo(-26 + i * 10, -50, -20 + i * 10, 10 + i * 4);
+    g.stroke();
+  }
+  g.restore();
+
+  /* 轮廓：只描外轮廓，内部发束不描，避免碎线 */
+  g.strokeStyle = C.hairD;
+  g.lineWidth = 2.4;
+  g.beginPath(); g.ellipse(cx, cy, rx, ry, 0, 0, 6.2832); g.stroke();
+
+  /* 呆毛 */
+  g.strokeStyle = C.hairD;
+  g.lineWidth = 2.6;
+  g.lineCap = 'round';
+  g.beginPath();
+  g.moveTo(-4, -108);
+  g.bezierCurveTo(2, -128, 16, -136, 22, -126);
+  g.bezierCurveTo(26, -119, 16, -114, 11, -121);
+  g.stroke();
+  g.restore();
+}
+
+function bangPath(g, turn) {
+  const sh = -4 * turn;
+  g.beginPath();
+  g.moveTo(-47 + sh, -40);
+  g.bezierCurveTo(-60 + sh, -82, -34 + sh, -112, -2, -114);
+  g.bezierCurveTo(32, -112, 58, -82, 48, -42);
+  const hem = [
+    [44, -30], [37, -16], [30, -34], [21, -14], [11, -32],
+    [1, -13], [-9, -34], [-20, -15], [-30, -36], [-40, -22], [-47, -42]
+  ];
+  for (let i = 0; i < hem.length; i++) {
+    const cur = hem[i];
+    if (i === 0) {
+      g.lineTo(cur[0] + sh, cur[1]);
+      continue;
+    }
+    const prev = hem[i - 1];
+    const mx = (prev[0] + cur[0]) / 2 + sh;
+    const my = (prev[1] + cur[1]) / 2;
+    const ox = (cur[1] - prev[1]) * 0.10;
+    const oy = (prev[0] - cur[0]) * 0.10;
+    g.quadraticCurveTo(mx + ox, my + oy, cur[0] + sh, cur[1]);
+  }
+  g.closePath();
+}
+function drawBangs(g, turn) {
+  g.save();
+  const grad = g.createLinearGradient(0, -112, 0, -14);
+  grad.addColorStop(0, C.hairM);
+  grad.addColorStop(0.55, C.hairB);
+  grad.addColorStop(1, C.hairM);
+  g.fillStyle = grad;
+  bangPath(g, turn);
+  g.fill();
+
+  g.save();
+  bangPath(g, turn);
+  g.clip();
+  g.globalAlpha = 0.36;
+  g.fillStyle = C.hairL;
+  g.beginPath(); g.ellipse(-16 + turn * 6, -78, 20, 8, -0.5, 0, 6.2832); g.fill();
+  g.beginPath(); g.ellipse(22, -62, 10, 5, -0.35, 0, 6.2832); g.fill();
+  g.globalAlpha = 0.18;
+  g.strokeStyle = C.hairD;
+  g.lineWidth = 1.1;
+  for (let i = -1; i <= 2; i++) {
+    g.beginPath();
+    g.moveTo(i * 16, -100);
+    g.quadraticCurveTo(i * 18 + 3, -60, i * 19 + 2, -18);
+    g.stroke();
+  }
+  g.restore();
+
+  g.strokeStyle = C.hairD;
+  g.lineWidth = 2.3;
+  bangPath(g, turn);
+  g.stroke();
+  g.restore();
+}
+
+function drawSideLock(g, turn) {
+  const a = smoothstep(0.32, 0.82, turn);
+  if (a <= 0.01) return;
+  g.save();
+  g.globalAlpha = a;
+  const grad = g.createLinearGradient(0, -46, 26, 58);
+  grad.addColorStop(0, C.hairB);
+  grad.addColorStop(1, C.hairM);
+  g.fillStyle = grad;
+  g.beginPath();
+  g.moveTo(-2, -47);
+  g.bezierCurveTo(26, -44, 38, -8, 35, 18);
+  g.bezierCurveTo(33, 41, 26, 54, 15, 61);
+  g.bezierCurveTo(20, 40, 18, 6, 8, -38);
+  g.closePath();
+  g.fill();
+  g.strokeStyle = C.hairD;
+  g.lineWidth = 2.1;
+  g.stroke();
+  g.globalAlpha = a * 0.5;
+  g.strokeStyle = C.hairL;
+  g.lineWidth = 1.2;
+  g.beginPath();
+  g.moveTo(12, -34);
+  g.quadraticCurveTo(24, -2, 20, 38);
+  g.stroke();
+  g.restore();
+}
+
+/* --------------------------------------------------------------- 组合整颗头 */
+function drawHead(g, o) {
+  const yaw = o.yaw || 0;
+  const scale = o.scale || 1;
+  const hair = o.hair !== false;
+  const turn = Math.abs(Math.sin(yaw * Math.PI / 180));
+  const mirror = yaw > 0 ? -1 : 1;
+  const eg = edgeWeights(turn);
+  const pf = eg.pf;
+
+  g.save();
+  g.translate(o.x, o.y);
+  g.scale(scale * mirror, scale);
+
+  if (hair) drawHairBack(g, turn);
+
+  const face = makeFacePath(turn);
+  const skinGrad = g.createLinearGradient(0, -58, 0, 54);
+  skinGrad.addColorStop(0, '#fff8f2');
+  skinGrad.addColorStop(1, C.skin);
+  g.fillStyle = skinGrad;
+  g.fill(face);
+
+  /* 脸部体积：全部裁进脸 */
+  g.save();
+  g.clip(face);
+  /* 刘海投影 */
+  wash(g, 0, -40, 36, 12, '#cfa8a2', 0.24, 11, 3);
+  /* 远侧（后侧）冷影 */
+  g.globalAlpha = 0.10 + turn * 0.08;
+  g.fillStyle = C.navy;
+  g.beginPath(); g.ellipse(25, 4, 20, 50, 0, 0, 6.2832); g.fill();
+  g.globalAlpha = 1;
+  /* 腮红：近侧一定有，远侧随 turn 淡出 */
+  wash(g, -28, 27, 10, 6.5, C.blush, 0.25, 21, 3);
+  if (turn < 0.96) {
+    g.globalAlpha = 1 - turn;
+    wash(g, 28, 27, 10, 6.5, C.blush, 0.22, 22, 3);
+    g.globalAlpha = 1;
+  }
+  g.restore();
+
+  /* 眼睛（整组 clip 到脸，远眼允许被脸缘裁切） */
+  const lay = eyeLayout(turn);
+  g.save();
+  g.clip(face);
+  if (lay.far) drawEye(g, lay.far, turn);
+  drawEye(g, lay.near, turn);
+  g.restore();
+
+  /* 鼻子 / 嘴：正面小点，侧面贴到前缘 */
+  const frontNose = faceFrontAt(turn, 22);
+  if (turn < 0.35) {
+    g.globalAlpha = 0.75;
+    g.fillStyle = '#c89286';
+    g.beginPath(); g.arc(0, 22, 1.7, 0, 6.2832); g.fill();
+    g.globalAlpha = 1;
+  } else {
+    g.strokeStyle = 'rgba(186,124,114,0.8)';
+    g.lineWidth = 1.5;
+    g.lineCap = 'round';
+    g.beginPath();
+    g.moveTo(frontNose + 3.2, 20.2);
+    g.quadraticCurveTo(frontNose + 6.4, 23.0, frontNose + 3.6, 24.8);
+    g.stroke();
+    g.globalAlpha = 0.22;
+    g.fillStyle = C.skinS;
+    g.beginPath(); g.ellipse(frontNose + 9, 13, 4.4, 12.5, 0.12, 0, 6.2832); g.fill();
+    g.globalAlpha = 1;
+  }
+
+  const mouthX = -pf * 46;
+  g.save();
+  g.translate(mouthX, 37);
+  g.rotate(0.06 - pf * 0.1);
+  g.strokeStyle = '#a95a63';
+  g.lineWidth = 1.7;
+  g.lineCap = 'round';
+  g.beginPath();
+  if (turn > 0.72) {
+    g.moveTo(-3.0, 0.4);
+    g.quadraticCurveTo(0.2, 2.2, 3.3, 0.1);
+  } else {
+    g.moveTo(-4.4, 0);
+    g.quadraticCurveTo(0, 2.4, 4.4, 0);
+  }
+  g.stroke();
+  g.globalAlpha = 0.28;
+  g.strokeStyle = '#d99393';
+  g.lineWidth = 1.1;
+  g.beginPath();
+  g.moveTo(-2.3, 3.3);
+  g.quadraticCurveTo(0, 4.4, 2.5, 3.2);
+  g.stroke();
+  g.restore();
+
+  /* 脸部轮廓：在刘海与侧发之前描，发丝才能压住额角 */
+  g.strokeStyle = C.ink;
+  g.lineWidth = 2.6;
+  g.lineJoin = 'round';
+  g.stroke(face);
+  g.strokeStyle = 'rgba(25,27,48,0.30)';
+  g.lineWidth = 1.1;
+  g.save();
+  g.translate(0.7, 0.6);
+  g.stroke(face);
+  g.restore();
+
+  if (hair) {
+    drawSideLock(g, turn);
+    drawBangs(g, turn);
+    /* 眉毛：按设定压在刘海之上 */
+    g.strokeStyle = '#1a2342';
+    g.lineCap = 'round';
+    g.lineWidth = 2.2;
+    const browNearW = Math.max(11, lay.near.w * 0.95);
+    g.beginPath();
+    g.moveTo(lay.near.x - browNearW * 0.52, -24.5);
+    g.quadraticCurveTo(lay.near.x, -28.2, lay.near.x + browNearW * 0.52, -24.2);
+    g.stroke();
+    g.globalAlpha = 0.34;
+    g.lineWidth = 1.0;
+    g.beginPath();
+    g.moveTo(lay.near.x - browNearW * 0.46, -21.8);
+    g.quadraticCurveTo(lay.near.x, -24.8, lay.near.x + browNearW * 0.46, -21.6);
+    g.stroke();
+    g.globalAlpha = 1;
+    if (lay.far) {
+      g.lineWidth = 1.8;
+      g.beginPath();
+      g.moveTo(lay.far.x - 6, -24.8);
+      g.quadraticCurveTo(lay.far.x, -27, lay.far.x + 6, -24.6);
+      g.stroke();
+    }
+  }
+
+  /* 结构线（可选） */
+  if (o.construction) {
+    g.save();
+    g.strokeStyle = C.guide;
+    g.lineWidth = 1.2;
+    g.setLineDash([5, 5]);
+    g.beginPath(); g.ellipse(2, -3, 47, 58, 0, 0, 6.2832); g.stroke();
+    g.beginPath(); g.moveTo(-68, 4); g.lineTo(62, 4); g.stroke();
+    g.beginPath(); g.moveTo(2, -66); g.lineTo(2, 58); g.stroke();
+    g.setLineDash([]);
+    g.restore();
+  }
+
+  g.restore();
+  return { lay: lay, turn: turn, pf: pf, front4: faceFrontAt(turn, 4) };
+}
+
+/* ================================================================ 面板框架 */
+function panel(x, y, w, h, no, title, sub) {
+  ctx.save();
+  ctx.shadowColor = 'rgba(80,62,32,0.10)';
+  ctx.shadowBlur = 14;
+  ctx.shadowOffsetY = 3;
+  ctx.fillStyle = C.panel;
+  rr(ctx, x, y, w, h, 16);
+  ctx.fill();
+  ctx.restore();
+
+  ctx.save();
+  ctx.strokeStyle = 'rgba(100,86,60,0.14)';
+  ctx.lineWidth = 1;
+  rr(ctx, x + 0.5, y + 0.5, w - 1, h - 1, 16);
+  ctx.stroke();
+  ctx.restore();
+
+  ctx.save();
+  ctx.fillStyle = C.ink;
+  ctx.beginPath(); ctx.arc(x + 26, y + 27, 13, 0, 6.2832); ctx.fill();
+  ctx.fillStyle = C.panel;
+  ctx.font = '700 12px "Microsoft YaHei",sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(no, x + 26, y + 27.5);
+  ctx.restore();
+
+  label(ctx, title, x + 48, y + 27, 19, C.ink, 'left', 700);
+  if (sub) label(ctx, sub, x + 48, y + 51, 11.5, C.muted);
+}
+
+/* ============================================================ A. yaw 参数化 */
+function panelA() {
+  const x = 24, y = 92, w = 1144, h = 410;
+  panel(x, y, w, h, 'A', '2.5D yaw 参数化 × 近侧单眼',
+    '同一张脸、同一套眼窝贴片，从 −90° 连续转到 +90°；正侧只允许出现近侧单眼');
+
+  const heads = [
+    { yaw: -90, tag: '正侧 · 面朝左' },
+    { yaw: -45, tag: '3/4 侧' },
+    { yaw: 0, tag: '正面' },
+    { yaw: 45, tag: '3/4 侧' },
+    { yaw: 90, tag: '正侧 · 面朝右' }
+  ];
+  const cx = [148, 372, 596, 820, 1044];
+  heads.forEach(function (hd, i) {
+    const info = drawHead(ctx, { x: cx[i], y: 282, scale: 0.98, yaw: hd.yaw });
+    if (hd.yaw === 0) {
+      ctx.save();
+      ctx.strokeStyle = C.guide;
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath(); ctx.ellipse(cx[i], 279, 47 * 0.98, 58 * 0.98, 0, 0, 6.2832); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx[i] - 56, 282); ctx.lineTo(cx[i] + 56, 282); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx[i], 230); ctx.lineTo(cx[i], 342); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+    }
+    const nEyes = 1 + (info.lay.farVisible ? 1 : 0);
+    label(ctx, 'yaw ' + (hd.yaw > 0 ? '+' : '') + hd.yaw + '°', cx[i], 362, 13, C.ink2, 'center', 700);
+    label(ctx, hd.tag, cx[i], 380, 10.5, C.muted, 'center');
+    label(ctx, nEyes + ' eye' + (nEyes > 1 ? 's' : ''), cx[i], 399, 10.5,
+      nEyes > 1 ? C.hairM : C.coral, 'center', 700);
+  });
+
+  dashed(ctx, x + 66, 330, x + w - 66, 330, 'rgba(60,97,174,0.18)', [2, 5], 1);
+  label(ctx, '可见性判据', x + 28, 438, 11, C.hairM, 'left', 700);
+  label(ctx, 'near = argmax(z)；far 只在 z > 14 且 |sinθ| < 0.74 时以 0.52× 宽残片出现；' +
+    'θ = ±90° 时 far.z < 0，所以只剩一只眼。眼心再向脸缘内收 0.78·ew + 1.5，整组 clip 到脸。',
+    x + 112, 438, 10.4, C.muted);
+  label(ctx, '眼心：x = 21cosθ − 46sinθ    z = 21sinθ + 46cosθ（近侧）', x + 28, 462, 10.2, C.ink2);
+  label(ctx, '脸缘：front(y) = −[(1−u)·halfW(y) + u·profile(y)]，u = smoothstep(0.45, 0.98, |sinθ|)',
+    x + 28, 482, 10.2, C.muted);
+}
+
+/* ========================================================= B. 侧脸解剖锚点 */
+function panelB() {
+  const x = 1184, y = 92, w = 592, h = 410;
+  panel(x, y, w, h, 'B', '侧脸解剖锚点 × 贝塞尔前缘',
+    '七个点决定一条脸缘；构造线是“为什么”，成品是“看起来对”');
+
+  const cx = 1386, cy = 266, sc = 1.62;
+  drawHead(ctx, { x: cx, y: cy, scale: sc, yaw: -90, hair: false });
+
+  /* 前缘构造线：额头 → 眉弓 → 鼻根 → 鼻尖 → 人中 → 唇 → 下巴 */
+  const anchors = [
+    { y: -58, name: '额顶', txt: '−58' },
+    { y: -24, name: '眉弓', txt: '−24' },
+    { y: -16, name: '鼻根', txt: '−16' },
+    { y: 22, name: '鼻尖', txt: '+22' },
+    { y: 26, name: '人中', txt: '+26' },
+    { y: 37, name: '唇', txt: '+37' },
+    { y: 54, name: '下巴', txt: '+54' }
+  ];
+  const pts = anchors.map(function (a) {
+    return { x: cx + faceFrontAt(1, a.y) * sc, y: cy + a.y * sc, a: a };
+  });
+
+  /* 整条前缘高亮 */
+  ctx.save();
+  ctx.strokeStyle = 'rgba(208,95,99,0.82)';
+  ctx.lineWidth = 2.0;
+  ctx.setLineDash([6, 4]);
+  ctx.beginPath();
+  for (let yy = -58; yy <= 54; yy += 2) {
+    const px = cx + faceFrontAt(1, yy) * sc;
+    const py = cy + yy * sc;
+    if (yy === -58) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+
+  /* 比例横线 */
+  [-24, 4, 22, 37, 54].forEach(function (yy, i) {
+    dashed(ctx, cx - 112, cy + yy * sc, cx + 92, cy + yy * sc,
+      i === 0 ? 'rgba(60,97,174,0.30)' : 'rgba(60,97,174,0.18)', [3, 5], 1);
+  });
+
+  /* 锚点 + 引线 + 左侧标签 */
+  const rows = [180, 210, 240, 276, 302, 328, 356];
+  pts.forEach(function (p, i) {
+    dot(ctx, p.x, p.y, 2.8, C.coral, 'rgba(208,95,99,0.45)');
+    ctx.save();
+    ctx.strokeStyle = 'rgba(208,95,99,0.5)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(1286, rows[i]);
+    ctx.lineTo(p.x - 5, p.y);
+    ctx.stroke();
+    ctx.restore();
+    label(ctx, p.a.name + ' ', 1232, rows[i], 11, C.ink2, 'left', 700);
+    label(ctx, p.a.txt, 1276, rows[i], 10, C.muted, 'right');
+  });
+
+  /* 成品：同一角度，带头发 */
+  drawHead(ctx, { x: 1684, y: 360, scale: 0.72, yaw: -78, hair: true });
+  label(ctx, '成品', 1684, 414, 10.5, C.ink2, 'center', 700);
+  label(ctx, '发际/鬓发把颅骨藏起来', 1684, 430, 9.2, C.muted, 'center');
+
+  /* 结论条 */
+  ctx.save();
+  ctx.fillStyle = 'rgba(60,97,174,0.07)';
+  rr(ctx, x + 20, y + h - 34, w - 40, 22, 6);
+  ctx.fill();
+  ctx.restore();
+  label(ctx, '先画“前缘 7 点 + 颅骨椭圆”，再补眼睛；眼睛永远晚于脸缘定位。',
+    x + 32, y + h - 23, 10.2, C.hairM);
+}
+
+/* ========================================================== C. 蕾丝重复模块 */
+function drawLaceBand(g, x0, x1, top, bandH, r) {
+  const n = Math.max(3, Math.round((x1 - x0) / (2 * r)));
+  const step = (x1 - x0) / n;
+  const rad = step / 2;
+  const cy = top + bandH - rad;
+
+  g.save();
+  g.beginPath();
+  g.moveTo(x0, top);
+  g.lineTo(x1, top);
+  g.lineTo(x1, cy);
+  for (let i = n - 1; i >= 0; i--) {
+    const cxi = x0 + step * (i + 0.5);
+    g.arc(cxi, cy, rad, 0, Math.PI, false);
+  }
+  g.lineTo(x0, top);
+  g.closePath();
+  g.fillStyle = C.lace;
+  g.fill();
+  g.strokeStyle = C.laceLine;
+  g.lineWidth = 1.2;
+  g.stroke();
+
+  /* 内层平行弧 + 小孔 + 珍珠 */
+  for (let i = 0; i < n; i++) {
+    const cxi = x0 + step * (i + 0.5);
+    g.beginPath();
+    g.arc(cxi, cy, rad - 4, 0.1 * Math.PI, 0.9 * Math.PI);
+    g.strokeStyle = C.laceShade;
+    g.lineWidth = 1.1;
+    g.stroke();
+
+    g.beginPath();
+    g.arc(cxi, top + bandH * 0.34, 2.3, 0, 6.2832);
+    g.fillStyle = '#eef0f6';
+    g.fill();
+    g.strokeStyle = C.laceLine;
+    g.lineWidth = 0.9;
+    g.stroke();
+  }
+  for (let i = 0; i <= n; i++) {
+    const px = x0 + step * i;
+    const gg = g.createRadialGradient(px - 1, cy - 1, 0.3, px, cy, 3.4);
+    gg.addColorStop(0, '#ffffff');
+    gg.addColorStop(0.6, '#f6f0e4');
+    gg.addColorStop(1, '#cdc3b2');
+    g.fillStyle = gg;
+    g.beginPath(); g.arc(px, cy, 2.8, 0, 6.2832); g.fill();
+    g.strokeStyle = 'rgba(170,158,138,0.55)';
+    g.lineWidth = 0.7;
+    g.stroke();
+  }
+
+  g.strokeStyle = 'rgba(185,189,210,0.85)';
+  g.lineWidth = 1;
+  g.beginPath(); g.moveTo(x0, top + 8); g.lineTo(x1, top + 8); g.stroke();
+  g.beginPath(); g.moveTo(x0, top); g.lineTo(x1, top); g.stroke();
+  g.restore();
+}
+
+function drawLaceArc(g, cx, cy, R, a0, a1, count) {
+  g.save();
+  /* 底带 */
+  g.beginPath();
+  g.arc(cx, cy, R + 15, a0, a1, false);
+  g.arc(cx, cy, R - 17, a1, a0, true);
+  g.closePath();
+  g.fillStyle = C.lace;
+  g.fill();
+  g.strokeStyle = C.laceLine;
+  g.lineWidth = 1.2;
+  g.stroke();
+
+  /* 参数化扇贝：沿极坐标等角放置 */
+  const da = (a1 - a0) / count;
+  for (let i = 0; i < count; i++) {
+    const a = a0 + da * (i + 0.5);
+    const px = cx + Math.cos(a) * R;
+    const py = cy + Math.sin(a) * R;
+    g.beginPath(); g.arc(px, py, 13, 0, 6.2832);
+    g.fillStyle = 'rgba(251,248,241,0.96)';
+    g.fill();
+    g.strokeStyle = C.laceLine;
+    g.lineWidth = 1.1;
+    g.stroke();
+    g.beginPath(); g.arc(px, py, 7.6, 0, 6.2832);
+    g.strokeStyle = C.laceShade;
+    g.stroke();
+    g.beginPath(); g.arc(px, py, 2.1, 0, 6.2832);
+    g.fillStyle = '#e8ebf3';
+    g.fill();
+  }
+  /* 珍珠节点 */
+  for (let i = 0; i <= count; i++) {
+    const a = a0 + da * i;
+    const px = cx + Math.cos(a) * (R + 7);
+    const py = cy + Math.sin(a) * (R + 7);
+    const gg = g.createRadialGradient(px - 1, py - 1, 0.2, px, py, 3);
+    gg.addColorStop(0, '#ffffff');
+    gg.addColorStop(0.65, '#f5efe3');
+    gg.addColorStop(1, '#cfc4b1');
+    g.fillStyle = gg;
+    g.beginPath(); g.arc(px, py, 2.6, 0, 6.2832); g.fill();
+  }
+
+  /* 内圈压线 */
+  g.strokeStyle = 'rgba(180,185,208,0.9)';
+  g.lineWidth = 1.2;
+  g.beginPath(); g.arc(cx, cy, R + 8, a0 + 0.01, a1 - 0.01); g.stroke();
+  g.beginPath(); g.arc(cx, cy, R - 8, a0 + 0.01, a1 - 0.01); g.stroke();
+  g.restore();
+}
+
+function panelC() {
+  const x = 24, y = 514, w = 560, h = 536;
+  panel(x, y, w, h, 'C', '蕾丝扇贝重复模块',
+    '一个函数 = 直线裙摆 / 弧形发箍 / 环形领口；尺寸只由 n、r、圆心决定');
+
+  label(ctx, '① 直线型：裙摆 / 袖口', x + 28, 594, 11, C.hairM, 'left', 700);
+
+  /* 深色裙摆衬底，让白蕾丝有对比 */
+  ctx.save();
+  const sk = ctx.createLinearGradient(0, 604, 0, 652);
+  sk.addColorStop(0, '#2b3862');
+  sk.addColorStop(1, '#1b2340');
+  ctx.fillStyle = sk;
+  ctx.beginPath();
+  ctx.moveTo(x + 34, 604);
+  ctx.lineTo(x + w - 34, 604);
+  ctx.lineTo(x + w - 46, 652);
+  ctx.lineTo(x + 46, 652);
+  ctx.closePath();
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(183,220,251,0.22)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i < 7; i++) {
+    const px = x + 58 + i * 70;
+    ctx.beginPath();
+    ctx.moveTo(px, 608);
+    ctx.quadraticCurveTo(px - 5, 630, px - 8, 650);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  drawLaceBand(ctx, x + 42, x + w - 42, 650, 72, 19);
+
+  label(ctx, 'n = round(L / 2r)    step = L / n    arc(cx, y, r, 0, π)',
+    x + 30, 744, 10, C.muted);
+  label(ctx, '每个扇贝只依赖 (圆心, r, 起止角)，所以同一模块可沿任意路径重排。',
+    x + 30, 761, 9.6, C.faint);
+
+  label(ctx, '② 圆弧型：发箍 / 领口', x + 28, 790, 11, C.hairM, 'left', 700);
+  const acx = 300, acy = 982, R = 148;
+  /* 蓝色缎带衬底：白蕾丝压在上面 */
+  ctx.save();
+  ctx.strokeStyle = 'rgba(66,118,196,0.82)';
+  ctx.lineWidth = 34;
+  ctx.beginPath(); ctx.arc(acx, acy, R, Math.PI * 1.14, Math.PI * 1.86); ctx.stroke();
+  ctx.strokeStyle = 'rgba(28,36,66,0.10)';
+  ctx.lineWidth = 40;
+  ctx.beginPath(); ctx.arc(acx, acy, R + 8, Math.PI * 1.14, Math.PI * 1.86); ctx.stroke();
+  ctx.restore();
+  drawLaceArc(ctx, acx, acy, R, Math.PI * 1.14, Math.PI * 1.86, 11);
+
+  /* 缎带蝴蝶结点缀 */
+  ctx.save();
+  const bx = acx + Math.cos(Math.PI * 1.86) * (R + 5);
+  const by = acy + Math.sin(Math.PI * 1.86) * (R + 5);
+  ctx.fillStyle = C.blue;
+  ctx.beginPath();
+  ctx.moveTo(bx, by);
+  ctx.bezierCurveTo(bx - 20, by - 14, bx - 25, by + 16, bx - 3, by + 5);
+  ctx.closePath(); ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(bx, by);
+  ctx.bezierCurveTo(bx + 18, by - 16, bx + 25, by + 12, bx + 3, by + 5);
+  ctx.closePath(); ctx.fill();
+  ctx.fillStyle = C.gold;
+  ctx.beginPath(); ctx.arc(bx, by + 1, 3.6, 0, 6.2832); ctx.fill();
+  ctx.restore();
+
+  label(ctx, '沿圆弧时：θᵢ = θ₀ + i·Δθ，x = cx + R·cosθ，y = cy + R·sinθ；' +
+    '模块自身只画半圆 + 小孔 + 珍珠。', x + 30, 1028, 9.7, C.muted);
+}
+
+/* ========================================================== D. 金线卷草纹样 */
+function goldGrad(g) {
+  const gg = g.createLinearGradient(660, 610, 1130, 880);
+  gg.addColorStop(0, C.goldL);
+  gg.addColorStop(0.42, C.gold);
+  gg.addColorStop(0.78, C.goldD);
+  gg.addColorStop(1, '#a06a24');
+  return gg;
+}
+function strokeGold(g, path, w, grad) {
+  g.save();
+  g.lineCap = 'round';
+  g.lineJoin = 'round';
+  g.strokeStyle = '#5d3d0e';
+  g.lineWidth = w * 1.75;
+  g.stroke(path);
+  g.strokeStyle = grad;
+  g.lineWidth = w;
+  g.stroke(path);
+  g.strokeStyle = 'rgba(255,248,212,0.9)';
+  g.lineWidth = Math.max(1, w * 0.28);
+  g.stroke(path);
+  g.restore();
+}
+function spiralPath(cx, cy, dir, size, turns) {
+  const p = new Path2D();
+  const k = 0.24, thMax = turns * Math.PI * 2;
+  for (let i = 0; i <= 90; i++) {
+    const t = i / 90;
+    const th = thMax * t;
+    const r = size * Math.exp(-k * th);
+    const px = cx + dir * Math.cos(th - 1.2) * r;
+    const py = cy + Math.sin(th - 1.2) * r;
+    if (i === 0) p.moveTo(px, py); else p.lineTo(px, py);
+  }
+  return p;
+}
+function goldLeaf(g, x0, y0, len, wid, ang, flip, grad) {
+  g.save();
+  g.translate(x0, y0);
+  g.rotate(ang);
+  const p = new Path2D();
+  const f = flip || 1;
+  p.moveTo(0, 0);
+  p.bezierCurveTo(len * 0.28, -wid * f, len * 0.78, -wid * 0.82 * f, len, -1.5 * f);
+  p.bezierCurveTo(len * 0.8, wid * 0.6 * f, len * 0.3, wid * 0.9 * f, 0, 0);
+  p.closePath();
+  g.fillStyle = grad;
+  g.fill(p);
+  g.strokeStyle = '#5d3d0e';
+  g.lineWidth = 1.4;
+  g.stroke(p);
+  g.strokeStyle = 'rgba(255,248,212,0.92)';
+  g.lineWidth = 1.1;
+  g.beginPath();
+  g.moveTo(len * 0.08, -0.8 * f);
+  g.quadraticCurveTo(len * 0.5, -wid * 0.35 * f, len * 0.9, -1.2 * f);
+  g.stroke();
+  g.strokeStyle = 'rgba(90,52,12,0.42)';
+  g.lineWidth = 0.9;
+  g.beginPath();
+  g.moveTo(len * 0.1, 1.2 * f);
+  g.quadraticCurveTo(len * 0.5, wid * 0.3 * f, len * 0.85, 0.6 * f);
+  g.stroke();
+  g.restore();
+}
+function sparkle(g, sx, sy, r, color) {
+  g.save();
+  g.translate(sx, sy);
+  g.fillStyle = color || C.goldH;
+  g.beginPath();
+  for (let i = 0; i < 8; i++) {
+    const rr2 = i % 2 ? r * 0.22 : r;
+    const a = i * Math.PI / 4 - Math.PI / 2;
+    if (i) g.lineTo(Math.cos(a) * rr2, Math.sin(a) * rr2);
+    else g.moveTo(Math.cos(a) * rr2, Math.sin(a) * rr2);
+  }
+  g.closePath();
+  g.fill();
+  g.restore();
+}
+function fanShellPath(w) {
+  const p = new Path2D();
+  const R = w * 0.58, hy = w * 0.36;
+  const n = 7, a0 = Math.PI * 1.12, a1 = Math.PI * 1.88;
+  const pts = [];
+  for (let i = 0; i <= n; i++) {
+    const a = a0 + (a1 - a0) * i / n;
+    pts.push({ x: Math.cos(a) * R, y: hy + Math.sin(a) * R });
+  }
+  p.moveTo(0, hy);
+  p.quadraticCurveTo(pts[0].x * 0.5, pts[0].y * 0.72, pts[0].x, pts[0].y);
+  for (let i = 0; i < n; i++) {
+    const am = a0 + (a1 - a0) * (i + 0.5) / n;
+    const cxp = Math.cos(am) * (R + 10);
+    const cyp = hy + Math.sin(am) * (R + 10);
+    p.quadraticCurveTo(cxp, cyp, pts[i + 1].x, pts[i + 1].y);
+  }
+  p.closePath();
+  return { path: p, pts: pts, hy: hy, R: R };
+}
+
+function panelD() {
+  const x = 596, y = 514, w = 588, h = 536;
+  panel(x, y, w, h, 'D', '金线卷草 × 贝壳纹样',
+    '暗描边 → 渐变金 → 中心高光；同一 Path2D 三次描边，宽度比 5 : 3 : 1');
+
+  const bx = x + 16, by = y + 82, bw = w - 32, bh = 290;
+  ctx.save();
+  const bg = ctx.createLinearGradient(bx, by, bx + bw, by + bh);
+  bg.addColorStop(0, '#202a4c');
+  bg.addColorStop(0.55, '#141b34');
+  bg.addColorStop(1, '#242d52');
+  ctx.fillStyle = bg;
+  rr(ctx, bx, by, bw, bh, 10);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(222,176,87,0.38)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  /* 角落暗纹 */
+  ctx.strokeStyle = 'rgba(222,176,87,0.10)';
+  for (let i = 0; i < 7; i++) {
+    ctx.beginPath();
+    ctx.arc(bx + 8, by + bh - 8, 18 + i * 13, Math.PI * 1.5, Math.PI * 2, false);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  const grad = goldGrad(ctx);
+  const cx = bx + bw / 2, cy = by + bh / 2 + 30;
+
+  /* 主茎 */
+  const stem = new Path2D();
+  stem.moveTo(bx + 30, cy + 44);
+  stem.bezierCurveTo(bx + 92, cy + 20, bx + 120, cy - 82, bx + 192, cy - 64);
+  stem.bezierCurveTo(bx + 230, cy - 54, bx + 240, cy - 12, cx - 20, cy + 12);
+  stem.bezierCurveTo(cx + 40, cy - 12, bx + bw - 230, cy - 54, bx + bw - 192, cy - 64);
+  stem.bezierCurveTo(bx + bw - 120, cy - 82, bx + bw - 92, cy + 20, bx + bw - 30, cy + 44);
+  strokeGold(ctx, stem, 5.2, grad);
+
+  /* 两端螺旋 */
+  strokeGold(ctx, spiralPath(bx + 52, cy + 44, 1, 34, 1.65), 4.6, grad);
+  strokeGold(ctx, spiralPath(bx + bw - 52, cy + 44, -1, 34, 1.65), 4.6, grad);
+
+  /* 叶片 */
+  goldLeaf(ctx, cx - 150, cy - 20, 52, 16, -0.5, 1, grad);
+  goldLeaf(ctx, cx - 122, cy + 30, 44, 13, 0.72, -1, grad);
+  goldLeaf(ctx, cx - 82, cy - 58, 40, 12, -0.95, 1, grad);
+  goldLeaf(ctx, cx + 150, cy - 20, 52, 16, Math.PI + 0.5, 1, grad);
+  goldLeaf(ctx, cx + 122, cy + 30, 44, 13, -0.72, -1, grad);
+  goldLeaf(ctx, cx + 82, cy - 58, 40, 12, Math.PI + 0.95, 1, grad);
+
+  /* 中央贝壳：金线 + 深底，贝壳就是“卷草纹”的收口 */
+  const shell = fanShellPath(176);
+  ctx.save();
+  ctx.translate(cx, cy + 26);
+  ctx.fillStyle = 'rgba(16,21,38,0.9)';
+  ctx.fill(shell.path);
+  strokeGold(ctx, shell.path, 3.4, grad);
+  for (let i = 1; i < shell.pts.length - 1; i++) {
+    const p = new Path2D();
+    p.moveTo(0, shell.hy);
+    p.quadraticCurveTo(shell.pts[i].x * 0.42, shell.hy + (shell.pts[i].y - shell.hy) * 0.6,
+      shell.pts[i].x * 0.96, shell.pts[i].y * 0.96);
+    strokeGold(ctx, p, 1.5, grad);
+  }
+  /* 贝壳高光 */
+  ctx.strokeStyle = 'rgba(255,248,212,0.95)';
+  ctx.lineWidth = 1.5;
+  for (let i = 2; i < 5; i++) {
+    ctx.beginPath();
+    ctx.moveTo(-18 + i * 8, shell.hy - 6);
+    ctx.lineTo(shell.pts[i].x * 0.72, shell.pts[i].y * 0.62);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  sparkle(ctx, cx - 188, cy - 82, 8);
+  sparkle(ctx, cx + 182, cy + 50, 5.5);
+  sparkle(ctx, cx + 44, cy - 96, 4.2);
+
+  /* 色板 */
+  const sw = [C.goldL, C.gold, C.goldD, C.goldH];
+  const names = ['亮', '中', '暗', '高光'];
+  sw.forEach(function (c, i) {
+    const sx = x + 40 + i * 68;
+    ctx.fillStyle = c;
+    rr(ctx, sx, y + h - 112, 44, 13, 3);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(25,27,48,0.22)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    label(ctx, names[i], sx + 22, y + h - 90, 9, C.muted, 'center');
+  });
+  label(ctx, '三色金：亮 #f4d79a / 中 #dfb05a / 暗 #8d5b1d + 高光 #fff6cf',
+    x + 28, y + h - 66, 10, C.ink2);
+  label(ctx, '描边 #5d3d0e ≈ 1.75×；渐变金 = 1×；中心高光 = 0.28×。高光不靠滤镜，靠三次同路径描边。',
+    x + 28, y + h - 44, 9.7, C.muted);
+  label(ctx, '卷草螺旋：r = r₀ · e^(−kθ)，k = 0.24；θ 从外向内收，端头自然变细。',
+    x + 28, y + h - 24, 9.7, C.faint);
+}
+
+/* ====================================================== E. 赛璐璐 vs 水彩 */
+function drawCelShell(g, cx, cy, s) {
+  const sh = fanShellPath(s);
+  g.save();
+  g.translate(cx, cy);
+  const base = g.createLinearGradient(-s * 0.4, -s * 0.5, s * 0.45, s * 0.45);
+  base.addColorStop(0, '#fff2df');
+  base.addColorStop(1, '#f3ddc4');
+  g.fillStyle = base;
+  g.fill(sh.path);
+
+  g.save();
+  g.clip(sh.path);
+  /* 硬边阴影：右半 + 底部一阶 */
+  g.fillStyle = 'rgba(118,88,62,0.30)';
+  g.beginPath();
+  g.moveTo(s * 0.08, -s * 0.65);
+  g.lineTo(s * 0.62, -s * 0.26);
+  g.lineTo(s * 0.58, s * 0.34);
+  g.lineTo(s * 0.12, s * 0.44);
+  g.lineTo(s * 0.24, s * 0.02);
+  g.closePath();
+  g.fill();
+  g.fillStyle = 'rgba(118,88,62,0.16)';
+  g.beginPath();
+  g.moveTo(-s * 0.5, s * 0.18);
+  g.lineTo(s * 0.5, s * 0.18);
+  g.lineTo(s * 0.35, s * 0.44);
+  g.lineTo(-s * 0.4, s * 0.44);
+  g.closePath();
+  g.fill();
+  /* 硬高光 */
+  g.fillStyle = 'rgba(255,252,242,0.95)';
+  g.beginPath();
+  g.moveTo(-s * 0.47, -s * 0.08);
+  g.lineTo(-s * 0.3, -s * 0.36);
+  g.lineTo(-s * 0.08, -s * 0.24);
+  g.lineTo(-s * 0.24, s * 0.02);
+  g.closePath();
+  g.fill();
+  g.restore();
+
+  /* 墨线 + 扇骨 */
+  g.strokeStyle = C.ink;
+  g.lineWidth = 2.2;
+  g.stroke(sh.path);
+  for (let i = 1; i < sh.pts.length - 1; i++) {
+    g.strokeStyle = 'rgba(27,33,56,0.58)';
+    g.lineWidth = 1.4;
+    g.beginPath();
+    g.moveTo(0, sh.hy);
+    g.quadraticCurveTo(sh.pts[i].x * 0.45, sh.hy + (sh.pts[i].y - sh.hy) * 0.62,
+      sh.pts[i].x * 0.96, sh.pts[i].y * 0.96);
+    g.stroke();
+  }
+  g.restore();
+  return sh;
+}
+function drawWcShell(g, cx, cy, s) {
+  const sh = fanShellPath(s);
+  g.save();
+  g.translate(cx, cy);
+
+  /* 1) 底：纸色 + 极淡暖黄 */
+  const base = g.createLinearGradient(0, -s * 0.5, 0, s * 0.4);
+  base.addColorStop(0, '#fffbf2');
+  base.addColorStop(1, '#f8e9d6');
+  g.fillStyle = base;
+  g.fill(sh.path);
+
+  /* 2) 3 层低透明晕染，允许轻微溢出剪影 */
+  g.save();
+  g.clip(sh.path);
+  wash(g, -s * 0.22, -s * 0.1, s * 0.26, s * 0.22, '#f0c9a8', 0.30, 31, 4);
+  wash(g, s * 0.24, s * 0.02, s * 0.2, s * 0.24, '#cdd8ea', 0.26, 32, 4);
+  wash(g, 0, s * 0.14, s * 0.34, s * 0.16, '#e6b77d', 0.28, 33, 3);
+  wash(g, -s * 0.38, s * 0.08, s * 0.1, s * 0.15, '#f3aab0', 0.22, 34, 3);
+  /* 纸纹颗粒 */
+  g.globalAlpha = 0.28;
+  g.fillStyle = '#a8846b';
+  for (let i = 0; i < 160; i++) {
+    const px = (hash(i * 1.7 + 2) - 0.5) * s * 0.92;
+    const py = (hash(i * 2.3 + 9) - 0.5) * s * 0.82;
+    g.beginPath(); g.arc(px, py, 0.5 + hash(i) * 0.8, 0, 6.2832); g.fill();
+  }
+  g.globalAlpha = 1;
+  g.restore();
+
+  /* 3) 铅笔线：双描边、断线、不封闭 */
+  g.strokeStyle = 'rgba(42,45,66,0.5)';
+  g.lineWidth = 1.25;
+  g.stroke(sh.path);
+  g.save();
+  g.translate(0.9, -0.7);
+  g.strokeStyle = 'rgba(42,45,66,0.22)';
+  g.lineWidth = 0.8;
+  g.stroke(sh.path);
+  g.restore();
+
+  for (let i = 1; i < sh.pts.length - 1; i++) {
+    g.strokeStyle = 'rgba(76,62,52,0.34)';
+    g.lineWidth = 1.0;
+    g.beginPath();
+    g.moveTo(0, sh.hy);
+    g.quadraticCurveTo(sh.pts[i].x * 0.45, sh.hy + (sh.pts[i].y - sh.hy) * 0.62,
+      sh.pts[i].x * 0.92, sh.pts[i].y * 0.92);
+    g.stroke();
+  }
+
+  /* 4) 湿边：沿右上边缘一条更深的线 */
+  g.strokeStyle = 'rgba(190,140,100,0.45)';
+  g.lineWidth = 3;
+  g.beginPath();
+  g.moveTo(sh.pts[1].x * 0.9, sh.pts[1].y * 0.9);
+  g.quadraticCurveTo(sh.pts[3].x * 0.86, sh.pts[3].y * 0.86, sh.pts[5].x * 0.82, sh.pts[5].y * 0.82);
+  g.stroke();
+
+  g.restore();
+}
+function panelE() {
+  const x = 1196, y = 514, w = 580, h = 536;
+  panel(x, y, w, h, 'E', '材质：赛璐璐 vs 水彩',
+    '同一个贝壳 Path2D，只换“上色程序”，得到两种完全不同的质感');
+
+  drawCelShell(ctx, x + 150, y + 186, 198);
+  drawWcShell(ctx, x + 416, y + 186, 198);
+
+  label(ctx, '赛璐璐 · 2 阶硬边', x + 150, y + 290, 11, C.ink2, 'center', 700);
+  label(ctx, '平涂 → 硬阴影 → 硬高光 → 墨线', x + 150, y + 308, 9.4, C.muted, 'center');
+  label(ctx, '水彩 · 3 层叠色 + 颗粒', x + 416, y + 290, 11, C.ink2, 'center', 700);
+  label(ctx, '底晕 → 湿边 → 纸纹 → 铅笔线', x + 416, y + 308, 9.4, C.muted, 'center');
+
+  ctx.save();
+  ctx.strokeStyle = 'rgba(100,86,60,0.14)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(x + 24, y + 332); ctx.lineTo(x + w - 24, y + 332); ctx.stroke();
+  ctx.restore();
+
+  label(ctx, '赛璐璐配方', x + 30, y + 360, 10.5, C.hairM, 'left', 700);
+  label(ctx, '底色 #fff2df → 阴影 rgba(118,88,62,.30) 单个硬边形状 →', x + 30, y + 382, 9.8, C.ink2);
+  label(ctx, '高光 #fffcf2 一个多边形 → 墨线 2.2px。阴影边界不羽化。', x + 30, y + 400, 9.8, C.muted);
+
+  label(ctx, '水彩配方', x + 30, y + 430, 10.5, C.hairM, 'left', 700);
+  label(ctx, '底色纸白 → 3~4 层 22~30% 晕染（暖黄 / 冷蓝 / 肤色）→', x + 30, y + 452, 9.8, C.ink2);
+  label(ctx, '湿边加深 → 160 颗粒（α .28）→ 铅笔线双描边（α .5 / .22）。', x + 30, y + 470, 9.8, C.muted);
+
+  label(ctx, '金属配方见 D 面板：暗描边 → 三色渐变 → 中心高光，三次描边同一路径。',
+    x + 30, y + 500, 9.6, C.faint);
+}
+
+/* ================================================================== 背景/页眉 */
+function background() {
+  ctx.fillStyle = C.paper;
+  ctx.fillRect(0, 0, W, H);
+  const rg = ctx.createRadialGradient(W * 0.5, H * 0.32, 80, W * 0.5, H * 0.5, W * 0.72);
+  rg.addColorStop(0, 'rgba(255,252,244,0.75)');
+  rg.addColorStop(1, 'rgba(228,214,190,0.30)');
+  ctx.fillStyle = rg;
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.save();
+  for (let i = 0; i < 2400; i++) {
+    const px = hash(i * 1.71) * W;
+    const py = hash(i * 2.93 + 8) * H;
+    ctx.globalAlpha = 0.018 + hash(i) * 0.022;
+    ctx.fillStyle = i % 5 === 0 ? '#9c8f78' : '#6f6555';
+    ctx.fillRect(px, py, 1, 1);
+  }
+  ctx.globalAlpha = 0.055;
+  ctx.strokeStyle = '#8f8068';
+  ctx.lineWidth = 0.8;
+  for (let i = 0; i < 26; i++) {
+    const px = hash(i * 5.1) * W, py = hash(i * 7.3) * H;
+    ctx.beginPath();
+    ctx.moveTo(px, py);
+    ctx.quadraticCurveTo(px + 12, py + (hash(i) - 0.5) * 5, px + 26, py + (hash(i + 1) - 0.5) * 8);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  label(ctx, '肥鱼爱大米 · 绘图技法研究', 36, 46, 30, C.ink, 'left', 700);
+  label(ctx, 'LLM / Canvas 2D · 5 个可直接照做的技法 · 全部程序生成，无外部资源',
+    38, 75, 12.5, C.muted);
+  ctx.save();
+  ctx.fillStyle = 'rgba(60,97,174,0.08)';
+  rr(ctx, W - 366, 34, 330, 40, 20);
+  ctx.fill();
+  label(ctx, '规范坐标：面朝左 · 镜像画右转 · y ∈ [−58, 54]', W - 201, 55, 10.5, C.hairM, 'center', 600);
+  ctx.restore();
+  label(ctx, 'projFace 同源 · 1800×1100', W - 36, 86, 10, C.faint, 'right');
+}
+
+/* ====================================================================== 渲染 */
+function safePanel(name, fn) {
+  try {
+    fn();
+  } catch (err) {
+    console.error(name, err);
+    ctx.save();
+    ctx.fillStyle = 'rgba(120,24,24,0.9)';
+    ctx.fillRect(24, 80, 1752, 70);
+    ctx.fillStyle = '#fff';
+    ctx.font = '16px Consolas,monospace';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText('PANEL ' + name + ' FAILED: ' + err.message, 44, 98);
+    ctx.restore();
+  }
+}
+
+background();
+safePanel('A', panelA);
+safePanel('B', panelB);
+safePanel('C', panelC);
+safePanel('D', panelD);
+safePanel('E', panelE);
+
+/* 页脚 */
+ctx.save();
+ctx.strokeStyle = 'rgba(100,86,60,0.18)';
+ctx.lineWidth = 1;
+ctx.beginPath(); ctx.moveTo(32, 1070); ctx.lineTo(W - 32, 1070); ctx.stroke();
+ctx.restore();
+label(ctx, '验证点：−90° 只有近侧单眼 · 侧脸前缘 7 锚点 · 蕾丝扇贝可沿直线/圆弧重排 · 金线三描边不靠滤镜 · 同一形状两种材质',
+  34, 1085, 10, C.muted);
+label(ctx, 'Canvas 2D · 1800×1100 · no external assets', W - 34, 1085, 10, C.faint, 'right');
+
+window.__READY__ = true;
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+# ============================================================
+# 《肥鱼爱大米》代码 MV —— Git 忽略规则
+# 原则：仓库只放「可复现的源码与轻量素材」；
+#      大体积二进制（成片/母带/分轨/实验音频）不进 git。
+# ============================================================
+
+# ---------- 成片与导出产物 ----------
+output/
+*.mp4
+*.mov
+*.mkv
+*.webm
+
+# ---------- 音频：母带 / 分轨 / 实验 take ----------
+# 母带 mp3（11 MB）与分离出的伴奏、人声都不入库；
+# 需要时用 scripts/audio/render_master_v8.py 重新生成。
+*.wav
+*.flac
+*.aiff
+*.m4a
+肥鱼爱大米_母带原声.mp3
+feiyu_master_soundtrack.mp3
+original_vocal.mp3
+build/audio_takes/
+build/stems/
+sep_out/
+
+# ---------- 导出功能依赖的 base64 母带（15 MB）----------
+# 由 tools/make_audio_sidecar.py 从母带 mp3 现场生成，
+# 缺失时导出面板会提示手动选择 MP3，不会静默无声。
+vendor/master-audio.js
+
+# ---------- 中间构建产物与历史快照 ----------
+build/
+*.pre_export.html
+*.pre_fix2.html
+*.backup.html
+
+# ---------- 实验与临时文件 ----------
+proto/edge_*/
+proto/_edge_*/
+proto/_*.png
+proto/*.mp4
+tmp/
+temp/
+*.tmp
+*.log
+*.bak
+*~
+
+# ---------- 第三方参考工程（无通用开源许可，不随本仓库分发）----------
+# 仅作角色形象比对参考，见 README「致谢」。
+# 若需本地比对，请自行从上游仓库获取。
+references/
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ---------- Node ----------
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# ---------- 编辑器与系统 ----------
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- 敏感信息 ----------
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets.json

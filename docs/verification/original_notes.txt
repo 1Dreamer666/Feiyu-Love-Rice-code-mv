@@ -1,0 +1,24 @@
+--- chorus 1 ---
+jiu: 90.82-91.38 med=323Hz (-5.4 st) n=12
+xiang: 91.38-91.78 med=346Hz (-4.2 st) n=16
+fei: 91.78-92.34 med=310Hz (-6.1 st) n=25
+yu: 92.34-92.70 med=0Hz (-inf st) n=0
+ai: 92.70-93.20 med=0Hz (-inf st) n=0
+da: 93.20-93.62 med=0Hz (-inf st) n=0
+mi: 93.62-94.10 med=411Hz (-1.2 st) n=27
+--- chorus 2 ---
+jiu: 210.59-211.39 med=282Hz (-7.7 st) n=48
+xiang: 211.39-211.85 med=317Hz (-5.7 st) n=28
+fei: 211.85-212.37 med=312Hz (-5.9 st) n=44
+yu: 212.37-212.71 med=281Hz (-7.8 st) n=15
+ai: 212.71-213.23 med=276Hz (-8.1 st) n=15
+da: 213.23-213.65 med=354Hz (-3.8 st) n=15
+mi: 213.65-214.13 med=416Hz (-1.0 st) n=30
+--- chorus 3 ---
+jiu: 242.21-243.15 med=313Hz (-5.9 st) n=42
+xiang: 243.15-243.55 med=347Hz (-4.1 st) n=4
+fei: 243.55-244.15 med=350Hz (-4.0 st) n=47
+yu: 244.15-244.47 med=395Hz (-1.9 st) n=5
+ai: 244.47-245.01 med=0Hz (-inf st) n=0
+da: 245.01-245.39 med=0Hz (-inf st) n=0
+mi: 245.39-245.89 med=464Hz (+0.9 st) n=33

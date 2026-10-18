@@ -1,0 +1,5 @@
+slow1 dur=2.98s ASR=就像飞鱼爱的灭 words=[]
+slow2 dur=2.66s ASR=就像飞鱼爱的名 words=[]
+slow3 dur=3.31s ASR=就像虚鱼海斗铭 words=[]
+slow4 dur=6.39s ASR=飛 飛 words=[]
+slow5 dur=2.88s ASR=就消费玉玉海的安眠 words=[]

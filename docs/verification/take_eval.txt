@@ -1,0 +1,8 @@
+take_t3.wav err=2.49 shift=+0.5 dur=3.68 notes=[228, 276, 254, 265, 324, 414, 429] text=就像飞鱼海大鷹
+take_t7.wav err=2.49 shift=+0.0 dur=3.20 notes=[248, 309, 256, 288, 320, 440, 361] text=金香肥玉海大麵
+take_t1.wav err=2.51 shift=-0.5 dur=3.20 notes=[232, 297, 260, 319, 345, 392, 434] text=酒香肥 遇害大明
+take_t6.wav err=2.56 shift=+0.0 dur=2.56 notes=[233, 311, 259, 302, 328, 423, 365] text=就像随意爱断面
+take_t2.wav err=2.84 shift=-1.0 dur=3.52 notes=[237, 320, 263, 317, 374, 430, 466] text=就像随遇害大人
+take_t8.wav err=2.85 shift=+0.5 dur=3.36 notes=[219, 284, 253, 304, 341, 391, 350] text=就像飞鱼来当你
+take_t5.wav err=3.15 shift=+0.5 dur=3.04 notes=[223, 295, 257, 280, 387, 360] text=就像鱼海大蜜
+take_t4.wav err=3.22 shift=+0.0 dur=3.20 notes=[227, 277, 263, 308, 369, 428, 352] text=就像飞翼海蕩蜜
