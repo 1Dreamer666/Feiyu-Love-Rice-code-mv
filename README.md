@@ -16,14 +16,13 @@
 
 ## 画面
 
-<table>
-<tr>
-<td width="50%"><img src="docs/images/scenes.jpg" alt="分镜"><br>
-<sub><b>6 个代表场景</b>：清晨闻饭香 → 副歌告白 → 风雨护碗 → 鼓腮抗议 → 深夜守候 → 分你一半饭</sub></td>
-<td width="50%"><img src="docs/images/character.jpg" alt="角色三视图"><br>
-<sub><b>角色三视图</b>：正面 / 侧面 / 背面。程序化骨架据此逐部件建模</sub></td>
-</tr>
-</table>
+<img src="docs/images/scenes.jpg" width="100%" alt="6 个代表场景">
+
+<sub><b>6 个代表场景</b>：清晨闻饭香 → 副歌告白 → 风雨护碗 → 鼓腮抗议 → 深夜守候 → 分你一半饭</sub>
+
+<img src="docs/images/character.jpg" width="100%" alt="角色三视图">
+
+<sub><b>角色三视图</b>：正面 / 侧面 / 背面。程序化骨架据此逐部件建模</sub>
 
 ---
 
