@@ -5,12 +5,25 @@
 > 画面由纯代码（p5.js / Canvas 2D）逐帧绘制，**没有使用任何逐帧手绘素材**；
 > 演唱音源用 MiMo-V2.5-TTS 的「唱歌」模式替换原曲部分字眼。
 
+<img src="docs/images/hero.jpg" width="100%" alt="《肥鱼爱大米》封面">
+
 **[▶ B 站正片](https://www.bilibili.com/video/BV1L5n56QEcf/)**　·　
 [源码仓库](https://github.com/1Dreamer666/Feiyu-Love-Rice-code-mv)
 
 > 成片视频与音频不随本仓库分发（与上游
 > [let-me-go-code-mv](https://github.com/beidou070/let-me-go-code-mv) 的做法一致），
 > 请通过上方 B 站链接观看；如需复现，按「复现母带」一节自行生成。
+
+## 画面
+
+<table>
+<tr>
+<td width="50%"><img src="docs/images/scenes.jpg" alt="分镜"><br>
+<sub><b>6 个代表场景</b>：清晨闻饭香 → 副歌告白 → 风雨护碗 → 鼓腮抗议 → 深夜守候 → 分你一半饭</sub></td>
+<td width="50%"><img src="docs/images/character.jpg" alt="角色三视图"><br>
+<sub><b>角色三视图</b>：正面 / 侧面 / 背面。程序化骨架据此逐部件建模</sub></td>
+</tr>
+</table>
 
 ---
 
@@ -78,6 +91,8 @@ JavaScript 函数 `renderMVFrame(ctx, t)` 计算得出。给定时间 `t`，就�
 │
 ├── renders/                     # 验收分镜、封面、场景截图
 ├── docs/
+│   ├── images/                  # README 展示图（由 tools/make_readme_images.py 生成）
+│   ├── bilibili_intro.md        # B 站投稿简介
 │   ├── mimo_docs_text.txt       # MiMo TTS 文档存档
 │   └── verification/            # 音频验收报告、ASR 可懂度记录
 │
