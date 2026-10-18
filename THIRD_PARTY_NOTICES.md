@@ -58,7 +58,7 @@
 以下内容因体积或许可原因**未纳入版本控制**（见 `.gitignore`）：
 
 - 原曲音轨、母带、分轨、实验音频（`*.wav`、`*.mp3`）
-- 成片视频（`*.mp4`）
+- 成片视频（`*.mp4`）—— 请通过 [B 站](https://www.bilibili.com/video/BV1L5n56QEcf/) 观看
 - `references/` 目录（第三方参考工程，无通用开源许可）
 - `vendor/master-audio.js`（由母带 mp3 现场生成的 base64 数据）
 - 开发过程截图与浏览器缓存

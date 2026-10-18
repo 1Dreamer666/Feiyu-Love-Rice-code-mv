@@ -5,7 +5,12 @@
 > 画面由纯代码（p5.js / Canvas 2D）逐帧绘制，**没有使用任何逐帧手绘素材**；
 > 演唱音源用 MiMo-V2.5-TTS 的「唱歌」模式替换原曲部分字眼。
 
-B 站正片：[待补充]
+**[▶ B 站正片](https://www.bilibili.com/video/BV1L5n56QEcf/)**　·　
+[源码仓库](https://github.com/1Dreamer666/Feiyu-Love-Rice-code-mv)
+
+> 成片视频与音频不随本仓库分发（与上游
+> [let-me-go-code-mv](https://github.com/beidou070/let-me-go-code-mv) 的做法一致），
+> 请通过上方 B 站链接观看；如需复现，按「复现母带」一节自行生成。
 
 ---
 
