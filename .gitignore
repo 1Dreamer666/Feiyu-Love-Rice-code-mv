@@ -13,7 +13,8 @@ output/
 
 # ---------- 音频：母带 / 分轨 / 实验 take ----------
 # 母带 mp3（11 MB）与分离出的伴奏、人声都不入库；
-# 需要时用 scripts/audio/render_master_v8.py 重新生成。
+# v1 需要时用 archive/v1/audio/render_master_v8.py 重新生成；
+# v2 见 README「复现母带」一节。
 *.wav
 *.flac
 *.aiff

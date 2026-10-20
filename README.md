@@ -85,7 +85,8 @@ v2 投稿为**双 P**：P1 全梗版（v2），P2 旧版（v1）。
 2. **末轮副歌被 Suno 截断** —— 只唱了「我饿啦 我馋啦」就进尾奏，后 6 句没唱。
    硬接会改调，因此**把截断本身做成笑点**：伴奏戛然而止 → 肥鱼愣住 →「诶？歌怎么突然就没了？」
 
-> 详细音频分析与验收数据见 [`docs/voice_swap/README.md`](docs/voice_swap/README.md)。
+> v1 的 SVC 声线替换实测记录（含「那条声线到底是什么」的追溯）已归档至
+> [`archive/v1/voice_swap/README.md`](archive/v1/voice_swap/README.md)。
 
 ---
 
@@ -131,13 +132,18 @@ JavaScript 函数 `renderMVFrame(ctx, t)` 计算得出。给定时间 `t`，就�
 ├── export_module.js             # MP4 导出模块源码（被注入进 HTML）
 │
 ├── scripts/
-│   ├── audio/                   # v1 母带：分轨、变调、混音（已弃用，留作对照）
-│   │   └── render_master_v8.py
-│   ├── integrate/               # 把角色模型 / 导出功能注入主 HTML
-│   │   ├── inject_export.py     # ★ 注入 MP4 导出功能（幂等）
-│   │   ├── integrate_cast.py    # 内联 CAST 角色骨架
-│   │   └── integrate_parts.py   # 合并 proto/parts 部件
-│   └── experiments/             # 探索性脚本（PSOLA / WSOLA / WORLD 对比等）
+│   └── integrate/               # 把角色模型 / 导出功能注入主 HTML
+│       ├── inject_export.py     # ★ 注入 MP4 导出功能（幂等）
+│       ├── integrate_cast.py    # 内联 CAST 角色骨架
+│       └── integrate_parts.py   # 合并 proto/parts 部件
+│
+├── archive/
+│   └── v1/                      # ★ v1 归档：SVC 声线替换、母带迭代、实验脚本
+│       ├── README.md            # 归档索引
+│       ├── audio/               # v1 母带脚本（render_master_v3~v8）
+│       ├── experiments/         # PSOLA / WSOLA / WORLD 拼接试验
+│       ├── voice_swap/          # Let Me Go 声线替换实测记录
+│       └── explore/             # 音高分布、说话人识别等探查
 │
 ├── proto/                       # 角色部件开发工作台（多 agent 并行建模）
 │   ├── parts/                   # ★ 6 大部件：头/发/配饰/躯干/手臂/腿尾
@@ -161,9 +167,7 @@ JavaScript 函数 `renderMVFrame(ctx, t)` 计算得出。给定时间 `t`，就�
 │   │   ├── v1/                  # v1 展示图：cover.jpg / scenes.jpg
 │   │   └── v2/                  # v2 展示图：cover.jpg / cover_alt.jpg / scenes.jpg
 │   │       └── src/             # 封面原图（1448×1086 PNG）
-│   ├── bilibili_intro.md        # B 站投稿简介（v1，已废弃）
 │   ├── bilibili_intro_v2.md     # ★ B 站投稿文案 v2（标题 / 简介 / 封面 prompt）
-│   ├── voice_swap/              # v2 音频分析与验收数据
 │   ├── mimo_docs_text.txt       # MiMo TTS 文档存档
 │   └── verification/            # 音频验收报告、ASR 可懂度记录
 │
@@ -223,7 +227,14 @@ v2 改为 **Suno Cover 全曲重唱**：上传完整音轨，Suno 保留旋律�
 
 ## 复现母带
 
-v2 母带需要两条外部链路，脚本在 `build/tmp/`（构建产物，不随仓库分发）：
+### v1（SVC 局部替换）
+
+脚本已归档到 [`archive/v1/`](archive/v1/)，入口是 `archive/v1/audio/render_master_v8.py`，
+完整流程见 [`archive/v1/voice_swap/README.md`](archive/v1/voice_swap/README.md)。
+
+### v2（Suno 全曲重唱）
+
+需要两条外部链路。构建脚本在 `build/tmp/`（构建产物，不随仓库分发）：
 
 ```bash
 # 1) 准备环境变量
