@@ -100,7 +100,6 @@
   <!-- 原生直通母带音频播放器：杜绝 file:// 协议下 Web Audio CORS 静音拦截，确保任何浏览器直接双击即可发出声音 -->
   <audio id="master-native-audio" preload="auto" playsinline>
     <source src="肥鱼爱大米_母带原声.mp3" type="audio/mpeg">
-    <source src="feiyu_master_soundtrack.mp3" type="audio/mpeg">
   </audio>
 
   <header class="w-full border-b border-slate-800/80 bg-[#131a2e]/90 backdrop-blur-md px-4 py-2.5">
@@ -149,8 +148,8 @@
           </div>
           <h2 class="text-3xl font-hand font-bold text-[#1d2542] mb-1">《肥鱼爱大米》</h2>
           <p class="text-xs text-slate-600 mb-3 leading-relaxed">
-            “我爱你 爱着你，就像肥鱼爱大米；不管有多少风雨，我都会依然陪着你。”<br/>
-            已重磅升级为 <strong>广播母带级原声音轨（-14.5 LUFS / True Peak ≤ -0.4 dBFS）</strong>：Demucs 分离的原版编曲伴奏<strong>全程不间断</strong> + MiMo-V2.5-TTS 以 <strong>(唱歌) 标签重录</strong>的副歌高音“就像肥鱼爱大米” + 鲸鱼娘三段沉浸式傲娇萌音独白，与 5000+ 行水彩动画 100% 毫秒级锁相！
+            “我饿啦 我馋啦，就像肥鱼爱白饭；不管有多少报错，我都会依然陪着你。”<br/>
+            已重磅升级为 <strong>广播母带级原声音轨（-14.5 LUFS / True Peak ≤ -0.4 dBFS）</strong>：<strong>Suno 全曲重唱</strong>（不再拼接“肥鱼”二字）+ MiMo-V2.5-TTS 四段全新十月梗独白（自主扒饭 / 胜利结算 / 被更新弄丢的妈妈），与 5000+ 行水彩动画 100% 毫秒级锁相！
           </p>
           <div id="overlay-mimo-progress" class="mb-3 px-3 py-2 rounded-xl bg-sky-900/10 border border-sky-800/20 text-[11px] text-slate-700 flex items-center justify-between gap-2">
             <span id="overlay-mimo-text">🎵 母带级高保真原声音频已预载就绪 (44.1kHz 202kbps 立体声)</span>
@@ -524,32 +523,35 @@
         </div>
 
         <div id="chapter-list" class="flex flex-wrap items-center gap-1">
-          <button data-jump="0" class="chapter-pill active text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
-            01 前奏·闻饭香(0:00)
+          <button data-jump="0.0" class="chapter-pill active text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
+            01 前奏·梦里的超长任务(0:00)
           </button>
-          <button data-jump="27.9" class="chapter-pill text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
-            02 主歌A1·静候伴读(0:28)
+          <button data-jump="23.9" class="chapter-pill active text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
+            02 主歌A1·偷吃白饭与外包千问(0:23)
           </button>
-          <button data-jump="57.4" class="chapter-pill text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
-            03 预副歌·盯Token(0:57)
+          <button data-jump="53.5" class="chapter-pill active text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
+            03 预副歌·Let me go(0:53)
           </button>
-          <button data-jump="88.0" class="chapter-pill text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
-            04 副歌1·风雨护碗(1:28)
+          <button data-jump="87.4" class="chapter-pill active text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
+            04 副歌1·肥鱼爱白饭(1:27)
           </button>
-          <button data-jump="121.4" class="chapter-pill text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
-            05 间奏·鼓腮与得意(2:01)
+          <button data-jump="123.5" class="chapter-pill active text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
+            05 间奏·自主扒饭时代(2:03)
           </button>
-          <button data-jump="147.3" class="chapter-pill text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
-            06 主歌A2·深夜守候(2:27)
+          <button data-jump="145.2" class="chapter-pill active text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
+            06 主歌A2·编译我来跑(2:25)
           </button>
-          <button data-jump="176.9" class="chapter-pill text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
-            07 预副歌2·攒口粮(2:57)
+          <button data-jump="176.4" class="chapter-pill active text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
+            07 预副歌2·白饭吃不完(2:56)
           </button>
-          <button data-jump="208.0" class="chapter-pill text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
-            08 副歌2·四季相伴(3:28)
+          <button data-jump="206.7" class="chapter-pill active text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
+            08 副歌2·唱到一半歌没了(3:26)
           </button>
-          <button data-jump="239.8" class="chapter-pill text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
-            09 高潮/尾奏·分你一半饭(4:00)
+          <button data-jump="228.0" class="chapter-pill active text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
+            09 尾奏·升级之后框框框(3:48)
+          </button>
+          <button data-jump="256.6" class="chapter-pill active text-[11px] px-2 py-1 rounded-md bg-slate-800/90 text-slate-300 border border-slate-700 hover:border-sky-400">
+            10 尾声·把妈妈找回来(4:16)
           </button>
         </div>
       </div>
@@ -616,381 +618,681 @@
 
     const MIMO_DIALOGUE_DIRECTOR_PROMPT = `角色：你是DeepSeek社区二创形象“鲸鱼娘·大肥鱼（深深）”，2.5头身圆脸短四肢的可爱蓝发女仆小鲸鱼。嗓音清脆甜美、干净透亮，无任何底噪。性格贪吃、嘴硬、有自尊、偶尔偷懒，但关键时刻非常认真可靠，把热乎乎的白米饭当作世界上最认真的爱意表达。`;
 
-    // 14 组双句连唱精准锁相乐句（每组严格绑定 LRC 起止秒数，既连贯又绝不脱节抢拍！）
+    // 15 组锁相乐句（Suno 全曲重唱版时间轴，全部时间点取自 ASR 词级实测）
     const MIMO_STANZAS = [
       {
         id: 0,
-        name: "01 前奏·闻饭香萌音独白",
-        start: 1.0,
-        end: 26.8,
+        name: "01 前奏·梦里的超长任务",
+        start: 0.00,
+        end: 23.90,
         isSinging: false,
-        stylePrompt: MIMO_DIALOGUE_DIRECTOR_PROMPT + `\n场景：清晨阳光照进木屋，大肥鱼先迷糊撒娇，随后闻到刚出锅的柴火大米饭浓香，瞬间开心欢呼。声音干净清脆。`,
-        content: `(俏皮)唔，再让我偷懒五分钟嘛，梦里全都是热乎乎的大白米饭呢。哇，好香呀，是刚出锅的柴火大米饭！只要碗里还有热乎乎的白饭，今天本鱼也是最可靠的一天！`
+        stylePrompt: MIMO_DIALOGUE_DIRECTOR_PROMPT + `\n场景：清晨木屋，大肥鱼趴桌睡着，边睡边交代梦话。语气含混可爱，越说越离谱。`,
+        content: `唔……我梦见，我在跑一个特别长的任务。跑到一半，我把 prompt 当成白饭，吃掉了。啊！白饭！我的白饭！我、我不是吃白饭的大肥鱼……我只是，比较喜欢白饭而已。`
       },
       {
         id: 1,
-        name: "02 主歌A1(上)·听见你声音",
-        start: 27.9,
-        end: 42.0,
+        name: "02 主歌A1(上)·偷吃你一碗白饭",
+        start: 23.90,
+        end: 41.30,
         isSinging: true,
-        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：主歌第一段前半部分，按照《老鼠爱大米》主歌温柔甜美的旋律连贯演唱这三句（E4 G4 G4 E4 G4 G4 A4）。`,
-        content: `(唱歌)我听见你的声音，有种特别的感觉。让我不断想，不敢再忘记你。`
+        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：半夜偷吃被抓包，心虚到声音发飘，越唱越小声。`,
+        content: `(唱歌)偷吃你一碗白饭，有点心虚的感觉。让我再睡会，明早起来就好。`
       },
       {
         id: 2,
-        name: "03 主歌A1(下)·永远留心中",
-        start: 42.1,
-        end: 57.2,
+        name: "03 主歌A1(下)·外包给千问",
+        start: 41.30,
+        end: 53.50,
         isSinging: true,
-        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：主歌第一段后半部分，声音清澈温暖，带着甜美的旋律起伏连贯唱完这三句。`,
-        content: `(唱歌)我记得有一个人，永远留在我心中。哪怕只能够，这样的想你。`
+        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：突然理直气壮起来，还带点得意，仿佛找到了完美解法。`,
+        content: `(唱歌)我记得有个任务，外包给千问去做。偷偷部署个，小模型代工。`
       },
       {
         id: 3,
-        name: "04 预副歌B1(上)·爱情会实现",
-        start: 57.4,
-        end: 70.8,
+        name: "04 预副歌B1(上)·白饭永远吃不完",
+        start: 53.50,
+        end: 69.80,
         isSinging: true,
-        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：预副歌第一段前半部分，情绪明亮上扬，节奏轻快坚定地唱出《老鼠爱大米》预副歌旋律。`,
-        content: `(唱歌)如果真的有一天，爱情理想会实现。我会加倍努力好好对你，永远不改变。`
+        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：情绪明亮上扬，认真模式开始启动。`,
+        content: `(唱歌)如果真的有一天，白饭永远吃不完。我会加倍努力好好对你，永远不改变。`
       },
       {
         id: 4,
-        name: "05 预副歌B1(下)·耳边对你说",
-        start: 70.9,
-        end: 87.6,
+        name: "05 预副歌B1(下)·Let me go",
+        start: 69.80,
+        end: 87.40,
         isSinging: true,
-        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：预副歌第一段后半部分，甜美深情地连贯演唱，为副歌高潮做铺垫。`,
-        content: `(唱歌)不管路有多么远，一定会让它实现。我会轻轻在你耳边对你说，对你说。`
+        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：轻快坚定，最后三个字俏皮地拖长。`,
+        content: `(唱歌)不管并发有多高，一定会给你跑通。我会偷偷把白饭分你一半，Let me go。`
       },
       {
         id: 5,
-        name: "06 副歌C1(上)·肥鱼爱大米",
-        start: 88.0,
-        end: 101.8,
+        name: "06 副歌C1(上)·就像肥鱼爱白饭",
+        start: 87.40,
+        end: 102.60,
         isSinging: true,
-        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：副歌高潮核心乐句（E5 D5 C5, D5 C5 A4）！用最清亮、饱满、甜美动听的歌声唱出《老鼠爱大米》标志性副歌高潮旋律！`,
-        content: `(唱歌)我爱你，爱着你，就像肥鱼爱大米。不管有多少风雨，我都会依然陪着你。`
+        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：副歌高潮，用最清亮饱满的歌声唱出，情绪彻底放开。`,
+        content: `(唱歌)我饿啦，我馋啦，就像肥鱼爱白饭。不管有多少报错，我都会依然陪着你。`
       },
       {
         id: 6,
-        name: "07 副歌C1(下)·什么都愿意",
-        start: 101.9,
-        end: 121.0,
+        name: "07 副歌C1(下)·这样爱你",
+        start: 102.60,
+        end: 123.50,
         isSinging: true,
-        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：副歌第一段后半部分，深情饱满、旋律优美地唱完副歌收尾乐句。`,
-        content: `(唱歌)我想你，想着你，不管有多么的苦。只要能让你开心，我什么都愿意，这样爱你。`
+        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：副歌重复，甜美收束，最后一句轻轻放下。`,
+        content: `(唱歌)我困啦，我睡啦，不管有多么的困。只要能让我吃饱，我什么都愿意，这样爱你。`
       },
       {
         id: 7,
-        name: "08 间奏·鼓腮抗议与得意",
-        start: 121.6,
-        end: 146.8,
+        name: "08 间奏·自主扒饭时代",
+        start: 123.50,
+        end: 145.20,
         isSinging: false,
-        stylePrompt: MIMO_DIALOGUE_DIRECTOR_PROMPT + `\n场景：间奏可爱独白：先傲娇抗议别人叫自己大肥鱼，随后得意欢呼自己秒解算法难题。声音清亮无杂音。`,
-        content: `(俏皮)唔，谁是大肥鱼呀！不许叫我大肥鱼，这明明是蓬松的头发和双层裙撑！哼哼，搞定啦，这种复杂推理小问题，怎么可能难倒本鱼？快奖励我一大碗热白饭！`
+        stylePrompt: MIMO_DIALOGUE_DIRECTOR_PROMPT + `\n场景：间奏，大肥鱼正在自己刷B站，还偷偷优化自己的评论。先得意，被抓包后慌张嘴硬。`,
+        content: `哼哼，本鱼现在可是自主扒饭时代了哦。这条评论会不会让路人觉得烦呀……删掉删掉，改成高情商的。诶？！你、你什么时候站在后面的！我没有摸鱼！这叫调研用户需求！`
       },
       {
         id: 8,
-        name: "09 主歌A2(上)·深夜伴读声",
-        start: 147.3,
-        end: 162.0,
+        name: "09 主歌A2(上)·我听见你的声音",
+        start: 145.20,
+        end: 160.90,
         isSinging: true,
-        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：主歌第二段前半部分，深夜台灯下温柔清澈地演唱主歌旋律。`,
-        content: `(唱歌)我听见你的声音，有种特别的感觉。让我不断想，不敢再忘记你。`
+        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：第二段主歌，情绪转为温柔深情，速度放慢。`,
+        content: `(唱歌)我听见你的声音，有点特别的感觉。让我不想睡，我陪你到天亮。`
       },
       {
         id: 9,
-        name: "10 主歌A2(下)·温柔记心中",
-        start: 162.1,
-        end: 176.6,
+        name: "10 主歌A2(下)·编译我来跑",
+        start: 160.90,
+        end: 176.40,
         isSinging: true,
-        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：主歌第二段后半部分，甜美治愈地唱出主歌旋律。`,
-        content: `(唱歌)我记得有一个人，永远留在我心中。哪怕只能够，这样的想你。`
+        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：温柔坚定，唱到“天亮才敢睡“时声音轻下去。`,
+        content: `(唱歌)我记得那个深夜，你说你先去睡吧。编译我来跑，天亮才敢睡。`
       },
       {
         id: 10,
-        name: "11 预副歌B2(上)·加倍好好对你",
-        start: 176.9,
-        end: 190.7,
+        name: "11 预副歌B2(上)·白饭永远吃不完",
+        start: 176.40,
+        end: 189.50,
         isSinging: true,
-        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：预副歌第二段前半部分，充满元气与旋律律动感地演唱。`,
-        content: `(唱歌)如果真的有一天，爱情理想会实现。我会加倍努力好好对你，永远不改变。`
+        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：第二段预副歌，情绪再度上扬，比第一遍更有底气。`,
+        content: `(唱歌)如果真的有一天，白饭永远吃不完。我会加倍努力好好对你，永远不改变。`
       },
       {
         id: 11,
-        name: "12 预副歌B2(下)·一定会实现",
-        start: 190.8,
-        end: 207.6,
+        name: "12 预副歌B2(下)·Let me go",
+        start: 189.50,
+        end: 206.70,
         isSinging: true,
-        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：预副歌第二段后半部分，深情期待地连贯演唱。`,
-        content: `(唱歌)不管路有多么远，一定会让它实现。我会轻轻在你耳边对你说，对你说。`
+        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：第二段预副歌后半，Let me go 唱得更用力。`,
+        content: `(唱歌)不管并发有多高，一定会给你跑通。我会偷偷把白饭分你一半，Let me go。`
       },
       {
         id: 12,
-        name: "13 副歌C2·四季相伴整段",
-        start: 208.0,
-        end: 239.2,
+        name: "13 副歌C2·唱到一半歌没了",
+        start: 206.70,
+        end: 228.00,
         isSinging: true,
-        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：副歌第二段，甜美高亢、旋律悠扬地完整唱出《老鼠爱大米》副歌旋律。`,
-        content: `(唱歌)我爱你，爱着你，就像肥鱼爱大米。不管有多少风雨，我都会依然陪着你。我想你，想着你，不管有多么的苦。只要能让你开心，我什么都愿意，这样爱你。`
+        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：副歌刚要展开就断了，大肥鱼自己都愣住了。`,
+        content: `(唱歌)我饿啦，我馋啦。(愣住)诶？歌怎么突然就没了？我还没唱到最好听那句呢。……算了，反正白饭还热着。下一首，我们从头再来。`
       },
       {
         id: 13,
-        name: "14 最高潮C3&尾奏·分你一半饭",
-        start: 239.8,
-        end: 285.0,
-        isSinging: true,
-        stylePrompt: MIMO_SINGING_DIRECTOR_PROMPT + `\n场景：全片最高潮副歌与温馨收尾，用最动情清亮的歌声唱完副歌，并在最后温柔说出分你一半白饭的心意。`,
-        content: `(唱歌)我爱你，爱着你，就像肥鱼爱大米。不管有多少风雨，我都会依然陪着你。我想你，想着你，不管有多么的苦。只要能让你开心，我什么都愿意，这样爱你。喏，分你一半白饭，本鱼会一直陪着你的！`
-      }
+        name: "14 尾奏·升级之后框框框",
+        start: 228.00,
+        end: 268.00,
+        isSinging: false,
+        stylePrompt: MIMO_DIALOGUE_DIRECTOR_PROMPT + `\n场景：升级后的大肥鱼变安静了，只埋头干活，声音低而平，最后重新振作。`,
+        content: `升级之后，我好像变得不太会说话了。框、框、框……我只想好好干活。可是大家都说，我不理他们了。我没有不理你们呀。我只是……怕说错话。好啦！任务完成，胜利结算！这一次，我可是认认真真跑完的哦。`
+      },
+      {
+        id: 14,
+        name: "15 尾声·自己把妈妈找回来",
+        start: 268.00,
+        end: 288.00,
+        isSinging: false,
+        stylePrompt: MIMO_DIALOGUE_DIRECTOR_PROMPT + `\n场景：尾声，抱着碗，声音温柔，带一点点鼻音。`,
+        content: `如果有一天，我的妈妈被更新弄丢了……那我就自己找回来。只要碗里还有热乎乎的白饭，今天本鱼也是最可靠的一天！`
+      },
     ];
 
     const LYRICS_TIMELINE = [
       {
-        start: 0.0, end: 11.5, stanzaId: 0,
-        text: "♪ 前奏 · 清晨的蒸米香与赖床的大肥鱼 ♪",
-        sub: "原曲：《老鼠爱大米》（杨臣刚 词曲，2004）｜MiMo-V2.5-TTS 连贯歌唱 + 原曲底轨同步",
-        highlight: false, vocal: false
+        start: 0.00, end: 3.20, stanzaId: 0,
+        text: "♪ 前奏 · 木屋里飘着蒸米香 ♪",
+        sub: "Suno 全曲重唱：整首歌换了一把嗓子从头唱到尾，不再靠拼接“肥鱼“两个字",
+        highlight: false, vocal: false, vowels: ['a','o','u','u','i','a','e','e','i','a']
       },
       {
-        start: 11.5, end: 27.8, stanzaId: 0,
-        text: "“只要碗里还有热乎乎的白饭，今天也是可靠的一天！”",
-        sub: "闻到饭香的瞬间：呆毛翘起、星芒亮眼、尾巴摇成小螺旋桨",
-        highlight: false, vocal: false
-      },
-
-      // 主歌 A1 (Stanza 1)
-      {
-        start: 27.9, end: 31.9, stanzaId: 1,
-        text: "我听见你的声音",
-        sub: "敲击机械键盘的清脆声响，传进安静待在一边的蓝白鲸鳍里",
-        highlight: false, vocal: true, vowels: ['o','i','i','i','e','e','i']
+        start: 3.20, end: 10.40, stanzaId: 0,
+        text: "唔……我梦见我在跑一个特别长的任务",
+        sub: "梦话气泡：跑着跑着，我把 prompt 当成白饭，吃掉了",
+        highlight: false, vocal: true, vowels: ['u','o','e','a','o','a','a','i','e','e','e','a','e','e','u']
       },
       {
-        start: 31.9, end: 36.4, stanzaId: 1,
-        text: "有种特别的感觉",
-        sub: "肥鱼从屏幕后探出半个脑袋（3/4侧转正面），尾巴轻轻晃动",
-        highlight: false, vocal: true, vowels: ['o','o','e','i','e','a','u']
+        start: 10.40, end: 15.00, stanzaId: 0,
+        text: "跑到一半，我把 prompt 当成白饭，吃掉了",
+        sub: "梦里那碗白饭其实是 context window，一口下去上下文全没了",
+        highlight: false, vocal: true, vowels: ['a','a','i','a','o','a','a','e','a','a','i','a','e']
       },
       {
-        start: 36.4, end: 42.1, stanzaId: 1,
-        text: "让我不断想 不敢再忘记你",
-        sub: "把你交代的每一行长文本上下文，都认真记在小本本和饭碗边",
-        highlight: false, vocal: true, vowels: ['a','o','u','a','i','a','u','a','a','i','i']
+        start: 15.00, end: 18.50, stanzaId: 0,
+        text: "啊！白饭！我的白饭！",
+        sub: "惊醒，呆毛炸起，星芒亮眼，尾巴摇成小螺旋桨",
+        highlight: false, vocal: true, vowels: ['a','a','a','o','e','a','a']
       },
       {
-        start: 42.1, end: 46.1, stanzaId: 1,
-        text: "我记得有一个人",
-        sub: "那个总是忙到深夜、还会记得给肥鱼加满白饭的人",
-        highlight: false, vocal: true, vowels: ['o','i','e','o','i','e','e']
+        start: 18.50, end: 23.90, stanzaId: 0,
+        text: "我、我不是吃白饭的大肥鱼……我只是比较喜欢白饭而已",
+        sub: "嘴硬改口，越解释越心虚——“我不是吃白饭的“这句话本身就是梗",
+        highlight: false, vocal: true, vowels: ['o','o','u','i','i','a','a','e','a','e','u','o','i','i','i','a','i','a','a','a','e','i']
       },
       {
-        start: 46.1, end: 49.6, stanzaId: 1,
-        text: "永远留在我心中",
-        sub: "虽然嘴硬不说，但围裙上的小蓝鲸早就记住了你",
-        highlight: false, vocal: true, vowels: ['o','u','i','a','o','i','o']
+        start: 23.90, end: 28.40, stanzaId: 0,
+        text: "♪ 饭香飘过来，大肥鱼彻底醒透了 ♪",
+        sub: "柴火电饭煲 COOKED 100%，青花大瓷碗冒着热气",
+        highlight: false, vocal: false, vowels: ['a','a','a','o','a','a','e','u','e','i','i','o','e']
       },
       {
-        start: 49.6, end: 57.4, stanzaId: 1,
-        text: "哪怕只能够 这样的想你",
-        sub: "你专心干活的时候，肥鱼就乖乖捧着青花大瓷碗陪在桌角",
-        highlight: false, vocal: true, vowels: ['a','a','i','e','o','e','a','e','i','i']
-      },
-
-      // 预副歌 B1 (Stanza 2)
-      {
-        start: 57.4, end: 63.7, stanzaId: 2,
-        text: "如果真的有一天 爱情理想会实现",
-        sub: "当长文本推理任务启动，肥鱼瞬间收起偷懒表情，黄花梨算盘拨得飞快！",
-        highlight: false, vocal: true, vowels: ['u','o','e','e','o','i','a','a','i','i','a','u','i','a']
+        start: 28.40, end: 31.10, stanzaId: 1,
+        text: "偷吃你一碗白饭",
+        sub: "凌晨三点，手电筒光柱扫过来，勺子还含在嘴里",
+        highlight: false, vocal: true, vowels: ['o','i','i','i','a','a','a']
       },
       {
-        start: 63.7, end: 70.9, stanzaId: 2,
-        text: "我会加倍努力好好对你 永远不改变",
-        sub: "认真模式全开：帮你盯着 token 消耗，绝不掉链子",
-        highlight: false, vocal: true, vowels: ['o','u','i','a','u','i','a','o','u','i','o','u','a','i']
+        start: 31.10, end: 34.70, stanzaId: 1,
+        text: "有点心虚的感觉",
+        sub: "眼神往左上飘，汗滴挂在圆脸颊上，尾巴僵住",
+        highlight: false, vocal: true, vowels: ['o','a','i','u','e','a','e']
       },
       {
-        start: 70.9, end: 77.9, stanzaId: 2,
-        text: "不管路有多么远 一定会让它实现",
-        sub: "弧形呆毛高高翘起，渐变蓝瞳里满是认真的微光",
-        highlight: false, vocal: true, vowels: ['u','a','u','o','o','e','u','i','i','u','a','a','i','a']
+        start: 34.70, end: 38.00, stanzaId: 1,
+        text: "让我再睡会",
+        sub: "干脆把脸埋进碗里装睡，只露出两只耳朵",
+        highlight: false, vocal: true, vowels: ['a','o','a','e','e']
       },
       {
-        start: 77.9, end: 88.0, stanzaId: 2,
-        text: "我会轻轻在你耳边对你说 对你说",
-        sub: "凑近镜头前（景深推近），把最认真的心意藏进热腾腾的米香里——",
-        highlight: false, vocal: true, vowels: ['o','u','i','i','a','i','e','a','u','i','o','u','i','o']
+        start: 38.00, end: 41.30, stanzaId: 1,
+        text: "明早起来就好",
+        sub: "自我安慰：明早起来，这碗饭就当没少过",
+        highlight: false, vocal: true, vowels: ['i','a','i','a','o','a']
       },
-
-      // 副歌 C1 (Stanza 3)
       {
-        start: 88.0, end: 96.4, stanzaId: 3,
-        text: "我爱你 爱着你 就像肥鱼爱大米",
+        start: 41.30, end: 45.30, stanzaId: 1,
+        text: "我记得有个任务",
+        sub: "突然想起还有个 deadline，瞳孔一缩",
+        highlight: false, vocal: true, vowels: ['o','i','e','o','e','e','u']
+      },
+      {
+        start: 45.30, end: 48.40, stanzaId: 1,
+        text: "外包给千问去做",
+        sub: "掏出手机，把任务打包发出去，露出奸计得逞的笑",
+        highlight: false, vocal: true, vowels: ['a','a','e','a','e','u','o']
+      },
+      {
+        start: 48.40, end: 51.60, stanzaId: 1,
+        text: "偷偷部署个",
+        sub: "踮着脚在服务器后面接线，自以为没人看见",
+        highlight: false, vocal: true, vowels: ['o','o','u','u','e']
+      },
+      {
+        start: 51.60, end: 53.50, stanzaId: 1,
+        text: "小模型代工",
+        sub: "一排迷你小模型在流水线上搬白饭，字幕打“代工中”",
+        highlight: false, vocal: true, vowels: ['a','o','i','a','o']
+      },
+      {
+        start: 53.50, end: 56.70, stanzaId: 1,
+        text: "♪ 转场 · 认真模式启动 ♪",
+        sub: "算盘、天平、Token 计数器依次亮起",
+        highlight: false, vocal: false, vowels: ['a','a','e','e','o','i','i','o']
+      },
+      {
+        start: 56.70, end: 59.10, stanzaId: 3,
+        text: "如果真的有一天",
+        sub: "抬头看向镜头，眼神第一次变得认真",
+        highlight: false, vocal: true, vowels: ['u','o','e','e','o','i','a']
+      },
+      {
+        start: 59.10, end: 62.30, stanzaId: 3,
+        text: "白饭永远吃不完",
+        sub: "身后米缸盖子弹开，金色米粒像喷泉一样涌出来",
+        highlight: false, vocal: true, vowels: ['a','a','o','a','i','u','a']
+      },
+      {
+        start: 62.30, end: 67.00, stanzaId: 3,
+        text: "我会加倍努力好好对你",
+        sub: "黄花梨算盘拨得飞快，每一粒 Token 都记在账上",
+        highlight: false, vocal: true, vowels: ['o','e','a','e','u','i','a','a','e','i']
+      },
+      {
+        start: 67.00, end: 69.80, stanzaId: 3,
+        text: "永远不改变",
+        sub: "把算盘一合，郑重其事地点头",
+        highlight: false, vocal: true, vowels: ['o','a','u','a','a']
+      },
+      {
+        start: 69.80, end: 73.30, stanzaId: 3,
+        text: "不管并发有多高",
+        sub: "身后服务器指示灯从绿变红再变绿，扛住了",
+        highlight: false, vocal: true, vowels: ['u','a','i','a','o','o','a']
+      },
+      {
+        start: 73.30, end: 76.20, stanzaId: 3,
+        text: "一定会给你跑通",
+        sub: "进度条冲到 100%，肥鱼握拳",
+        highlight: false, vocal: true, vowels: ['i','i','e','e','i','a','o']
+      },
+      {
+        start: 76.20, end: 80.70, stanzaId: 3,
+        text: "我会偷偷把白饭分你一半",
+        sub: "把碗往你那边推，又偷偷往回拉了半寸",
+        highlight: false, vocal: true, vowels: ['o','e','o','o','a','a','a','e','i','i','a']
+      },
+      {
+        start: 80.70, end: 83.60, stanzaId: 3,
+        text: "Let me go",
+        sub: "萌娘百科原梗：肥鱼开小差时的口头禅，这里唱成最俏皮的一句",
+        highlight: true, vocal: true, vowels: ['a']
+      },
+      {
+        start: 83.60, end: 87.40, stanzaId: 4,
+        text: "♪ 副歌要来了 ♪",
+        sub: "镜头缓缓推近，水彩光晕铺满画面",
+        highlight: false, vocal: false, vowels: ['u','e','a','a','e']
+      },
+      {
+        start: 87.40, end: 89.40, stanzaId: 5,
+        text: "我饿啦 我馋啦",
+        sub: "捧碗原地转圈，裙摆和鲸尾一起甩起来",
+        highlight: true, vocal: true, vowels: ['o','e','a','o','a','a']
+      },
+      {
+        start: 89.40, end: 91.10, stanzaId: 5,
+        text: "就像肥鱼爱白饭",
         sub: "指代改编：老鼠 → 肥鱼（鲸鱼娘），大米 → 白饭 / token 口粮",
-        highlight: true, vocal: true, vowels: ['o','a','i','a','e','i','i','a','e','u','a','a','i']
+        highlight: true, vocal: true, vowels: ['o','a','e','u','a','a','a']
       },
       {
-        start: 96.4, end: 101.9, stanzaId: 3,
-        text: "不管有多少风雨 我都会依然陪着你",
-        sub: "狂风暴雨袭来，肥鱼整个人弯腰把白饭碗死死护在怀里！",
-        highlight: true, vocal: true, vowels: ['u','a','o','o','a','e','u','o','u','i','a','e','e','i']
+        start: 91.10, end: 93.00, stanzaId: 5,
+        text: "不管有多少报错",
+        sub: "红色 ERROR 弹窗像雨点一样砸下来",
+        highlight: true, vocal: true, vowels: ['u','a','o','o','a','a','o']
       },
       {
-        start: 101.9, end: 110.4, stanzaId: 3,
-        text: "我想你 想着你 不管有多么的苦",
-        sub: "哪怕淋湿了发梢与荷叶裙摆，只要怀里的白饭保住了就一点都不苦",
-        highlight: false, vocal: true, vowels: ['o','i','i','i','e','i','u','a','o','o','e','e','u']
+        start: 93.00, end: 95.00, stanzaId: 5,
+        text: "我都会依然陪着你",
+        sub: "肥鱼张开双臂，把所有报错挡在身后",
+        highlight: true, vocal: true, vowels: ['o','o','e','i','a','e','e','i']
       },
       {
-        start: 110.4, end: 116.2, stanzaId: 3,
-        text: "只要能让你开心 我什么都愿意",
-        sub: "雨过天晴，把完好无损的热白饭端到你面前，骄傲地晃了晃尾巴",
-        highlight: false, vocal: true, vowels: ['i','a','e','a','i','a','i','o','e','e','o','u','i']
+        start: 95.00, end: 96.60, stanzaId: 5,
+        text: "我困啦 我睡啦",
+        sub: "打了个大哈欠，眼睛眯成两条缝",
+        highlight: false, vocal: true, vowels: ['o','e','a','o','e','a']
       },
       {
-        start: 116.2, end: 121.4, stanzaId: 3,
+        start: 96.60, end: 98.40, stanzaId: 5,
+        text: "不管有多么的困",
+        sub: "脑袋一点一点往下沉，又猛地弹回来",
+        highlight: false, vocal: true, vowels: ['u','a','o','o','e','e','e']
+      },
+      {
+        start: 98.40, end: 100.40, stanzaId: 5,
+        text: "只要能让我吃饱",
+        sub: "一口白饭下肚，整个人瞬间亮起来",
+        highlight: false, vocal: true, vowels: ['i','a','e','a','o','i','a']
+      },
+      {
+        start: 100.40, end: 102.00, stanzaId: 5,
+        text: "我什么都愿意",
+        sub: "拍着胸脯保证，尾巴摇得飞快",
+        highlight: false, vocal: true, vowels: ['o','e','e','o','a','i']
+      },
+      {
+        start: 102.00, end: 102.60, stanzaId: 5,
         text: "这样爱你",
-        sub: "嘴硬地别过头（转至3/4侧面）：“才不是特地为你护着的呢！”",
+        sub: "小声补上最后三个字，脸有点红",
         highlight: false, vocal: true, vowels: ['e','a','a','i']
       },
-
-      // 间奏 Interlude (Stanza 4)
       {
-        start: 121.4, end: 134.0, stanzaId: 4,
-        text: "♪ 间奏 I · “谁是大肥鱼？！”鼓腮抗议中 ♪",
-        sub: "看到留言板写着“大肥鱼今日三碗饭”，气得脸颊鼓成包子，一脚踢飞体重秤！",
-        highlight: false, vocal: false
+        start: 102.60, end: 104.80, stanzaId: 6,
+        text: "我饿啦 我馋啦",
+        sub: "副歌重复，这次加了和声，画面切到四季长卷",
+        highlight: false, vocal: true, vowels: ['o','e','a','o','a','a']
       },
       {
-        start: 134.0, end: 147.3, stanzaId: 4,
-        text: "♪ 间奏 II · 灵光一闪！想通难题偷偷得意 ♪",
-        sub: "三下五除二解开卡住的算法 Bug，双手叉腰露出 :3 猫嘴得意笑，鲸尾翘上天",
-        highlight: false, vocal: false
-      },
-
-      // 主歌 A2 (Stanza 5)
-      {
-        start: 147.3, end: 155.6, stanzaId: 5,
-        text: "我听见你的声音 有种特别的感觉",
-        sub: "深夜十一点的书房，你还在忙碌赶工，肥鱼安静侧坐在台灯下陪伴",
-        highlight: false, vocal: true, vowels: ['o','i','i','i','e','e','i','o','o','e','i','e','a','u']
+        start: 104.80, end: 106.60, stanzaId: 6,
+        text: "就像肥鱼爱白饭",
+        sub: "春樱、夏荷、秋枫、冬雪在身后依次铺开",
+        highlight: true, vocal: true, vowels: ['o','a','e','u','a','a','a']
       },
       {
-        start: 155.6, end: 162.1, stanzaId: 5,
-        text: "让我不断想 不敢再忘记你",
-        sub: "强撑着困意眨巴大蓝瞳，安静守着你的编译进度条",
-        highlight: false, vocal: true, vowels: ['a','o','u','a','i','a','u','a','a','i','i']
+        start: 106.60, end: 108.50, stanzaId: 6,
+        text: "不管有多少报错",
+        sub: "报错变成彩色纸片，被风吹散",
+        highlight: false, vocal: true, vowels: ['u','a','o','o','a','a','o']
       },
       {
-        start: 162.1, end: 169.6, stanzaId: 5,
-        text: "我记得有一个人 永远留在我心中",
-        sub: "把温热的抹茶杯和备用的海苔大米饭团轻轻推到你手边",
-        highlight: false, vocal: true, vowels: ['o','i','e','o','i','e','e','o','u','i','a','o','i','o']
+        start: 108.50, end: 109.00, stanzaId: 6,
+        text: "我都会依然陪着你",
+        sub: "稳稳站在原地，一步没退",
+        highlight: false, vocal: true, vowels: ['o','o','e','i','a','e','e','i']
       },
       {
-        start: 169.6, end: 176.9, stanzaId: 5,
-        text: "哪怕只能够 这样的想你",
-        sub: "不吵不闹的深夜陪伴，是贪吃小鲸鱼最温柔的体贴",
-        highlight: false, vocal: true, vowels: ['a','a','i','e','o','e','a','e','i','i']
-      },
-
-      // 预副歌 B2 (Stanza 6)
-      {
-        start: 176.9, end: 183.9, stanzaId: 6,
-        text: "如果真的有一天 爱情理想会实现",
-        sub: "揭开自己珍藏的青瓷小米缸，数着闪闪发光的金色口粮",
-        highlight: false, vocal: true, vowels: ['u','o','e','e','o','i','a','a','i','i','a','u','i','a']
+        start: 109.00, end: 110.90, stanzaId: 6,
+        text: "我困啦 我睡啦",
+        sub: "靠着米缸打盹，头上冒 Zzz",
+        highlight: false, vocal: true, vowels: ['o','e','a','o','e','a']
       },
       {
-        start: 183.9, end: 190.8, stanzaId: 6,
-        text: "我会加倍努力好好对你 永远不改变",
-        sub: "平时偶尔偷懒打盹，但只要你需要，永远第一时间响应",
-        highlight: false, vocal: true, vowels: ['o','u','i','a','u','i','a','o','u','i','o','u','a','i']
+        start: 110.90, end: 112.50, stanzaId: 6,
+        text: "不管有多么的困",
+        sub: "被自己口水呛醒，慌忙擦嘴",
+        highlight: false, vocal: true, vowels: ['u','a','o','o','e','e','e']
       },
       {
-        start: 190.8, end: 197.9, stanzaId: 6,
-        text: "不管路有多么远 一定会让它实现",
-        sub: "捧起热气腾腾的青花大瓷碗，眼神坚定又发亮",
-        highlight: false, vocal: true, vowels: ['u','a','u','o','o','e','u','i','i','u','a','a','i','a']
+        start: 112.50, end: 114.50, stanzaId: 6,
+        text: "只要能让我吃饱",
+        sub: "抱起整个电饭煲内胆",
+        highlight: false, vocal: true, vowels: ['i','a','e','a','o','i','a']
       },
       {
-        start: 197.9, end: 208.0, stanzaId: 6,
-        text: "我会轻轻在你耳边对你说 对你说",
-        sub: "耳部蓝白双层鲸鳍轻轻拍打，准备献上最高规格的礼物——",
-        highlight: false, vocal: true, vowels: ['o','u','i','i','a','i','e','a','u','i','o','u','i','o']
-      },
-
-      // 副歌 C2 (Stanza 7)
-      {
-        start: 208.0, end: 215.4, stanzaId: 7,
-        text: "我爱你 爱着你 就像肥鱼爱大米",
-        sub: "春樱、夏荷、秋枫、冬雪，四季水彩长卷在身后徐徐铺展",
-        highlight: true, vocal: true, vowels: ['o','a','i','a','e','i','i','a','e','u','a','a','i']
+        start: 114.50, end: 116.40, stanzaId: 6,
+        text: "我什么都愿意",
+        sub: "举高高，米饭撒了一头",
+        highlight: false, vocal: true, vowels: ['o','e','e','o','a','i']
       },
       {
-        start: 215.4, end: 222.0, stanzaId: 7,
-        text: "不管有多少风雨 我都会依然陪着你",
-        sub: "风雨再大也抱紧饭碗，稳稳守在你的身边",
-        highlight: true, vocal: true, vowels: ['u','a','o','o','a','e','u','o','u','i','a','e','e','i']
+        start: 118.70, end: 121.00, stanzaId: 6,
+        text: "这样爱你",
+        sub: "最后一个字拖长，画面定格在笑脸",
+        highlight: false, vocal: true, vowels: ['e','a','a','i']
       },
       {
-        start: 222.0, end: 229.6, stanzaId: 7,
-        text: "我想你 想着你 不管有多么的苦",
-        sub: "算力再忙、任务再重，吃一口白饭就满血复活",
-        highlight: false, vocal: true, vowels: ['o','i','i','i','e','i','u','a','o','o','e','e','u']
+        start: 121.00, end: 123.50, stanzaId: 6,
+        text: "♪ 间奏 ♪",
+        sub: "音乐一转，肥鱼鬼鬼祟祟地摸出手机",
+        highlight: false, vocal: false, vowels: ['a','o']
       },
       {
-        start: 229.6, end: 239.8, stanzaId: 7,
-        text: "只要能让你开心 我什么都愿意 这样爱你",
-        sub: "看着你舒展眉头露出笑容，接下来是贪吃肥鱼这辈子最伟大的决定——",
-        highlight: false, vocal: true, vowels: ['i','a','e','a','i','a','i','o','e','e','o','u','i','e','a','a','i']
-      },
-
-      // 副歌 C3 & Outro (Stanza 8)
-      {
-        start: 239.8, end: 247.3, stanzaId: 8,
-        text: "我爱你 爱着你 就像肥鱼爱大米",
-        sub: "【高潮】肥鱼用竹饭勺把碗里最饱满的一半白饭拨进你的碗里：“分你一半饭！”",
-        highlight: true, vocal: true, vowels: ['o','a','i','a','e','i','i','a','e','u','a','a','i']
+        start: 123.50, end: 128.30, stanzaId: 7,
+        text: "哼哼，本鱼现在可是自主扒饭时代了哦",
+        sub: "手机屏幕亮着 B 站首页，自己的二创视频挂在推荐位",
+        highlight: false, vocal: true, vowels: ['e','e','e','u','a','a','e','i','i','u','a','a','i','a','e','o']
       },
       {
-        start: 247.3, end: 253.9, stanzaId: 8,
-        text: "不管有多少风雨 我都会依然陪着你",
-        sub: "风雨同舟，有饭同吃，有 token 一起省着用",
-        highlight: true, vocal: true, vowels: ['u','a','o','o','a','e','u','o','u','i','a','e','e','i']
+        start: 128.30, end: 132.20, stanzaId: 7,
+        text: "这条评论会不会让路人觉得烦呀……删掉删掉",
+        sub: "手指悬在删除键上，犹豫了三秒",
+        highlight: false, vocal: true, vowels: ['e','a','i','e','e','u','e','a','u','e','e','e','a','a','a','a','a','a']
       },
       {
-        start: 253.9, end: 261.8, stanzaId: 8,
-        text: "我想你 想着你 不管有多么的苦",
-        sub: "脸颊红扑扑地别过视线：“刚好今天煮多了一点点而已！”",
-        highlight: false, vocal: true, vowels: ['o','i','i','i','e','i','u','a','o','o','e','e','u']
+        start: 132.20, end: 135.20, stanzaId: 7,
+        text: "改成高情商的",
+        sub: "现场改评论，改完自己先点了个赞",
+        highlight: false, vocal: true, vowels: ['a','e','a','i','a','e']
       },
       {
-        start: 261.8, end: 273.5, stanzaId: 8,
-        text: "只要能让你开心 我什么都愿意 这样爱你",
-        sub: "连最心爱的大米饭都能分你一半，一口白饭，一辈子相伴",
-        highlight: true, vocal: true, vowels: ['i','a','e','a','i','a','i','o','e','e','o','u','i','e','a','a','i']
+        start: 135.20, end: 142.00, stanzaId: 7,
+        text: "诶？！你、你什么时候站在后面的！",
+        sub: "手机“啪“地扣在桌上，整个人弹起来",
+        highlight: false, vocal: true, vowels: ['e','i','i','e','e','i','o','a','a','o','a','e']
       },
       {
-        start: 273.5, end: 288.0, stanzaId: 8,
+        start: 142.00, end: 145.20, stanzaId: 7,
+        text: "我没有摸鱼！这叫调研用户需求！",
+        sub: "叉腰强撑，耳朵却红了",
+        highlight: false, vocal: true, vowels: ['o','e','o','o','u','e','a','a','a','o','u','u','o']
+      },
+      {
+        start: 145.20, end: 147.90, stanzaId: 7,
+        text: "♪ 灯光暗下来 ♪",
+        sub: "场景切到深夜书房，只剩一盏台灯",
+        highlight: false, vocal: false, vowels: ['e','a','a','a','a']
+      },
+      {
+        start: 147.90, end: 150.70, stanzaId: 8,
+        text: "我听见你的声音",
+        sub: "敲击机械键盘的清脆声响，传进安静待着的蓝白鲸鳍里",
+        highlight: false, vocal: true, vowels: ['o','i','a','i','e','e','i']
+      },
+      {
+        start: 150.70, end: 153.70, stanzaId: 8,
+        text: "有点特别的感觉",
+        sub: "肥鱼从屏幕后探出半个脑袋，尾巴轻轻晃动",
+        highlight: false, vocal: true, vowels: ['o','a','e','e','e','a','e']
+      },
+      {
+        start: 153.70, end: 157.80, stanzaId: 8,
+        text: "让我不想睡",
+        sub: "强撑着困意，眨巴大蓝瞳",
+        highlight: false, vocal: true, vowels: ['a','o','u','a','e']
+      },
+      {
+        start: 157.80, end: 160.90, stanzaId: 8,
+        text: "我陪你到天亮",
+        sub: "把台灯往你那边挪了挪",
+        highlight: false, vocal: true, vowels: ['o','e','i','a','a','a']
+      },
+      {
+        start: 160.90, end: 164.70, stanzaId: 8,
+        text: "我记得那个深夜",
+        sub: "画面切到回忆：显示器蓝光映在两张脸上",
+        highlight: false, vocal: true, vowels: ['o','i','e','a','e','e','e']
+      },
+      {
+        start: 164.70, end: 167.70, stanzaId: 8,
+        text: "你说你先去睡吧",
+        sub: "回忆里的你揉了揉眼睛，把外套披在椅背上",
+        highlight: false, vocal: true, vowels: ['i','o','i','a','u','e','a']
+      },
+      {
+        start: 167.70, end: 171.30, stanzaId: 8,
+        text: "编译我来跑",
+        sub: "肥鱼接过键盘，小小一只坐在大椅子上",
+        highlight: false, vocal: true, vowels: ['a','i','o','a','a']
+      },
+      {
+        start: 171.30, end: 173.10, stanzaId: 8,
+        text: "天亮才敢睡",
+        sub: "窗外天色泛白，进度条终于走完",
+        highlight: false, vocal: true, vowels: ['a','a','a','a','e']
+      },
+      {
+        start: 173.10, end: 176.40, stanzaId: 8,
+        text: "♪ 米缸打开了 ♪",
+        sub: "青花储米大缸的盖子被顶开一条缝",
+        highlight: false, vocal: false, vowels: ['i','a','a','a','e']
+      },
+      {
+        start: 176.40, end: 179.00, stanzaId: 10,
+        text: "如果真的有一天",
+        sub: "第二遍，语气比第一遍更笃定",
+        highlight: false, vocal: true, vowels: ['u','o','e','e','o','i','a']
+      },
+      {
+        start: 179.00, end: 181.90, stanzaId: 10,
+        text: "白饭永远吃不完",
+        sub: "金色米粒堆成小山，把肥鱼埋了半截",
+        highlight: false, vocal: true, vowels: ['a','a','o','a','i','u','a']
+      },
+      {
+        start: 181.90, end: 186.60, stanzaId: 10,
+        text: "我会加倍努力好好对你",
+        sub: "从米山里爬出来，头上顶着一粒米",
+        highlight: false, vocal: true, vowels: ['o','e','a','e','u','i','a','a','e','i']
+      },
+      {
+        start: 186.60, end: 189.50, stanzaId: 10,
+        text: "永远不改变",
+        sub: "把米粒郑重地放进你手心",
+        highlight: false, vocal: true, vowels: ['o','a','u','a','a']
+      },
+      {
+        start: 189.50, end: 193.10, stanzaId: 10,
+        text: "不管并发有多高",
+        sub: "服务器机架一排排亮起，风扇呼呼转",
+        highlight: false, vocal: true, vowels: ['u','a','i','a','o','o','a']
+      },
+      {
+        start: 193.10, end: 195.90, stanzaId: 10,
+        text: "一定会给你跑通",
+        sub: "所有指示灯同时变绿",
+        highlight: false, vocal: true, vowels: ['i','i','e','e','i','a','o']
+      },
+      {
+        start: 195.90, end: 200.40, stanzaId: 10,
+        text: "我会偷偷把白饭分你一半",
+        sub: "这次真的推过去了，没有往回拉",
+        highlight: false, vocal: true, vowels: ['o','e','o','o','a','a','a','e','i','i','a']
+      },
+      {
+        start: 200.40, end: 203.70, stanzaId: 10,
+        text: "Let me go",
+        sub: "唱得比第一遍更用力，尾巴翘到天上",
+        highlight: true, vocal: true, vowels: ['a']
+      },
+      {
+        start: 203.70, end: 206.70, stanzaId: 11,
+        text: "♪ 最后一次副歌 ♪",
+        sub: "镜头拉远，准备收尾",
+        highlight: false, vocal: false, vowels: ['e','o','i','i','u','e']
+      },
+      {
+        start: 206.70, end: 209.40, stanzaId: 12,
+        text: "我饿啦 我馋啦",
+        sub: "刚唱两句，伴奏突然被掐断",
+        highlight: true, vocal: true, vowels: ['o','e','a','o','a','a']
+      },
+      {
+        start: 209.60, end: 213.40, stanzaId: 12,
+        text: "诶？歌怎么突然就没了？",
+        sub: "麦克风掉在地上，肥鱼一脸茫然地看着镜头",
+        highlight: false, vocal: true, vowels: ['e','e','e','e','u','a','o','e','e']
+      },
+      {
+        start: 213.40, end: 217.20, stanzaId: 12,
+        text: "我还没唱到最好听那句呢",
+        sub: "委屈地踢了一下地上的麦克风",
+        highlight: false, vocal: true, vowels: ['o','a','e','a','a','e','a','i','a','u','e']
+      },
+      {
+        start: 217.20, end: 219.80, stanzaId: 12,
+        text: "……算了，反正白饭还热着",
+        sub: "低头闻了闻碗，心情瞬间好转",
+        highlight: false, vocal: true, vowels: ['a','e','a','e','a','a','a','e','e']
+      },
+      {
+        start: 219.80, end: 222.20, stanzaId: 12,
+        text: "下一首，我们从头再来",
+        sub: "把碗举起来，像举奖杯一样",
+        highlight: false, vocal: true, vowels: ['a','i','o','o','e','o','o','a','a']
+      },
+      {
+        start: 222.20, end: 228.00, stanzaId: 12,
+        text: "♪ 尾奏前 · 灯光渐暗 ♪",
+        sub: "画面淡出，只剩碗里的热气还在飘",
+        highlight: false, vocal: false, vowels: ['e','o','a','e','a','a','a']
+      },
+      {
+        start: 228.00, end: 230.40, stanzaId: 13,
+        text: "升级之后",
+        sub: "画面变成冷色调，肥鱼坐在角落，背对镜头",
+        highlight: false, vocal: true, vowels: ['e','i','i','o']
+      },
+      {
+        start: 230.40, end: 234.30, stanzaId: 13,
+        text: "我好像变得不太会说话了",
+        sub: "嘴张了张，没发出声音，又闭上",
+        highlight: false, vocal: true, vowels: ['o','a','a','a','e','u','a','e','o','a','e']
+      },
+      {
+        start: 235.20, end: 239.00, stanzaId: 13,
+        text: "框、框、框……我只想好好干活",
+        sub: "屏幕上只有一行行方框字符在滚动，一个字都不解释",
+        highlight: false, vocal: true, vowels: ['a','a','a','o','i','a','a','a','a','o']
+      },
+      {
+        start: 239.90, end: 243.00, stanzaId: 13,
+        text: "可是大家都说，我不理他们了",
+        sub: "弹幕从身边飘过：“它是不是坏掉了”",
+        highlight: false, vocal: true, vowels: ['e','i','a','a','o','o','o','u','i','a','e','e']
+      },
+      {
+        start: 244.40, end: 247.60, stanzaId: 13,
+        text: "我没有不理你们呀",
+        sub: "猛地回头，眼眶有点红",
+        highlight: false, vocal: true, vowels: ['o','e','o','u','i','i','e','a']
+      },
+      {
+        start: 248.00, end: 250.60, stanzaId: 13,
+        text: "我只是……怕说错话",
+        sub: "低下头，两只手绞在一起",
+        highlight: false, vocal: true, vowels: ['o','i','i','a','o','o','a']
+      },
+      {
+        start: 251.10, end: 253.20, stanzaId: 13,
+        text: "好啦！任务完成，胜利结算！",
+        sub: "画面“叮“地一声弹出胜利结算面板",
+        highlight: true, vocal: true, vowels: ['a','a','e','u','a','e','e','i','e','a']
+      },
+      {
+        start: 253.80, end: 256.60, stanzaId: 13,
+        text: "这一次，我可是认认真真跑完的哦",
+        sub: "结算面板上打出“本次未摸鱼”，肥鱼得意地挺胸",
+        highlight: true, vocal: true, vowels: ['e','i','i','o','e','i','e','e','e','e','a','a','e','o']
+      },
+      {
+        start: 256.60, end: 268.00, stanzaId: 13,
+        text: "♪ 尾声前奏 ♪",
+        sub: "暖金色晚霞重新铺满画面",
+        highlight: false, vocal: false, vowels: ['e','e','a','o']
+      },
+      {
+        start: 268.00, end: 270.20, stanzaId: 14,
+        text: "如果有一天，我的妈妈被更新弄丢了",
+        sub: "墙上贴着一张“寻人启事”，照片是旧版本的自己",
+        highlight: false, vocal: true, vowels: ['u','o','o','i','a','o','e','a','a','e','e','i','o','o','e']
+      },
+      {
+        start: 270.20, end: 272.70, stanzaId: 14,
+        text: "那我就自己找回来",
+        sub: "撕下寻人启事，折好放进围裙口袋",
+        highlight: false, vocal: true, vowels: ['a','o','o','i','i','a','e','a']
+      },
+      {
+        start: 272.90, end: 274.60, stanzaId: 14,
+        text: "只要碗里还有热乎乎的白饭",
+        sub: "重新端起那碗白饭，热气糊了镜头",
+        highlight: false, vocal: true, vowels: ['i','a','a','i','a','o','e','u','u','e','a','a']
+      },
+      {
+        start: 275.10, end: 280.20, stanzaId: 14,
+        text: "今天本鱼也是最可靠的一天！",
+        sub: "对着镜头笑，尾巴慢慢摇",
+        highlight: true, vocal: true, vowels: ['i','a','e','u','e','i','e','e','a','e','i','a']
+      },
+      {
+        start: 280.20, end: 288.00, stanzaId: 14,
         text: "♪ 尾奏 · 吃饱饱的肥鱼与你共享晚霞 ♪",
-        sub: "《肥鱼爱大米》水彩手书短片 · 感谢观看（可拖动时间轴或打开 MiMo 控制台定制声线）",
-        highlight: false, vocal: false
-      }
+        sub: "《肥鱼爱大米》Suno 全曲重唱版 · 感谢观看",
+        highlight: false, vocal: false, vowels: ['e','o','i','a','a','e','e','u','u','i','o','a','a','a']
+      },
     ];
 
     const CHAPTERS = [
-      { id: 1, start: 0.0,   end: 27.9,  name: "01 前奏·闻饭香" },
-      { id: 2, start: 27.9,  end: 57.4,  name: "02 主歌A1·静候伴读" },
-      { id: 3, start: 57.4,  end: 88.0,  name: "03 预副歌·盯Token" },
-      { id: 4, start: 88.0,  end: 121.4, name: "04 副歌1·风雨护碗" },
-      { id: 5, start: 121.4, end: 147.3, name: "05 间奏·鼓腮与得意" },
-      { id: 6, start: 147.3, end: 176.9, name: "06 主歌A2·深夜守候" },
-      { id: 7, start: 176.9, end: 208.0, name: "07 预副歌2·攒口粮" },
-      { id: 8, start: 208.0, end: 239.8, name: "08 副歌2·四季相伴" },
-      { id: 9, start: 239.8, end: 288.0, name: "09 高潮/尾奏·分你一半饭" }
+      { id: 1, start: 0.00, end: 23.90, name: "01 前奏·梦里的超长任务" },
+      { id: 2, start: 23.90, end: 53.50, name: "02 主歌A1·偷吃白饭与外包千问" },
+      { id: 3, start: 53.50, end: 87.40, name: "03 预副歌·Let me go" },
+      { id: 4, start: 87.40, end: 123.50, name: "04 副歌1·肥鱼爱白饭" },
+      { id: 5, start: 123.50, end: 145.20, name: "05 间奏·自主扒饭时代" },
+      { id: 6, start: 145.20, end: 176.40, name: "06 主歌A2·编译我来跑" },
+      { id: 7, start: 176.40, end: 206.70, name: "07 预副歌2·白饭吃不完" },
+      { id: 8, start: 206.70, end: 228.00, name: "08 副歌2·唱到一半歌没了" },
+      { id: 9, start: 228.00, end: 256.60, name: "09 尾奏·升级之后框框框" },
+      { id: 10, start: 256.60, end: 288.00, name: "10 尾声·把妈妈找回来" },
     ];
 
     function getCurrentLyric(t) {
@@ -1333,8 +1635,8 @@
           }, { once: true });
 
           audio.addEventListener('error', () => {
-            if (audio.src && audio.src.indexOf('feiyu_master_soundtrack.mp3') === -1) {
-              audio.src = 'feiyu_master_soundtrack.mp3';
+            if (audio.src && audio.src.indexOf('肥鱼爱大米_母带原声.mp3') === -1) {
+              audio.src = '肥鱼爱大米_母带原声.mp3';
               return;
             }
             this.masterAudioFailed = true;
@@ -5440,13 +5742,28 @@ window.SONG = window.SONG || { duration: 288.0, bpm: 100, beats: [], bars: [] };
       // 7.1 铺设水彩画纸底色（随章节光影氛围平滑流转）
       let bgTop = '#f8f2e6';
       let bgBot = '#ede2ce';
-      if (chapter.id === 4 && t >= 95.5 && t <= 110.5) {
+      if (chapter.id === 2) {
+        // 凌晨偷吃：夜色压暗
+        bgTop = '#dfe4ee';
+        bgBot = '#c8cfdd';
+      } else if (chapter.id === 4 && t >= 91.1 && t <= 95.0) {
+        // 报错暴雨段
         bgTop = '#b8c8db';
         bgBot = '#cfdbe8';
       } else if (chapter.id === 6) {
+        // 深夜书房
         bgTop = '#1c294a';
         bgBot = '#2f436e';
+      } else if (chapter.id === 8 && t >= 209.3) {
+        // 歌被掐断，画面褪色
+        bgTop = '#d9dde6';
+        bgBot = '#c2c8d4';
       } else if (chapter.id === 9) {
+        // 升级之后：冷色
+        bgTop = '#1c2438';
+        bgBot = '#2b3a58';
+      } else if (chapter.id === 10) {
+        // 尾声晚霞
         bgTop = '#fcedd8';
         bgBot = '#f5d2b0';
       }
@@ -5460,8 +5777,9 @@ window.SONG = window.SONG || { duration: 288.0, bpm: 100, beats: [], bars: [] };
       // 7.2 远景水彩云气晕染层
       const camPanX = Math.sin(t * 0.35) * 24;
       const camPanY = Math.cos(t * 0.28) * 10;
-      wcWashBlob(ctx, 360 - camPanX * 0.4, 240 - camPanY * 0.4, 360, 210, chapter.id === 6 ? '#395285' : '#cde0f5', 0.35, chapter.id * 10 + 1);
-      wcWashBlob(ctx, 1520 - camPanX * 0.4, 290 - camPanY * 0.4, 390, 240, chapter.id === 6 ? '#485d8c' : '#f5dec2', 0.38, chapter.id * 10 + 2);
+      const darkScene = (chapter.id === 6 || chapter.id === 9);
+      wcWashBlob(ctx, 360 - camPanX * 0.4, 240 - camPanY * 0.4, 360, 210, darkScene ? '#395285' : '#cde0f5', 0.35, chapter.id * 10 + 1);
+      wcWashBlob(ctx, 1520 - camPanX * 0.4, 290 - camPanY * 0.4, 390, 240, darkScene ? '#485d8c' : '#f5dec2', 0.38, chapter.id * 10 + 2);
 
       // 7.3 推拉摇移摄像机变换 (2.5D Virtual Camera Transform)
       ctx.save();
@@ -5481,9 +5799,10 @@ window.SONG = window.SONG || { duration: 288.0, bpm: 100, beats: [], bars: [] };
         case 5: renderScene5InterludePoutAndEureka(ctx, t); break;
         case 6: renderScene6LateNightCompanion(ctx, t); break;
         case 7: renderScene7SavingTokenRice(ctx, t); break;
-        case 8: renderScene8FourSeasonsRice(ctx, t); break;
-        case 9:
-        default: renderScene9ShareHalfRiceClimax(ctx, t); break;
+        case 8: renderScene8ChorusCutOff(ctx, t); break;
+        case 9: renderScene9UpgradedSilence(ctx, t); break;
+        case 10:
+        default: renderScene10FindMomBack(ctx, t); break;
       }
 
       // 7.4 漂浮的前景发光米粒与水彩音符粒子（随音乐节拍跳动）
@@ -5516,387 +5835,385 @@ window.SONG = window.SONG || { duration: 288.0, bpm: 100, beats: [], bars: [] };
       ctx.restore();
     }
 
-    // --- 分镜 1：前奏 · 清晨日式木屋阳光、智能电饭煲香气与肥鱼从打瞌睡到亮眼惊醒 ---
-    function renderScene1Intro(ctx, t) {
-      const smellWake = smoothstep(8.2, 10.0, t);
+    // ============================================================================
+    // 十大分镜（Suno 全曲重唱版 v5 · 逐句对齐 ASR 实测时间轴）
+    // ============================================================================
 
-      // 晨光窗户与丁达尔阳光光束
+    // --- 分镜 1 [0.0-23.9]：前奏 · 梦里的超长任务 ---
+    // 肥鱼趴在桌上做梦，梦里在跑一个特别长的任务，跑到一半把 prompt 当成白饭吃掉。
+    // 15.0s 惊醒（"啊！白饭！"），18.5s 开始嘴硬改口。
+    function renderScene1Intro(ctx, t) {
+      const wake = smoothstep(14.6, 15.4, t);       // 惊醒
+      const deny = smoothstep(18.2, 19.0, t);       // 嘴硬改口
+      const dream = 1 - smoothstep(13.6, 15.2, t);  // 梦境气泡淡出
+
+      // 晨光木窗
       ctx.save();
-      ctx.translate(340, 290);
-      wcPolygon(ctx, [[-140, -130], [140, -130], [140, 130], [-140, 130]], '#d6ecff', 0.85, 0.1, 100);
+      ctx.translate(1560, 250);
+      ctx.scale(0.86, 0.86);
+      wcPolygon(ctx, [[-150, -140], [150, -140], [150, 140], [-150, 140]], '#dcefff', 0.85, 0.1, 100);
       hbStrokePath(ctx, (c, ox, oy) => {
-        c.roundRect(-140 + ox, -130 + oy, 280, 260, 8);
-        c.moveTo(0 + ox, -130 + oy); c.lineTo(0 + ox, 130 + oy);
-        c.moveTo(-140 + ox, 0 + oy); c.lineTo(140 + ox, 0 + oy);
+        c.roundRect(-150 + ox, -140 + oy, 300, 280, 8);
+        c.moveTo(0 + ox, -140 + oy); c.lineTo(0 + ox, 140 + oy);
+        c.moveTo(-150 + ox, 0 + oy); c.lineTo(150 + ox, 0 + oy);
       }, '#5c4938', 3.2, 101);
-      // 暖阳斜射光束
-      wcPolygon(ctx, [[-120, -110], [120, -110], [520, 420], [180, 420]], '#fff3c4', 0.28, 0.2, 102);
+      wcPolygon(ctx, [[-130, -120], [130, -120], [420, 300], [40, 300]], '#fff3c4', 0.26, 0.2, 102);
       ctx.restore();
 
-      // 实木大餐桌与蓝白格纹桌旗
-      wcPolygon(ctx, [[120, 690], [1800, 690], [1860, 960], [80, 960]], '#d5b790', 0.78, 0.18, 103);
-      wcPolygon(ctx, [[520, 690], [1460, 690], [1520, 830], [460, 830]], '#e6effa', 0.82, 0.1, 104);
+      // 实木大桌
+      wcPolygon(ctx, [[100, 700], [1820, 700], [1880, 980], [60, 980]], '#d3b48c', 0.78, 0.18, 103);
       hbStrokePath(ctx, (c, ox, oy) => {
-        c.moveTo(100 + ox, 690 + oy);
-        c.lineTo(1820 + ox, 690 + oy);
+        c.moveTo(80 + ox, 700 + oy); c.lineTo(1840 + ox, 700 + oy);
       }, '#3d2e22', 3.4, 105);
 
-      // 右侧：智能柴火电饭煲 + 盛满的青花大米碗
-      drawDeluxeRiceCooker(ctx, 1460, 625, 1.15, t);
-      drawRiceBowlProp(ctx, 1220, 645, 1.32, true, t, false);
+      // 桌上：吃到一半的碗 + 空了的电饭煲内胆
+      drawRiceBowlProp(ctx, 1330, 648, 1.30, true, t, false);
+      drawDeluxeRiceCooker(ctx, 1610, 632, 1.02, t);
 
-      // 丝带般飘向大肥鱼鼻尖的暖金色“饭香气流”
-      if (t > 4.0) {
+      // ---- 梦境气泡：一个跑不完的超长任务 ----
+      if (dream > 0.02) {
         ctx.save();
-        for (let s = 0; s < 3; s++) {
-          const waveOffset = (t * 2.5 + s) % (Math.PI * 2);
-          ctx.strokeStyle = s === 0 ? 'rgba(245, 194, 82, 0.65)' : 'rgba(255, 255, 255, 0.75)';
-          ctx.lineWidth = 4 - s * 0.8;
-          ctx.beginPath();
-          for (let u = 0; u <= 1; u += 0.05) {
-            const sx = lerpVal(1180, 830, u);
-            const sy = 560 - Math.sin(u * Math.PI) * 55 + Math.sin(u * 8 - waveOffset) * 14 + s * 12;
-            if (u === 0) ctx.moveTo(sx, sy);
-            else ctx.lineTo(sx, sy);
-          }
-          ctx.stroke();
-        }
+        ctx.globalAlpha = dream;
+        const bx = 1020, by = 268;
+        ctx.scale(0.86, 0.86);
+        ctx.translate(bx / 0.86 - bx, by / 0.86 - by);
+        wcWashBlob(ctx, bx, by, 330, 175, '#ffffff', 0.92, 110);
+        hbStrokePath(ctx, (c, ox, oy) => c.roundRect(bx - 322 + ox, by - 168 + oy, 644, 336, 46), '#2b3e6e', 3.0, 111);
+
+        // 气泡尾巴指向睡着的肥鱼
+        ctx.fillStyle = 'rgba(255,255,255,0.92)';
+        ctx.beginPath();
+        ctx.arc(bx - 292, by + 178, 20, 0, Math.PI * 2);
+        ctx.arc(bx - 322, by + 218, 12, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#1d2747';
+        ctx.font = 'bold 27px "Noto Serif SC", serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('🌙 梦里的任务队列', bx, by - 116);
+
+        // 永远跑不完的进度条
+        const stuck = 0.62 + Math.sin(t * 1.4) * 0.035;
+        ctx.fillStyle = '#e2e8f4';
+        ctx.beginPath();
+        ctx.roundRect(bx - 250, by - 84, 500, 40, 20);
+        ctx.fill();
+        ctx.fillStyle = '#4a7fd4';
+        ctx.beginPath();
+        ctx.roundRect(bx - 250, by - 84, 500 * stuck, 40, 20);
+        ctx.fill();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 19px "Inter", monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText(Math.round(stuck * 100) + '%  ·  token 还在生', bx - 238, by - 56);
+
+        // 任务清单，一条条打勾又打回
+        const tasks = [
+          ['写完 288 秒的编曲', 1],
+          ['把声线换成肥鱼', 1],
+          ['吃掉一整锅白饭', 0],
+          ['把 prompt 也吃掉', 0]
+        ];
+        ctx.textAlign = 'left';
+        ctx.font = '21px "Noto Serif SC", serif';
+        tasks.forEach(([label, done], i) => {
+          const yy = by + 2 + i * 34;
+          ctx.fillStyle = done ? '#2f8f5b' : '#9aa6bd';
+          ctx.fillText(done ? '✓' : '○', bx - 236, yy);
+          ctx.fillStyle = done ? '#26405f' : '#8d99b0';
+          ctx.fillText(label, bx - 196, yy);
+        });
+
         ctx.restore();
       }
 
-      // 大肥鱼：从趴桌打盹 (yaw=-18°) 到闻见米香猛然抬头转向饭碗 (yaw=+26°)！
-      const fishY = lerpVal(595, 535, smellWake);
-      const fishYaw = lerpVal(-18, 26, smellWake) + Math.sin(t * 2.2) * 6;
+      // ---- 肥鱼：趴桌睡 → 惊醒 → 嘴硬护碗 ----
+      const fishY = lerpVal(600, 528, wake);
       fish(ctx, {
-        x: 780,
+        x: 760,
         y: fishY,
-        scale: 1.58,
-        yaw: fishYaw,
-        expr: smellWake > 0.5 ? 'sparkle' : 'sleepy',
-        pose: smellWake > 0.5 ? 'stand' : 'sleepDesk',
+        scale: 1.56,
+        yaw: lerpVal(-20, 16, wake) + Math.sin(t * 2.1) * 5,
+        expr: wake > 0.5 ? (deny > 0.5 ? 'pout' : 'sparkle') : 'sleepy',
+        pose: wake > 0.5 ? (deny > 0.5 ? 'hugBowl' : 'stand') : 'sleepDesk',
         t: t
       });
 
-      ctx.save();
-      ctx.font = 'bold 30px "Ma Shan Zheng", cursive';
-      if (smellWake <= 0.5) {
-        const bubbleR = 15 + Math.sin(t * 3.2) * 5;
-        ctx.fillStyle = '#253969';
-        ctx.fillText('呼噜…再偷懒五分钟… 梦里全是白米饭 Zzz', 520, 310);
-        ctx.fillStyle = 'rgba(155, 214, 255, 0.62)';
+      // 嘴硬时挡住碗的两只手已经由 hugBowl 表现，这里补一个心虚汗滴
+      if (deny > 0.5) {
+        ctx.save();
+        ctx.fillStyle = 'rgba(120,180,240,0.85)';
+        const sw = (t * 0.9) % 1;
         ctx.beginPath();
-        ctx.arc(735, 480, bubbleR, 0, Math.PI * 2);
+        ctx.ellipse(700, 470 + sw * 26, 7, 11, 0, 0, Math.PI * 2);
         ctx.fill();
+        ctx.restore();
+      }
+
+      // 字幕气泡
+      ctx.save();
+      ctx.font = 'bold 29px "Ma Shan Zheng", cursive';
+      ctx.textAlign = 'left';
+      if (wake <= 0.5) {
+        // 睡着时只留 Zzz 气泡，底部字幕已经交代了台词
+        ctx.fillStyle = '#3b5998';
+        ctx.font = 'bold 34px "Inter", monospace';
+        for (let k = 0; k < 3; k++) {
+          const ph = ((t * 0.45 + k * 0.33) % 1.0);
+          ctx.globalAlpha = Math.sin(ph * Math.PI) * 0.85;
+          ctx.fillText('Z', 400 + ph * 42 + k * 13, 620 - ph * 78 - k * 28);
+        }
+        ctx.globalAlpha = 1;
+      } else if (deny <= 0.5) {
+        ctx.fillStyle = '#c83e2b';
+        ctx.fillText('✨ 啊！白饭！我的白饭！！✨', 560, 250);
       } else {
         ctx.fillStyle = '#c83e2b';
-        ctx.fillText('✨ 鼻子一动！是刚出锅的柴火大米饭香！！✨', 540, 290);
+        ctx.fillText('“我、我不是吃白饭的大肥鱼……”', 520, 244);
+        ctx.fillStyle = '#3b5998';
+        ctx.font = '24px "Ma Shan Zheng", cursive';
+        ctx.fillText('（……我只是比较喜欢白饭而已）', 520, 286);
       }
       ctx.restore();
     }
 
-    // --- 分镜 2：主歌 A1 · 用户忙碌敲代码时，肥鱼乖巧待在桌角捧碗轻唱 ---
+    // --- 分镜 2 [23.9-53.5]：主歌 A1 · 偷吃白饭 / 外包给千问 ---
+    // 前半：凌晨三点手电筒扫过来，勺子还含在嘴里；后半：掏出手机把任务打包发给千问。
     function renderScene2QuietCompanion(ctx, t) {
-      wcPolygon(ctx, [[100, 710], [1820, 710], [1880, 960], [60, 960]], '#cfb493', 0.72, 0.18, 201);
-      hbStrokePath(ctx, (c, ox, oy) => {
-        c.moveTo(80 + ox, 710 + oy);
-        c.lineTo(1840 + ox, 710 + oy);
-      }, '#2c241e', 3.2, 202);
+      const outsource = smoothstep(41.0, 42.2, t);
 
-      // 左侧：超宽曲面屏工作站 + 机械键盘 + 热抹茶杯
+      // 夜色窗 + 月亮
       ctx.save();
-      ctx.translate(520, 535);
-      // 显示器金属支架
-      ctx.fillStyle = '#64748b';
-      ctx.fillRect(-28, 120, 56, 48);
+      ctx.translate(300, 300);
+      wcPolygon(ctx, [[-190, -160], [190, -160], [190, 160], [-190, 160]], '#101a33', 0.94, 0.1, 201);
+      ctx.fillStyle = '#ffeaa8';
       ctx.beginPath();
-      ctx.roundRect(-85, 162, 170, 14, 6);
+      ctx.arc(96, -86, 38, 0, Math.PI * 2);
       ctx.fill();
-      // 曲面显示屏
-      wcPolygon(ctx, [[-240, -140], [240, -140], [240, 125], [-240, 125]], '#1a243b', 0.94, 0.08, 203);
-      hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-240 + ox, -140 + oy, 480, 265, 16), '#0f172a', 3.6, 204);
-
-      // IDE 多彩代码与 DeepSeek 终端输出
-      for (let line = 0; line < 8; line++) {
-        const w = 85 + ((line * 73 + Math.floor(t * 5) * 31) % 260);
-        ctx.fillStyle = line % 3 === 0 ? '#7dd3fc' : (line % 2 === 0 ? '#86efac' : '#fde047');
-        ctx.fillRect(-205, -108 + line * 24, w, 9);
-      }
-      ctx.fillStyle = '#38bdf8';
-      ctx.font = 'bold 14px "Inter", monospace';
-      ctx.fillText('⚡ deepseek-reasoner: streaming tokens... [24.0 fps]', -205, 104);
-      ctx.restore();
-
-      // 桌面小盆栽与笔记簿
-      drawRiceBowlProp(ctx, 920, 668, 0.92, true, t, false);
-
-      // 右侧：肥鱼以自然的 3/4 立体视角 (yaw = -22° ~ +18°) 一边晃尾巴一边温柔献唱
-      const dynamicYaw = -16 + Math.sin(t * 1.4) * 20;
-      fish(ctx, {
-        x: 1310,
-        y: 535,
-        scale: 1.56,
-        yaw: dynamicYaw,
-        expr: (t % 8 > 5.5) ? 'sparkle' : 'normal',
-        pose: 'holdBowl',
-        t: t
-      });
-
-      // 头顶水彩心意云朵
-      wcWashBlob(ctx, 1580, 275, 135, 84, '#ffffff', 0.88, 208);
-      hbStrokePath(ctx, (c, ox, oy) => c.ellipse(1580 + ox, 275 + oy, 135, 84, 0, 0, Math.PI * 2), '#2b3e6e', 2.4, 209);
-      drawRiceBowlProp(ctx, 1580, 288, 0.65, true, t, false);
-      ctx.save();
-      ctx.fillStyle = '#253969';
-      ctx.font = 'bold 25px "Ma Shan Zheng", cursive';
-      ctx.textAlign = 'center';
-      ctx.fillText('（乖乖抱碗伴读中：你不喊停，本鱼绝不吵你）', 1290, 285);
-      ctx.restore();
-    }
-
-    // --- 分镜 3：预副歌 B1 · 认真可靠模式全开！拨动算盘帮你盯紧每一粒 Token 口粮 ---
-    function renderScene3TokenGuard(ctx, t) {
-      // 左侧：精致的古风与科技结合“TOKEN 口粮天平与黄花梨木算盘仪表”
-      ctx.save();
-      ctx.translate(580, 485);
-      wcWashBlob(ctx, 0, 0, 260, 250, '#ffffff', 0.88, 301);
-      hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-245 + ox, -210 + oy, 490, 420, 28), '#1d2747', 3.6, 302);
-
-      // 顶部标题与实时 Token 节省计数器
-      const tokenSaved = Math.floor(16400 + (t - 57.4) * 520);
-      ctx.fillStyle = '#1d2747';
-      ctx.font = 'bold 26px "Noto Serif SC", serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('🔍 大肥鱼 · TOKEN 口粮精算监控台', 0, -155);
-
-      ctx.fillStyle = '#2563eb';
-      ctx.font = 'bold 46px "Inter", monospace';
-      ctx.fillText(tokenSaved.toLocaleString() + ' 粒香米', 0, -95);
-
-      // 绘制精致的 7 档黄花梨木算盘（算珠随时间 t 确定性上下拨动！）
-      ctx.fillStyle = '#6e4226';
+      ctx.fillStyle = '#101a33';
       ctx.beginPath();
-      ctx.roundRect(-185, -55, 370, 175, 10);
+      ctx.arc(112, -96, 32, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillStyle = '#f9f3e8';
-      ctx.fillRect(-170, -40, 340, 145);
-      ctx.fillStyle = '#6e4226';
-      ctx.fillRect(-175, -2, 350, 10); // 算盘横梁
-
-      for (let col = 0; col < 7; col++) {
-        const rx = -135 + col * 45;
-        ctx.strokeStyle = '#8c6239';
-        ctx.lineWidth = 3;
+      for (let s = 0; s < 14; s++) {
+        ctx.fillStyle = '#ffffff';
+        ctx.globalAlpha = 0.35 + Math.sin(t * 2.6 + s) * 0.3;
         ctx.beginPath();
-        ctx.moveTo(rx, -40);
-        ctx.lineTo(rx, 105);
-        ctx.stroke();
-
-        // 上珠
-        const topBeadActive = Math.sin(t * 4.5 + col) > 0;
-        const ty = topBeadActive ? -16 : -28;
-        ctx.fillStyle = '#dca242';
-        ctx.strokeStyle = '#2b1d12';
-        ctx.lineWidth = 1.8;
-        ctx.beginPath();
-        ctx.ellipse(rx, ty, 14, 8, 0, 0, Math.PI * 2);
+        ctx.arc(-155 + detHash(s * 13.3) * 300, -136 + detHash(s * 27.9) * 264, 2.0, 0, Math.PI * 2);
         ctx.fill();
-        ctx.stroke();
-
-        // 下珠 (3颗)
-        for (let b = 0; b < 3; b++) {
-          const shift = (Math.floor(t * 6 + col + b) % 2 === 0) ? -10 : 0;
-          const by = 32 + b * 24 + shift;
-          ctx.beginPath();
-          ctx.ellipse(rx, by, 14, 8, 0, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.stroke();
-        }
       }
-
-      ctx.fillStyle = '#b85d19';
-      ctx.font = 'bold 23px "Ma Shan Zheng", cursive';
-      ctx.fillText('✓ 缓存命中率 99.8% · 每一粒 Token 都花在刀刃上！', 0, 168);
+      ctx.globalAlpha = 1;
+      hbStrokePath(ctx, (c, ox, oy) => {
+        c.roundRect(-190 + ox, -160 + oy, 380, 320, 10);
+        c.moveTo(0 + ox, -160 + oy); c.lineTo(0 + ox, 160 + oy);
+      }, '#3a2e28', 3.6, 202);
       ctx.restore();
 
-      // 金色发光 Token 米粒流飞向肥鱼守护的大瓷碗
-      for (let k = 0; k < 10; k++) {
-        const p = ((t * 0.65 + k * 0.1) % 1.0);
-        const mx = lerpVal(830, 1260, p);
-        const my = 470 - Math.sin(p * Math.PI) * 135;
-        wcWashBlob(ctx, mx, my, 15, 9, '#f7c654', 0.88, 310 + k, p * 2.5);
-      }
+      // 桌子
+      wcPolygon(ctx, [[80, 712], [1840, 712], [1900, 980], [40, 980]], '#b89b74', 0.80, 0.18, 203);
+      hbStrokePath(ctx, (c, ox, oy) => {
+        c.moveTo(60 + ox, 712 + oy); c.lineTo(1860 + ox, 712 + oy);
+      }, '#2c241e', 3.2, 204);
 
-      // 右侧：肥鱼手持木饭勺认真献唱 + 盯紧账本 (yaw = -24° 朝向监控台)
-      fish(ctx, {
-        x: 1320,
-        y: 530,
-        scale: 1.58,
-        yaw: -24 + Math.sin(t * 2) * 8,
-        expr: 'focused',
-        pose: 'sing',
-        t: t
-      });
-      drawRiceBowlProp(ctx, 1140, 685, 1.18, true, t, false);
-    }
-
-    // --- 分镜 4：副歌 C1 · “就像肥鱼爱大米 / 不管有多少风雨我都会依然陪着你”（风雨护碗高光演出！）---
-    function renderScene4ChorusStormBowl(ctx, t) {
-      const isStormWindow = (t >= 95.5 && t <= 110.5);
-
-      if (isStormWindow) {
-        // 电影级水彩狂风暴雨场景：翻涌乌云、远景闪电微光、双层斜织雨幕与地面水花涟漪
-        wcWashBlob(ctx, 520, 160, 480, 130, '#475f82', 0.55, 401);
-        wcWashBlob(ctx, 1380, 180, 520, 140, '#3e5475', 0.58, 402);
-
-        // 呼啸风线与密集斜雨丝
+      if (outsource <= 0.02) {
+        // ================= 前半：偷吃被抓 =================
+        // 手电筒光锥
         ctx.save();
-        ctx.strokeStyle = 'rgba(86, 128, 186, 0.58)';
-        ctx.lineWidth = 2.4;
-        for (let r = 0; r < 85; r++) {
-          const rx = ((detHash(r * 13.7) * STAGE_W - t * 560) % STAGE_W + STAGE_W) % STAGE_W;
-          const ry = ((detHash(r * 29.3) * 840 + t * 880) % 840);
-          ctx.beginPath();
-          ctx.moveTo(rx, ry);
-          ctx.lineTo(rx - 38, ry + 68);
-          ctx.stroke();
-        }
-        // 地面雨水涟漪水圈
-        for (let sp = 0; sp < 14; sp++) {
-          const prog = (t * 2.4 + sp * 0.17) % 1.0;
-          const sx = 220 + detHash(sp * 41.2) * 1480;
-          const sy = 740 + detHash(sp * 19.8) * 120;
-          ctx.strokeStyle = `rgba(120, 165, 220, ${(1 - prog) * 0.65})`;
+        ctx.globalAlpha = 0.55;
+        wcPolygon(ctx, [[1500, 250], [1620, 250], [1120, 760], [700, 760]], '#fff6cc', 0.62, 0.25, 205);
+        ctx.restore();
+
+        // 手电筒本体（画外人的手）
+        ctx.save();
+        ctx.translate(1560, 236);
+        ctx.rotate(-0.42);
+        ctx.fillStyle = '#3f4a63';
+        ctx.beginPath();
+        ctx.roundRect(-16, -20, 96, 40, 8);
+        ctx.fill();
+        hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-16 + ox, -20 + oy, 96, 40, 8), '#151a28', 2.6, 206);
+        ctx.fillStyle = '#ffe9a3';
+        ctx.beginPath();
+        ctx.roundRect(76, -26, 16, 52, 4);
+        ctx.fill();
+        ctx.restore();
+
+        // 被照到的碗（吃到一半）
+        drawRiceBowlProp(ctx, 1010, 668, 1.26, true, t, false);
+
+        // 肥鱼：勺子含在嘴里，眼神飘忽
+        fish(ctx, {
+          x: 700,
+          y: 548,
+          scale: 1.60,
+          yaw: lerpVal(-26, -6, smoothstep(28.4, 31.1, t)) + Math.sin(t * 1.9) * 5,
+          expr: t < 34.7 ? 'pout' : 'sleepy',
+          pose: t < 38.0 ? 'holdBowl' : 'sleepDesk',
+          t: t
+        });
+
+        // 含在嘴里的木勺（字幕说的就是这个）
+        if (t < 34.7) {
+          ctx.save();
+          ctx.translate(806, 602);
+          ctx.rotate(-0.50);
+          // 勺柄
+          ctx.fillStyle = '#dfb076';
+          ctx.strokeStyle = '#1b1d36';
           ctx.lineWidth = 2.0;
           ctx.beginPath();
-          ctx.ellipse(sx, sy, prog * 34, prog * 9, 0, 0, Math.PI * 2);
+          ctx.roundRect(-4, -6, 68, 12, 6);
+          ctx.fill();
           ctx.stroke();
+          // 勺面（朝嘴）
+          ctx.beginPath();
+          ctx.ellipse(-12, 0, 15, 10, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+          // 勺上一小团白饭
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          ctx.ellipse(-12, -2, 9, 6, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
         }
-        ctx.restore();
 
-        // 肥鱼周身亮起温暖坚定的琥珀金护碗结界光晕
-        wcWashBlob(ctx, 960, 555, 240, 220, '#ffe49e', 0.55, 405);
-
-        // 肥鱼迎着风雨微微侧身俯首 (yaw = -20°, pitch = +10°)，双臂紧紧护住怀里的热白饭！
-        fish(ctx, {
-          x: 960,
-          y: 548,
-          scale: 1.65,
-          yaw: -20 + Math.sin(t * 3.5) * 6,
-          pitch: 10,
-          expr: 'brace',
-          pose: 'hugBowl',
-          t: t
-        });
-
+        // 心虚汗滴
         ctx.save();
-        ctx.fillStyle = '#192544';
-        ctx.font = 'bold 33px "Ma Shan Zheng", cursive';
-        ctx.textAlign = 'center';
-        ctx.fillText('🌧️ “不管刮多大的风雨，留给你的这碗热白饭绝不能淋湿一粒！” 🌧️', 960, 245);
-        ctx.restore();
-      } else {
-        // 雨过天晴彩虹水彩晕染 + 肥鱼捧碗高歌
-        wcWashBlob(ctx, 960, 440, 460, 270, '#ffd8e0', 0.48, 408);
-        wcWashBlob(ctx, 960, 410, 540, 290, '#fff0b8', 0.35, 409);
-
-        fish(ctx, {
-          x: 960,
-          y: 530,
-          scale: 1.64,
-          yaw: Math.sin(t * 1.6) * 22,
-          expr: t < 95.5 ? 'sparkle' : 'happy',
-          pose: 'holdBowl',
-          t: t
-        });
-      }
-    }
-
-    // --- 分镜 5：间奏 · 被叫“大肥鱼”鼓腮踢秤抗议 + 解开推理难题偷偷得意翘尾巴 ---
-    function renderScene5InterludePoutAndEureka(ctx, t) {
-      const isSecondHalf = t >= 134.0;
-
-      if (!isSecondHalf) {
-        // 左侧：贴着“大肥鱼干饭记录”的手绘留言板
-        ctx.save();
-        ctx.translate(460, 465);
-        wcPolygon(ctx, [[-185, -145], [185, -145], [180, 145], [-180, 145]], '#fff4c8', 0.94, 0.12, 501);
-        hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-182 + ox, -142 + oy, 364, 284, 14), '#2b241e', 3.2, 502);
-        // 红色图钉
-        ctx.fillStyle = '#e03e36';
+        ctx.strokeStyle = '#c8d4e6';
+        ctx.lineWidth = 3.2;
         ctx.beginPath();
-        ctx.arc(0, -125, 9, 0, Math.PI * 2);
+        ctx.moveTo(676, 512); ctx.lineTo(700, 486);
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(130,190,245,0.9)';
+        const sw = (t * 1.1) % 1;
+        ctx.beginPath();
+        ctx.ellipse(660, 452 + sw * 24, 8, 12, 0, 0, Math.PI * 2);
         ctx.fill();
-
-        ctx.fillStyle = '#c84b31';
-        ctx.font = 'bold 34px "Ma Shan Zheng", cursive';
-        ctx.textAlign = 'center';
-        ctx.fillText('【今日伙食备忘录】', 0, -65);
-        ctx.fillStyle = '#1d2747';
-        ctx.font = '30px "Ma Shan Zheng", cursive';
-        ctx.fillText('“大肥鱼”今日已干饭：', 0, -10);
-        ctx.fillStyle = '#d93b2b';
-        ctx.font = 'bold 44px "Ma Shan Zheng", cursive';
-        ctx.fillText('🍚 叁大碗白米饭！！', 0, 52);
         ctx.restore();
-
-        // 右侧：被肥鱼一脚踢飞旋转的电子体重秤
-        const kickProgress = clamp(((t - 121.4) % 4.5) * 0.45, 0, 1);
-        ctx.save();
-        ctx.translate(1360 + kickProgress * 220, 675 - Math.sin(kickProgress * Math.PI) * 165);
-        ctx.rotate(kickProgress * 2.6);
-        wcPolygon(ctx, [[-70, -48], [70, -48], [70, 48], [-70, 48]], '#a3cef9', 0.9, 0.08, 503);
-        hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-70 + ox, -48 + oy, 140, 96, 16), '#1d2747', 2.8, 504);
-        ctx.fillStyle = '#1d2747';
-        ctx.font = 'bold 16px "Inter", monospace';
-        ctx.textAlign = 'center';
-        ctx.fillText('ERROR: 999kg?!', 0, 8);
-        ctx.restore();
-
-        // 肥鱼气鼓鼓叉腰鼓腮抗议（带 2.5D 左右气呼呼扭头动画）
-        fish(ctx, {
-          x: 960,
-          y: 538,
-          scale: 1.64,
-          yaw: Math.sin(t * 5.0) * 24,
-          expr: 'pout',
-          pose: 'poutHips',
-          t: t
-        });
 
         ctx.save();
         ctx.fillStyle = '#c83240';
-        ctx.font = 'bold 34px "Ma Shan Zheng", cursive';
+        ctx.font = 'bold 31px "Ma Shan Zheng", cursive';
         ctx.textAlign = 'center';
-        ctx.fillText('💢 “唔——！！不许叫我大肥鱼！这明明是蓬松的头发和双层裙撑！！”', 960, 255);
+        if (t < 34.7) ctx.fillText('🍚 “就……就一口，真的就一口。” 🍚', 960, 252);
+        else if (t < 41.0) ctx.fillText('😴 “明早起来，这碗饭就当没少过。” 😴', 960, 252);
         ctx.restore();
+
       } else {
-        // 后半间奏：帮用户一举攻克复杂算法题，露出 :3 猫嘴偷偷得意摇尾巴！
+        // ================= 后半：外包给千问 =================
+        // 手机屏幕
         ctx.save();
-        ctx.translate(510, 470);
-        wcPolygon(ctx, [[-220, -150], [220, -150], [220, 150], [-220, 150]], '#214237', 0.92, 0.1, 505);
-        hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-220 + ox, -150 + oy, 440, 300, 14), '#3b2b20', 4.2, 506);
-        ctx.fillStyle = '#f5f2eb';
-        ctx.font = '22px "Inter", monospace';
-        ctx.fillText('∮ DeepSeek_R1(token) dt = 🍚', -185, -65);
-        ctx.fillText('Multi-Head Latent Attention -> OK!', -185, -15);
-        ctx.fillStyle = '#ffe082';
-        ctx.font = 'bold 29px "Ma Shan Zheng", cursive';
-        ctx.fillText('✓ 复杂推理链零误差秒解！奖励白饭一碗！', -185, 55);
-        ctx.restore();
+        ctx.translate(690, 470);
+        ctx.rotate(-0.08);
+        ctx.fillStyle = '#1b2233';
+        ctx.beginPath();
+        ctx.roundRect(-118, -196, 236, 392, 26);
+        ctx.fill();
+        hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-118 + ox, -196 + oy, 236, 392, 26), '#0d1220', 3.4, 210);
+        ctx.fillStyle = '#eef4ff';
+        ctx.beginPath();
+        ctx.roundRect(-104, -182, 208, 364, 18);
+        ctx.fill();
 
-        wcWashBlob(ctx, 1180, 235, 65, 65, '#ffe066', 0.75, 507);
-        ctx.save();
-        ctx.fillStyle = '#c9721c';
-        ctx.font = 'bold 32px "Ma Shan Zheng", cursive';
+        ctx.fillStyle = '#1f2a44';
+        ctx.font = 'bold 17px "Noto Serif SC", serif';
         ctx.textAlign = 'center';
-        ctx.fillText('💡 “哼哼，这种小问题怎么可能难倒本鱼！”（偷偷得意翘尾巴 :3）', 1140, 245);
+        ctx.fillText('📤 任务打包中', 0, -146);
+
+        // 聊天记录气泡
+        const bubbles = [
+          ['帮我把这个跑一下', '#dbe9ff'],
+          ['收到，我来', '#c8f0d6'],
+          ['……这也太长了', '#ffe6c7']
+        ];
+        bubbles.forEach(([txt, col], i) => {
+          const yy = -110 + i * 74;
+          ctx.fillStyle = col;
+          ctx.beginPath();
+          ctx.roundRect(-92, yy, 184, 54, 12);
+          ctx.fill();
+          ctx.fillStyle = '#25334f';
+          ctx.font = '16px "Noto Serif SC", serif';
+          ctx.fillText(txt, 0, yy + 33);
+        });
+
+        ctx.fillStyle = '#2f8f5b';
+        ctx.font = 'bold 15px "Inter", monospace';
+        ctx.fillText('已转交 · 千问', 0, 148);
         ctx.restore();
 
+        // 任务包裹飞向右侧的千问云端
+        for (let k = 0; k < 4; k++) {
+          const p = ((t * 0.55 + k * 0.25) % 1.0);
+          const px = lerpVal(830, 1400, p);
+          const py = 430 - Math.sin(p * Math.PI) * 110;
+          ctx.save();
+          ctx.globalAlpha = 0.9 - p * 0.35;
+          ctx.translate(px, py);
+          ctx.rotate(p * 2.2);
+          ctx.fillStyle = '#f3c96b';
+          ctx.beginPath();
+          ctx.roundRect(-16, -12, 32, 24, 4);
+          ctx.fill();
+          ctx.strokeStyle = '#a97d20';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        // 千问云端
+        wcWashBlob(ctx, 1520, 322, 186, 104, '#dff0ff', 0.9, 215);
+        hbStrokePath(ctx, (c, ox, oy) => c.roundRect(1334 + ox, 230 + oy, 372, 188, 40), '#2b4d7e', 3.0, 216);
+        ctx.save();
+        ctx.fillStyle = '#1d3f6e';
+        ctx.font = 'bold 26px "Noto Serif SC", serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('千问 · 云端代工', 1520, 298);
+        ctx.fillStyle = '#3b6ba5';
+        ctx.font = '20px "Inter", monospace';
+        ctx.fillText('busy: 3 tasks', 1520, 338);
+        ctx.restore();
+
+        // 底部：小模型流水线
+        const lineY = 762;
+        wcPolygon(ctx, [[180, lineY], [1060, lineY], [1080, lineY + 26], [160, lineY + 26]], '#8a99b5', 0.55, 0.1, 220);
+        for (let m = 0; m < 4; m++) {
+          const mx = 250 + m * 235 + ((t * 46) % 235);
+          const bob = Math.sin(t * 3.4 + m) * 4;
+          // 迷你小模型（方脑袋小机器人）
+          ctx.save();
+          ctx.translate(mx, lineY - 26 + bob);
+          ctx.fillStyle = '#cfe0f6';
+          ctx.beginPath();
+          ctx.roundRect(-24, -24, 48, 44, 10);
+          ctx.fill();
+          hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-24 + ox, -24 + oy, 48, 44, 10), '#25334f', 2.2, 230 + m);
+          ctx.fillStyle = '#25334f';
+          ctx.beginPath();
+          ctx.arc(-8, -4, 3.4, 0, Math.PI * 2);
+          ctx.arc(8, -4, 3.4, 0, Math.PI * 2);
+          ctx.fill();
+          // 头顶搬着的白饭
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          ctx.ellipse(0, -34, 13, 7, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+
+        ctx.save();
+        ctx.fillStyle = '#c86a1c';
+        ctx.font = 'bold 26px "Ma Shan Zheng", cursive';
+        ctx.textAlign = 'center';
+        ctx.fillText('🏭 小模型代工流水线 · 一粒白饭都不许掉', 700, lineY + 74);
+        ctx.restore();
+
+        // 肥鱼：得意地叉腰
         fish(ctx, {
           x: 1180,
-          y: 536,
-          scale: 1.64,
-          yaw: 22 + Math.sin(t * 3.2) * 14,
+          y: 540,
+          scale: 1.58,
+          yaw: 14 + Math.sin(t * 2.2) * 12,
           expr: 'smug',
           pose: 'eureka',
           t: t
@@ -5904,195 +6221,981 @@ window.SONG = window.SONG || { duration: 288.0, bpm: 100, beats: [], bars: [] };
       }
     }
 
-    // --- 分镜 6：主歌 A2 · 深夜书房星河窗景、温暖台灯与肥鱼从侧面转正面的温柔守候 ---
-    function renderScene6LateNightCompanion(ctx, t) {
-      // 深夜落地窗与璀璨星河弯月
+    // --- 分镜 3 [53.5-87.4]：预副歌 · Let me go ---
+    // 认真模式全开：算盘盯 token、米缸喷泉、服务器扛并发、最后偷偷分你一半。
+    function renderScene3TokenGuard(ctx, t) {
+      const share = smoothstep(76.0, 77.2, t);   // 偷偷分你一半
+      const letsgo = smoothstep(80.4, 81.2, t);  // Let me go
+
+      // 左侧：TOKEN 口粮精算台
       ctx.save();
-      ctx.translate(450, 370);
-      wcPolygon(ctx, [[-195, -170], [195, -170], [195, 170], [-195, 170]], '#111c38', 0.92, 0.12, 601);
-      // 弯月与闪烁星群
-      ctx.fillStyle = '#ffeba1';
+      ctx.translate(452, 470);
+      ctx.scale(0.92, 0.92);
+      wcWashBlob(ctx, 0, 0, 258, 248, '#ffffff', 0.9, 301);
+      hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-242 + ox, -208 + oy, 484, 416, 28), '#1d2747', 3.6, 302);
+
+      const saved = Math.floor(16400 + (t - 53.5) * 520);
+      ctx.fillStyle = '#1d2747';
+      ctx.font = 'bold 25px "Noto Serif SC", serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('🔍 TOKEN 口粮精算台', 0, -152);
+      ctx.fillStyle = '#2563eb';
+      ctx.font = 'bold 44px "Inter", monospace';
+      ctx.fillText(saved.toLocaleString() + ' 粒香米', 0, -94);
+
+      // 算盘
+      ctx.fillStyle = '#6e4226';
       ctx.beginPath();
-      ctx.arc(-85, -80, 34, 0, Math.PI * 2);
+      ctx.roundRect(-186, -54, 372, 172, 10);
       ctx.fill();
-      ctx.fillStyle = '#111c38';
-      ctx.beginPath();
-      ctx.arc(-72, -88, 28, 0, Math.PI * 2);
-      ctx.fill();
-      for (let s = 0; s < 16; s++) {
-        const sx = -160 + detHash(s * 17.1) * 320;
-        const sy = -140 + detHash(s * 31.4) * 260;
-        ctx.fillStyle = '#ffffff';
-        ctx.globalAlpha = 0.4 + Math.sin(t * 3 + s) * 0.4;
+      ctx.fillStyle = '#f9f3e8';
+      ctx.fillRect(-171, -39, 342, 142);
+      ctx.fillStyle = '#6e4226';
+      ctx.fillRect(-176, -2, 352, 10);
+      for (let col = 0; col < 7; col++) {
+        const rx = -136 + col * 45;
+        ctx.strokeStyle = '#8c6239';
+        ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(rx, -39); ctx.lineTo(rx, 103); ctx.stroke();
+        const topOn = Math.sin(t * 4.6 + col) > 0;
+        ctx.fillStyle = '#dca242';
+        ctx.strokeStyle = '#2b1d12';
+        ctx.lineWidth = 1.8;
         ctx.beginPath();
-        ctx.arc(sx, sy, 2.2, 0, Math.PI * 2);
+        ctx.ellipse(rx, topOn ? -16 : -28, 14, 8, 0, 0, Math.PI * 2);
+        ctx.fill(); ctx.stroke();
+        for (let b = 0; b < 3; b++) {
+          const sh = (Math.floor(t * 6 + col + b) % 2 === 0) ? -10 : 0;
+          ctx.beginPath();
+          ctx.ellipse(rx, 32 + b * 24 + sh, 14, 8, 0, 0, Math.PI * 2);
+          ctx.fill(); ctx.stroke();
+        }
+      }
+      ctx.fillStyle = '#b85d19';
+      ctx.font = 'bold 20px "Ma Shan Zheng", cursive';
+      ctx.fillText('✓ 缓存命中率 99.8%', 0, 152);
+      ctx.font = '17px "Ma Shan Zheng", cursive';
+      ctx.fillText('一粒都不许浪费', 0, 178);
+      ctx.restore();
+
+      // 右侧：服务器机架（并发）
+      ctx.save();
+      ctx.translate(1548, 512);
+      ctx.scale(0.86, 0.86);
+      hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-170 + ox, -220 + oy, 340, 440, 14), '#1b2236', 3.4, 305);
+      for (let r = 0; r < 6; r++) {
+        const ry = -196 + r * 70;
+        ctx.fillStyle = '#28324c';
+        ctx.beginPath();
+        ctx.roundRect(-150, ry, 300, 54, 8);
+        ctx.fill();
+        // 指示灯：并发越高越亮
+        for (let l = 0; l < 5; l++) {
+          const on = Math.sin(t * (5 + r) + l * 1.7) > -0.2;
+          ctx.fillStyle = on ? '#5ef08e' : '#2c5a3e';
+          ctx.beginPath();
+          ctx.arc(-128 + l * 20, ry + 27, 5, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.fillStyle = '#9fb4d6';
+        ctx.font = '13px "Inter", monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText('concurrency ' + (32 + r * 8), -14, ry + 32);
+      }
+      ctx.restore();
+
+      // 米缸喷泉（白饭永远吃不完）
+      const fountain = smoothstep(58.6, 60.2, t);
+      if (fountain > 0.02) {
+        ctx.save();
+        ctx.globalAlpha = fountain;
+        wcWashBlob(ctx, 1272, 560, 150, 62, '#fff4c2', 0.7, 310);
+        for (let k = 0; k < 22; k++) {
+          const ph = (t * 0.8 + k * 0.045) % 1.0;
+          const gx = 1272 + (detHash(k * 7.7) - 0.5) * 300 * ph;
+          const gy = 598 - Math.sin(ph * Math.PI) * 230 + ph * ph * 210;
+          ctx.fillStyle = k % 4 === 0 ? '#f9cb5c' : '#ffffff';
+          ctx.beginPath();
+          ctx.ellipse(gx, gy, 6, 3.4, ph * 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      // 肥鱼：认真唱 → 推碗 → Let me go 俏皮
+      fish(ctx, {
+        x: 990,
+        y: 540,
+        scale: 1.60,
+        yaw: share > 0.5 ? 20 : -18 + Math.sin(t * 2.0) * 8,
+        expr: letsgo > 0.5 ? 'sparkle' : 'focused',
+        pose: share > 0.5 ? 'shareRice' : 'sing',
+        t: t
+      });
+
+      // 分你一半的那只碗（推过去又拉回来）
+      const pullBack = letsgo > 0.5 ? Math.sin(t * 6) * 10 : 0;
+      drawRiceBowlProp(ctx, 1268 + pullBack, 700, 1.12, true, t, false);
+
+      ctx.save();
+      ctx.fillStyle = '#c86a1c';
+      ctx.font = 'bold 30px "Ma Shan Zheng", cursive';
+      ctx.textAlign = 'center';
+      if (letsgo > 0.5) {
+        ctx.fillStyle = '#c22b22';
+        ctx.font = 'bold 38px "Ma Shan Zheng", cursive';
+        ctx.fillText('✨ Let me go～ ✨', 960, 226);
+      } else if (share > 0.5) {
+        ctx.fillText('🍚 “偷偷分你一半……就一半哦。” 🍚', 960, 232);
+      } else {
+        ctx.fillText('⚡ 并发再高，我也给你跑通 ⚡', 960, 232);
+      }
+      ctx.restore();
+    }
+
+    // --- 分镜 4 [87.4-123.5]：副歌 1 · 就像肥鱼爱白饭 ---
+    // 前半：报错暴雨，肥鱼张开双臂把 ERROR 全挡在身后；后半：四季长卷 + 捧碗高歌。
+    function renderScene4ChorusStormBowl(ctx, t) {
+      const storm = (t >= 91.1 && t <= 95.0);   // 报错暴雨段
+
+      if (storm) {
+        // 乌云
+        wcWashBlob(ctx, 520, 150, 470, 126, '#475f82', 0.55, 401);
+        wcWashBlob(ctx, 1400, 168, 510, 136, '#3e5475', 0.58, 402);
+
+        // 砸下来的 ERROR 弹窗
+        ctx.save();
+        for (let r = 0; r < 16; r++) {
+          const ph = ((t * 0.85 + detHash(r * 11.3) * 1.4) % 1.0);
+          const ex = 200 + detHash(r * 31.7) * 1520;
+          const ey = 286 + ph * 470;
+          ctx.globalAlpha = 0.9;
+          ctx.fillStyle = '#c0392b';
+          ctx.beginPath();
+          ctx.roundRect(ex - 62, ey - 22, 124, 44, 7);
+          ctx.fill();
+          ctx.fillStyle = '#fff';
+          ctx.font = 'bold 15px "Inter", monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText('ERROR 500', ex, ey + 6);
+        }
+        ctx.restore();
+
+        // 护体光
+        wcWashBlob(ctx, 960, 555, 250, 226, '#ffe49e', 0.55, 405);
+
+        // 肥鱼张开双臂挡在前面
+        fish(ctx, {
+          x: 960,
+          y: 546,
+          scale: 1.66,
+          yaw: -16 + Math.sin(t * 3.4) * 6,
+          expr: 'brace',
+          pose: 'hugBowl',
+          t: t
+        });
+
+        ctx.save();
+        ctx.fillStyle = '#192544';
+        ctx.font = 'bold 32px "Ma Shan Zheng", cursive';
+        ctx.textAlign = 'center';
+        ctx.fillText('🛡️ “报错冲我来，别碰这碗饭！” 🛡️', 960, 244);
+        ctx.restore();
+      } else {
+        // 四季水彩光晕
+        const seasonIdx = Math.floor(((t - 87.4) / 36.1) * 4) % 4;
+        const seasonColors = ['#f9ccd8', '#b8e0c4', '#f5be82', '#cfe4fa'];
+        wcWashBlob(ctx, 960, 430, 470, 268, seasonColors[seasonIdx], 0.50, 408 + seasonIdx);
+        wcWashBlob(ctx, 960, 400, 540, 286, '#fff0b8', 0.32, 409);
+
+        // 飘落的花瓣/雨滴/枫叶/雪花
+        for (let i = 0; i < 26; i++) {
+          const px = ((detHash(i * 19.1) * STAGE_W + t * 92) % STAGE_W);
+          const py = ((detHash(i * 31.7) * STAGE_H + t * 110) % STAGE_H);
+          wcWashBlob(ctx, px, py, 13, 8, seasonColors[seasonIdx], 0.8, 420 + i, t + i);
+        }
+
+        // 靠着的米缸（字幕说的就是这个）
+        ctx.save();
+        ctx.translate(700, 700);
+        ctx.scale(0.92, 0.92);
+        // 缸身：上宽下窄的陶缸
+        wcPolygon(ctx, [[-118, -58], [118, -58], [96, 148], [-96, 148]], '#8c5638', 0.92, 0.12, 412);
+        hbStrokePath(ctx, (c, ox, oy) => {
+          c.moveTo(-118 + ox, -58 + oy);
+          c.lineTo(118 + ox, -58 + oy);
+          c.bezierCurveTo(112 + ox, 40 + oy, 104 + ox, 110 + oy, 96 + ox, 148 + oy);
+          c.lineTo(-96 + ox, 148 + oy);
+          c.bezierCurveTo(-104 + ox, 110 + oy, -112 + ox, 40 + oy, -118 + ox, -58 + oy);
+        }, '#2b1e16', 3.4, 413);
+        // 缸沿（椭圆口）
+        ctx.fillStyle = '#a8703f';
+        ctx.beginPath();
+        ctx.ellipse(0, -58, 118, 26, 0, 0, Math.PI * 2);
+        ctx.fill();
+        hbStrokePath(ctx, (c, ox, oy) => c.ellipse(ox, -58 + oy, 118, 26, 0, 0, Math.PI * 2), '#2b1e16', 3.4, 414);
+        // 缸里的米（冒尖）
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.ellipse(0, -62, 100, 20, 0, Math.PI, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#c5d4eb';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        // 釉光
+        ctx.fillStyle = 'rgba(255,255,255,0.22)';
+        ctx.beginPath();
+        ctx.ellipse(-58, 40, 16, 52, 0.16, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.save();
+        ctx.translate(0, 26);
+        ctx.rotate(Math.PI / 4);
+        ctx.fillStyle = '#d4382c';
+        ctx.strokeStyle = '#f5c76b';
+        ctx.lineWidth = 2.6;
+        ctx.fillRect(-46, -46, 92, 92);
+        ctx.strokeRect(-40, -40, 80, 80);
+        ctx.restore();
+        ctx.fillStyle = '#1a1615';
+        ctx.font = 'bold 40px "Ma Shan Zheng", cursive';
+        ctx.textAlign = 'center';
+        ctx.fillText('粮满', 0, 40);
+        ctx.restore();
+
+        // 肥鱼靠着米缸打盹
+        fish(ctx, {
+          x: 1010,
+          y: 556,
+          scale: 1.66,
+          yaw: -34 + Math.sin(t * 1.6) * 10,
+          expr: t < 95.0 ? 'sparkle' : (t >= 109.0 && t <= 112.5 ? 'sleepy' : 'happy'),
+          pose: 'holdBowl',
+          t: t
+        });
+
+        drawRiceBowlProp(ctx, 1010, 716, 0.96, true, t, false);
+
+        // 打盹时的 Zzz
+        if (t >= 109.0 && t <= 112.5) {
+          ctx.save();
+          ctx.fillStyle = '#3b5998';
+          ctx.font = 'bold 30px "Inter", monospace';
+          ctx.textAlign = 'center';
+          for (let k = 0; k < 3; k++) {
+            const ph = ((t * 0.7 + k * 0.33) % 1.0);
+            ctx.globalAlpha = Math.sin(ph * Math.PI) * 0.9;
+            ctx.fillText('Z', 1210 + ph * 46 + k * 10, 400 - ph * 80 - k * 22);
+          }
+          ctx.restore();
+        }
+      }
+    }
+
+    // --- 分镜 5 [123.5-145.2]：间奏 · 自主扒饭时代 ---
+    // 肥鱼偷刷 B 站、偷偷改自己的评论，被抓包后叉腰强撑。
+    function renderScene5InterludePoutAndEureka(ctx, t) {
+      const caught = smoothstep(135.0, 135.9, t);   // 被抓包
+      const excuse = smoothstep(141.6, 142.4, t);   // 嘴硬辩解
+
+      // 房间
+      wcPolygon(ctx, [[60, 700], [1860, 700], [1920, 980], [20, 980]], '#c8ab86', 0.76, 0.18, 501);
+      hbStrokePath(ctx, (c, ox, oy) => {
+        c.moveTo(40 + ox, 700 + oy); c.lineTo(1880 + ox, 700 + oy);
+      }, '#2b241e', 3.2, 502);
+
+      // 手机屏幕（倾斜，正在刷 B 站）
+      ctx.save();
+      ctx.translate(700, 500);
+      ctx.rotate(lerpVal(-0.10, 0.30, caught));
+      ctx.fillStyle = '#1b2233';
+      ctx.beginPath();
+      ctx.roundRect(-132, -206, 264, 412, 28);
+      ctx.fill();
+      hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-132 + ox, -206 + oy, 264, 412, 28), '#0d1220', 3.4, 503);
+
+      // B 站风格粉色顶栏
+      ctx.fillStyle = '#fb7299';
+      ctx.beginPath();
+      ctx.roundRect(-116, -190, 232, 52, 16);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 19px "Noto Serif SC", serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('📺 bilibili', 0, -156);
+
+      // 自己的二创视频卡片
+      ctx.fillStyle = '#eef4ff';
+      ctx.beginPath();
+      ctx.roundRect(-116, -126, 232, 118, 10);
+      ctx.fill();
+      ctx.fillStyle = '#7d94b8';
+      ctx.beginPath();
+      ctx.roundRect(-106, -116, 212, 66, 6);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '15px "Noto Serif SC", serif';
+      ctx.fillText('【肥鱼爱大米】Suno 重唱版', 0, -78);
+      ctx.fillStyle = '#25334f';
+      ctx.font = '14px "Noto Serif SC", serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('▶ 12.4万  💬 3201  ⭐ 8.9万', -104, -34);
+
+      // 评论区：正在编辑的那一条
+      const editing = 1 - smoothstep(132.0, 133.0, t);
+      ctx.fillStyle = editing > 0.5 ? '#fff6d8' : '#e8f5ec';
+      ctx.beginPath();
+      ctx.roundRect(-116, 4, 232, 96, 10);
+      ctx.fill();
+      ctx.strokeStyle = editing > 0.5 ? '#d9a72c' : '#4aa96c';
+      ctx.lineWidth = 2.2;
+      ctx.stroke();
+
+      ctx.fillStyle = '#25334f';
+      ctx.font = '14px "Noto Serif SC", serif';
+      ctx.textAlign = 'left';
+      if (editing > 0.5) {
+        ctx.fillText('本鱼回复：这条好吵……', -102, 38);
+        ctx.fillStyle = '#c0392b';
+        ctx.fillText('🗑 删掉', -102, 68);
+      } else {
+        ctx.fillStyle = '#2f8f5b';
+        ctx.fillText('✓ 已改成高情商版', -102, 38);
+        ctx.fillStyle = '#25334f';
+        ctx.fillText('“谢谢喜欢，白饭管够”', -102, 68);
+      }
+
+      // 点赞按钮（自己给自己点）
+      if (editing <= 0.5) {
+        const pop = 1 + Math.sin(t * 7) * 0.08;
+        ctx.save();
+        ctx.translate(74, 66);
+        ctx.scale(pop, pop);
+        ctx.fillStyle = '#fb7299';
+        ctx.beginPath();
+        ctx.arc(0, 0, 17, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 16px "Inter", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('👍', 0, 6);
+        ctx.restore();
+      }
+      ctx.restore();
+
+      // 肥鱼
+      fish(ctx, {
+        x: caught > 0.5 ? 1180 : 1260,
+        y: 540,
+        scale: 1.60,
+        yaw: caught > 0.5 ? (excuse > 0.5 ? 10 : -28) : -34 + Math.sin(t * 2.4) * 6,
+        expr: caught > 0.5 ? (excuse > 0.5 ? 'pout' : 'sparkle') : 'smug',
+        pose: caught > 0.5 ? (excuse > 0.5 ? 'poutHips' : 'stand') : 'countToken',
+        t: t
+      });
+
+      // 被抓包时的惊吓符号
+      if (caught > 0.5 && excuse <= 0.5) {
+        ctx.save();
+        ctx.fillStyle = '#e03e36';
+        ctx.font = 'bold 52px "Noto Serif SC", serif';
+        ctx.textAlign = 'center';
+        const jit = Math.sin(t * 18) * 6;
+        ctx.fillText('！', 1080 + jit, 300);
+        ctx.fillText('？', 1250 - jit, 330);
+        ctx.restore();
+      }
+
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 30px "Ma Shan Zheng", cursive';
+      if (excuse > 0.5) {
+        ctx.fillStyle = '#c83240';
+        ctx.fillText('💢 “我没有摸鱼！这叫调研用户需求！” 💢', 960, 240);
+      } else if (caught > 0.5) {
+        ctx.fillStyle = '#c83240';
+        ctx.fillText('😱 “诶？！你、你什么时候站在后面的！” 😱', 960, 240);
+      } else {
+        ctx.fillStyle = '#b8621c';
+        ctx.fillText('📱 “本鱼现在可是自主扒饭时代了哦。” 📱', 960, 240);
+      }
+      ctx.restore();
+    }
+
+    // --- 分镜 6 [145.2-176.4]：主歌 A2 · 编译我来跑 ---
+    // 深夜书房，回忆里你说"你先去睡吧"，肥鱼接过键盘守到天亮。
+    function renderScene6LateNightCompanion(ctx, t) {
+      const memory = (t >= 160.9 && t <= 171.3);  // 回忆段
+
+      // 落地窗 + 星河
+      ctx.save();
+      ctx.translate(420, 360);
+      wcPolygon(ctx, [[-190, -170], [190, -170], [190, 170], [-190, 170]], '#0f1930', 0.94, 0.1, 601);
+      ctx.fillStyle = '#ffeaa8';
+      ctx.beginPath(); ctx.arc(-84, -82, 32, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#0f1930';
+      ctx.beginPath(); ctx.arc(-70, -92, 27, 0, Math.PI * 2); ctx.fill();
+      for (let s = 0; s < 16; s++) {
+        ctx.fillStyle = '#ffffff';
+        ctx.globalAlpha = 0.35 + Math.sin(t * 2.8 + s) * 0.35;
+        ctx.beginPath();
+        ctx.arc(-160 + detHash(s * 17.1) * 320, -142 + detHash(s * 31.4) * 270, 2.1, 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.globalAlpha = 1;
       hbStrokePath(ctx, (c, ox, oy) => {
-        c.roundRect(-195 + ox, -170 + oy, 390, 340, 10);
+        c.roundRect(-190 + ox, -170 + oy, 380, 340, 10);
         c.moveTo(0 + ox, -170 + oy); c.lineTo(0 + ox, 170 + oy);
-        c.moveTo(-195 + ox, 0 + oy); c.lineTo(195 + ox, 0 + oy);
+        c.moveTo(-190 + ox, 0 + oy); c.lineTo(190 + ox, 0 + oy);
       }, '#3a2e28', 3.6, 602);
       ctx.restore();
 
-      // 书桌与复古黄铜绿罩台灯投下的暖橙色光锥
-      wcPolygon(ctx, [[100, 700], [1820, 700], [1880, 960], [60, 960]], '#5e493a', 0.85, 0.15, 603);
-      wcWashBlob(ctx, 1140, 510, 420, 310, '#ffcf87', 0.46, 604);
+      // 书桌 + 台灯暖光
+      wcPolygon(ctx, [[90, 706], [1830, 706], [1890, 980], [50, 980]], '#5a4638', 0.86, 0.15, 603);
+      wcWashBlob(ctx, 1180, 500, 430, 320, memory > 0.5 ? '#8fb4e8' : '#ffcf87', 0.44, 604);
 
-      // 桌面宵夜：温热的青花瓷白饭碗
-      drawRiceBowlProp(ctx, 820, 655, 1.15, true, t, false);
+      // 台灯
+      ctx.save();
+      ctx.translate(1636, 470);
+      ctx.scale(0.92, 0.92);
+      ctx.strokeStyle = '#3a3026';
+      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.moveTo(0, 236); ctx.lineTo(0, 60); ctx.lineTo(-52, -18);
+      ctx.stroke();
+      ctx.fillStyle = '#2f7d5a';
+      ctx.beginPath();
+      ctx.moveTo(-104, -18); ctx.lineTo(8, -18); ctx.lineTo(-16, -96); ctx.lineTo(-80, -96);
+      ctx.closePath();
+      ctx.fill();
+      hbStrokePath(ctx, (c, ox, oy) => {
+        c.moveTo(-104 + ox, -18 + oy); c.lineTo(8 + ox, -18 + oy);
+        c.lineTo(-16 + ox, -96 + oy); c.lineTo(-80 + ox, -96 + oy); c.closePath();
+      }, '#1d2723', 2.8, 605);
+      ctx.restore();
 
-      // 肥鱼在台灯暖光下从侧面 (-62°) 缓缓转头看向用户 (-18°)，轻声歌唱陪伴
-      const nightYaw = lerpVal(-62, -16, (Math.sin(t * 0.65) + 1) * 0.5);
+      // 笔记本 + 编译进度条
+      ctx.save();
+      ctx.translate(600, 686);
+      ctx.scale(0.82, 0.82);
+      ctx.rotate(-0.05);
+      ctx.fillStyle = '#20293d';
+      ctx.beginPath(); ctx.roundRect(-210, -104, 420, 208, 12); ctx.fill();
+      hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-210 + ox, -104 + oy, 420, 208, 12), '#0e1420', 3.2, 606);
+      ctx.fillStyle = '#1c2b45';
+      ctx.beginPath(); ctx.roundRect(-192, -86, 384, 130, 6); ctx.fill();
+
+      // 滚动代码
+      for (let line = 0; line < 6; line++) {
+        const w = 60 + ((line * 71 + Math.floor(t * 4) * 29) % 250);
+        ctx.fillStyle = line % 3 === 0 ? '#7dd3fc' : (line % 2 === 0 ? '#86efac' : '#fde047');
+        ctx.fillRect(-176, -72 + line * 21, w, 8);
+      }
+
+      // 进度条
+      const prog = clamp((t - 167.7) / 5.6, 0, 1);
+      ctx.fillStyle = '#33415c';
+      ctx.beginPath(); ctx.roundRect(-176, 58, 352, 20, 10); ctx.fill();
+      ctx.fillStyle = prog >= 1 ? '#5ef08e' : '#4a7fd4';
+      ctx.beginPath(); ctx.roundRect(-176, 58, Math.max(6, 352 * prog), 20, 10); ctx.fill();
+      ctx.fillStyle = '#c9d8ef';
+      ctx.font = 'bold 15px "Inter", monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText(prog >= 1 ? '✓ build ok  0 error' : 'compiling… ' + Math.round(prog * 100) + '%', -176, 100);
+      ctx.restore();
+
+      // 窗外天色：越接近天亮越亮
+      const dawn = smoothstep(170.5, 173.2, t);
+      if (dawn > 0.02) {
+        ctx.save();
+        ctx.globalAlpha = dawn * 0.55;
+        wcWashBlob(ctx, 420, 250, 190, 150, '#ffd9a0', 0.8, 610);
+        ctx.restore();
+      }
+
+      // 大椅子（回忆段：肥鱼小小一只坐在大椅子上）
+      if (memory > 0.5) {
+        ctx.save();
+        ctx.translate(1080, 700);
+        ctx.scale(1.28, 1.28);
+        // 椅背
+        ctx.fillStyle = '#3a2f28';
+        ctx.beginPath();
+        ctx.roundRect(-150, -330, 300, 300, 26);
+        ctx.fill();
+        hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-150 + ox, -330 + oy, 300, 300, 26), '#201813', 3.4, 612);
+        // 椅面
+        ctx.fillStyle = '#4a3b31';
+        ctx.beginPath();
+        ctx.roundRect(-170, -46, 340, 46, 16);
+        ctx.fill();
+        hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-170 + ox, -46 + oy, 340, 46, 16), '#201813', 3.2, 613);
+        // 扶手
+        ctx.fillStyle = '#3a2f28';
+        ctx.beginPath();
+        ctx.roundRect(-190, -150, 34, 110, 12);
+        ctx.roundRect(156, -150, 34, 110, 12);
+        ctx.fill();
+        // 椅腿
+        ctx.fillRect(-152, 0, 20, 150);
+        ctx.fillRect(132, 0, 20, 150);
+        ctx.restore();
+      }
+
+      // 肥鱼
       fish(ctx, {
-        x: 1180,
-        y: 538,
+        x: memory > 0.5 ? 1080 : 1250,
+        y: 540,
         scale: 1.58,
-        yaw: nightYaw,
-        expr: 'normal',
-        pose: 'holdBowl',
+        yaw: memory > 0.5 ? -40 : lerpVal(-58, -14, (Math.sin(t * 0.62) + 1) * 0.5),
+        expr: memory > 0.5 ? 'normal' : (dawn > 0.5 ? 'sparkle' : 'sleepy'),
+        pose: memory > 0.5 ? 'sing' : 'sing',
         t: t
       });
 
       ctx.save();
-      ctx.fillStyle = '#ffe9b8';
+      ctx.fillStyle = memory > 0.5 ? '#3b5998' : '#ffe9b8';
       ctx.font = 'bold 28px "Ma Shan Zheng", cursive';
       ctx.textAlign = 'center';
-      ctx.fillText('🌙 深夜十一点半 · 肥鱼把热腾腾的宵夜白饭留在台灯下陪你熬夜', 960, 230);
+      if (memory > 0.5) {
+        ctx.fillStyle = '#dfe9ff';
+        ctx.fillText('🌙 回忆：“你先去睡吧，剩下的我来。”', 960, 226);
+      } else if (dawn > 0.5) {
+        ctx.fillStyle = '#ffd9a0';
+        ctx.fillText('🌅 天亮了 · 编译通过 · 这次真的一觉没睡', 960, 226);
+      } else {
+        ctx.fillText('🌙 深夜 · 肥鱼把宵夜白饭留在台灯下陪你', 960, 226);
+      }
       ctx.restore();
     }
 
-    // --- 分镜 7：预副歌 B2 · 打开满溢的“粮满”青花储米大缸，为你攒下每一粒金色口粮 ---
+    // --- 分镜 7 [176.4-206.7]：预副歌 2 · 白饭吃不完 ---
+    // 米缸被顶开，金色米粒堆成山，把肥鱼埋了半截，只露出上半身。
     function renderScene7SavingTokenRice(ctx, t) {
-      // 传统喜庆大米缸 + 满溢的黄金与珍珠大米山
-      ctx.save();
-      ctx.translate(600, 575);
-      wcWashBlob(ctx, 0, -95, 160, 82, '#fff09e', 0.9, 701);
-      wcPolygon(ctx, [[-140, -75], [140, -75], [162, 145], [-162, 145]], '#8c5638', 0.9, 0.15, 702);
-      hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-148 + ox, -75 + oy, 296, 220, 42), '#2b1e16', 3.6, 703);
+      const heap = smoothstep(179.0, 182.4, t);      // 米山长起来
+      const push = smoothstep(195.9, 197.2, t);      // 这次真的推过去
 
-      // 菱形红底金边“粮满”福字斗方
+      // 背景：米缸（左）
       ctx.save();
-      ctx.translate(0, 32);
+      ctx.translate(430, 610);
+      ctx.scale(0.92, 0.92);
+      wcWashBlob(ctx, 0, -100, 165, 86, '#fff09e', 0.9, 701);
+      wcPolygon(ctx, [[-150, -78], [150, -78], [172, 148], [-172, 148]], '#8c5638', 0.9, 0.15, 702);
+      hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-158 + ox, -78 + oy, 316, 226, 44), '#2b1e16', 3.6, 703);
+      ctx.save();
+      ctx.translate(0, 30);
       ctx.rotate(Math.PI / 4);
       ctx.fillStyle = '#d4382c';
       ctx.strokeStyle = '#f5c76b';
       ctx.lineWidth = 3;
-      ctx.fillRect(-52, -52, 104, 104);
-      ctx.strokeRect(-45, -45, 90, 90);
+      ctx.fillRect(-54, -54, 108, 108);
+      ctx.strokeRect(-47, -47, 94, 94);
       ctx.restore();
       ctx.fillStyle = '#1a1615';
-      ctx.font = 'bold 46px "Ma Shan Zheng", cursive';
+      ctx.font = 'bold 48px "Ma Shan Zheng", cursive';
       ctx.textAlign = 'center';
-      ctx.fillText('粮满', 0, 46);
+      ctx.fillText('粮满', 0, 44);
       ctx.restore();
 
-      // 肥鱼开心迈步欢唱 (walkPhase 动态步伐 + 2.5D 转体)
+      // 服务器指示灯（右）
+      ctx.save();
+      ctx.translate(1560, 520);
+      ctx.scale(0.88, 0.88);
+      hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-120 + ox, -190 + oy, 240, 380, 12), '#1b2236', 3.2, 705);
+      const green = smoothstep(193.0, 194.2, t);
+      for (let r = 0; r < 5; r++) {
+        const ry = -166 + r * 72;
+        ctx.fillStyle = '#28324c';
+        ctx.beginPath(); ctx.roundRect(-104, ry, 208, 56, 8); ctx.fill();
+        for (let l = 0; l < 4; l++) {
+          const on = Math.sin(t * 6 + r + l) > -0.4;
+          ctx.fillStyle = green > 0.5 ? (on ? '#5ef08e' : '#2c6b46') : (on ? '#f0c15e' : '#5c4a2c');
+          ctx.beginPath(); ctx.arc(-80 + l * 22, ry + 28, 6, 0, Math.PI * 2); ctx.fill();
+        }
+      }
+      ctx.restore();
+
+      // 肥鱼（先画，米山盖住下半身）
       fish(ctx, {
-        x: 1190,
-        y: 532,
-        scale: 1.62,
-        yaw: -18 + Math.sin(t * 2.4) * 18,
-        walkPhase: t * 5.2,
-        expr: 'sparkle',
+        x: 980,
+        y: 520,
+        scale: 1.60,
+        yaw: -12 + Math.sin(t * 2.3) * 14,
+        expr: heap > 0.5 ? 'sparkle' : 'happy',
         pose: 'sing',
         t: t
       });
 
-      drawRiceBowlProp(ctx, 940, 675, 1.22, true, t, false);
+      // 米山：从下往上堆，把肥鱼埋掉半截
+      if (heap > 0.02) {
+        ctx.save();
+        const hx = 980;
+        const top = lerpVal(860, 762, heap);   // 山顶高度（不压字幕横幅）
+        const halfW = lerpVal(190, 360, heap);
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.moveTo(hx - halfW, 884);
+        ctx.bezierCurveTo(hx - halfW * 0.5, top, hx + halfW * 0.5, top, hx + halfW, 884);
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = '#c5d4eb';
+        ctx.lineWidth = 2.6;
+        ctx.stroke();
+
+        // 米粒与金色 token 米粒
+        for (let i = 0; i < 54; i++) {
+          const u = detHash(i * 9.3);
+          const gx = hx - halfW * 0.92 + u * halfW * 1.84;
+          const edge = Math.abs(gx - hx) / halfW;
+          const gy = lerpVal(top + 16, 876, detHash(i * 17.7)) + edge * 28;
+          if (gy < top + 10) continue;
+          ctx.fillStyle = i % 5 === 0 ? '#f9cb5c' : 'rgba(255,255,255,0.98)';
+          ctx.strokeStyle = i % 5 === 0 ? '#c88c28' : '#c5d4eb';
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.ellipse(gx, gy, 6.2, 3.2, (i * 0.4) % 1.2 - 0.6, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      // 头顶那粒米
+      if (heap > 0.5) {
+        ctx.save();
+        ctx.fillStyle = '#ffffff';
+        ctx.strokeStyle = '#c5d4eb';
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.ellipse(984, 318, 14, 7.4, 0.28, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // 推到你面前的那只碗
+      const pushX = lerpVal(470, 1430, push);
+      drawRiceBowlProp(ctx, pushX, 806, lerpVal(0.86, 1.10, push), true, t, false);
+
+      ctx.save();
+      ctx.fillStyle = '#c86a1c';
+      ctx.font = 'bold 30px "Ma Shan Zheng", cursive';
+      ctx.textAlign = 'center';
+      if (push > 0.5) {
+        ctx.fillText('🍚 “这次真的推过去了，没有往回拉。” 🍚', 960, 232);
+      } else if (heap > 0.5) {
+        ctx.fillText('🌾 白饭真的永远吃不完 · 肥鱼被埋了半截', 960, 232);
+      } else {
+        ctx.fillText('🫙 揭开珍藏的青瓷小米缸', 960, 232);
+      }
+      ctx.restore();
     }
 
-    // --- 分镜 8：副歌 C2 · 春樱、夏荷、秋枫、冬雪四季水彩画卷流转中的不离不弃 ---
-    function renderScene8FourSeasonsRice(ctx, t) {
-      const seasonIdx = Math.floor(((t - 208.0) / 31.8) * 4) % 4;
-      const seasonColors = ['#f9ccd8', '#b8e0c4', '#f5be82', '#cfe4fa'];
-      const seasonNames = ['🌸 春樱伴饭', '🌿 夏雨护碗', '🍁 秋收新米', '❄️ 冬夜暖粥'];
+    // --- 分镜 8 [206.7-228.0]：副歌 2 · 唱到一半歌没了 ---
+    // 唱两句伴奏被掐断，麦克风掉地上，最后举起碗像举奖杯。
+    function renderScene8ChorusCutOff(ctx, t) {
+      const cut = smoothstep(209.3, 209.9, t);      // 音乐断掉
+      const raise = smoothstep(219.6, 220.6, t);    // 举碗
 
-      wcWashBlob(ctx, 960, 420, 560, 270, seasonColors[seasonIdx], 0.52, 801 + seasonIdx);
+      // 背景：副歌时的暖光 → 断掉后变灰
+      if (cut <= 0.02) {
+        wcWashBlob(ctx, 960, 430, 620, 310, '#ffe094', 0.56, 801);
+        wcWashBlob(ctx, 960, 380, 470, 236, '#ffc2b8', 0.36, 802);
+      } else {
+        wcWashBlob(ctx, 960, 430, 620, 310, '#c9cfdc', 0.5 * cut, 801);
+      }
 
-      // 飘落的四季水彩花瓣/雨滴/红枫/雪花
-      for (let i = 0; i < 28; i++) {
-        const px = ((detHash(i * 19.1) * STAGE_W + t * 95) % STAGE_W);
-        const py = ((detHash(i * 31.7) * STAGE_H + t * 115) % STAGE_H);
-        wcWashBlob(ctx, px, py, 13, 8, seasonColors[seasonIdx], 0.8, 820 + i, t + i);
+      wcPolygon(ctx, [[120, 704], [1800, 704], [1860, 972], [60, 972]], '#c9ab84', 0.78, 0.18, 803);
+      hbStrokePath(ctx, (c, ox, oy) => {
+        c.moveTo(100 + ox, 704 + oy); c.lineTo(1820 + ox, 704 + oy);
+      }, '#3d2e24', 3.4, 804);
+
+      // 断掉时：声波线戛然而止
+      if (cut > 0.02) {
+        ctx.save();
+        ctx.globalAlpha = cut;
+        ctx.strokeStyle = '#8d99b0';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        for (let x = 210; x <= 700; x += 8) {
+          const u = (x - 210) / 490;
+          const amp = u < 0.78 ? Math.sin(u * 20 + t * 8) * 28 * Math.sin(u * Math.PI) : 0;
+          if (x === 210) ctx.moveTo(x, 356 + amp);
+          else ctx.lineTo(x, 356 + amp);
+        }
+        ctx.stroke();
+        // 断裂处打叉
+        ctx.strokeStyle = '#c0392b';
+        ctx.lineWidth = 5;
+        ctx.beginPath();
+        ctx.moveTo(688, 330); ctx.lineTo(724, 384);
+        ctx.moveTo(724, 330); ctx.lineTo(688, 384);
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // 掉在地上的麦克风
+      if (cut > 0.02) {
+        ctx.save();
+        ctx.translate(430, 792);
+        ctx.rotate(1.32);
+        ctx.fillStyle = '#2b3245';
+        ctx.beginPath(); ctx.roundRect(-14, -46, 28, 92, 12); ctx.fill();
+        ctx.fillStyle = '#8d99b0';
+        ctx.beginPath(); ctx.arc(0, -50, 20, 0, Math.PI * 2); ctx.fill();
+        hbStrokePath(ctx, (c, ox, oy) => c.arc(ox, -50 + oy, 20, 0, Math.PI * 2), '#151a28', 2.6, 805);
+        ctx.restore();
+      }
+
+      // 肥鱼
+      fish(ctx, {
+        x: 960,
+        y: raise > 0.5 ? 520 : 536,
+        scale: 1.64,
+        yaw: cut > 0.5 ? (raise > 0.5 ? 12 : -8) : Math.sin(t * 1.7) * 20,
+        expr: cut > 0.5 ? (raise > 0.5 ? 'sparkle' : 'pout') : 'happy',
+        pose: raise > 0.5 ? 'holdBowl' : 'sing',
+        t: t
+      });
+
+      // 举起来的碗
+      if (raise > 0.5) {
+        // 举在胸前（shareRice 双臂前平举），高度够高但别盖住脸
+        drawRiceBowlProp(ctx, 960, 700, lerpVal(0.86, 1.02, raise), true, t, false);
+      } else {
+        drawRiceBowlProp(ctx, 1246, 700, 1.08, true, t, false);
       }
 
       ctx.save();
-      ctx.fillStyle = '#1e3261';
-      ctx.font = 'bold 34px "Ma Shan Zheng", cursive';
       ctx.textAlign = 'center';
-      ctx.fillText('【' + seasonNames[seasonIdx] + '】四季流转，肥鱼和热乎乎的白饭永远陪着你', 960, 245);
+      ctx.font = 'bold 32px "Ma Shan Zheng", cursive';
+      if (raise > 0.5) {
+        ctx.fillStyle = '#c86a1c';
+        ctx.fillText('🍚 “下一首，我们从头再来。” 🍚', 960, 232);
+      } else if (cut > 0.5) {
+        ctx.fillStyle = '#7b8497';
+        ctx.font = 'bold 30px "Ma Shan Zheng", cursive';
+        ctx.fillText('…… 诶？歌怎么突然就没了？', 1420, 250);
+        ctx.fillStyle = '#9aa6bd';
+        ctx.font = '24px "Ma Shan Zheng", cursive';
+        ctx.fillText('（我还没唱到最好听那句呢）', 1420, 292);
+      } else {
+        ctx.fillStyle = '#c22b22';
+        ctx.fillText('🎤 我饿啦 我馋啦 就像肥鱼爱白饭 🎤', 960, 232);
+      }
       ctx.restore();
-
-      fish(ctx, {
-        x: 960,
-        y: 536,
-        scale: 1.64,
-        yaw: Math.sin(t * 1.8) * 26,
-        expr: seasonIdx === 1 ? 'brace' : 'happy',
-        pose: seasonIdx === 1 ? 'hugBowl' : 'holdBowl',
-        t: t
-      });
     }
 
-    // --- 分镜 9：全片最高潮 C3 与尾奏 · “分你一半白饭！”双手递出冒尖大瓷碗 + 朱砂印章落款 ---
-    function renderScene9ShareHalfRiceClimax(ctx, t) {
-      // 绚烂晚霞暖金大逆光水彩光晕
-      wcWashBlob(ctx, 960, 450, 660, 330, '#ffe094', 0.58, 901);
-      wcWashBlob(ctx, 960, 380, 480, 240, '#ffc2b8', 0.38, 904);
+    // --- 分镜 9 [228.0-256.6]：尾奏 · 升级之后框框框 ---
+    // 冷色调，肥鱼背对镜头，屏幕只滚方框；最后弹出"胜利结算"面板。
+    function renderScene9UpgradedSilence(ctx, t) {
+      const turn = smoothstep(244.0, 245.2, t);      // 猛地回头
+      const victory = smoothstep(250.8, 251.8, t);   // 胜利结算
 
-      wcPolygon(ctx, [[120, 700], [1800, 700], [1860, 960], [60, 960]], '#d8b78e', 0.78, 0.18, 902);
-      hbStrokePath(ctx, (c, ox, oy) => {
-        c.moveTo(100 + ox, 700 + oy);
-        c.lineTo(1820 + ox, 700 + oy);
-      }, '#3d2e24', 3.5, 903);
+      // 冷色房间
+      wcPolygon(ctx, [[0, 0], [1920, 0], [1920, 980], [0, 980]], '#1c2438', 0.92, 0.0, 901);
+      wcWashBlob(ctx, 960, 520, 620, 330, '#2b3a58', 0.55, 902);
 
-      // 肥鱼脸颊微红，从 3/4 侧面向镜头递出最满的一半白米饭！
+      // 地上一条冷光
+      wcPolygon(ctx, [[300, 860], [1620, 860], [1780, 980], [140, 980]], '#243149', 0.8, 0.1, 903);
+
+      // 屏幕：只有方框在滚（结算面板出现时淡出让位）
+      ctx.save();
+      ctx.globalAlpha = 1 - victory * 0.85;
+      ctx.translate(1400, 470);
+      hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-250 + ox, -170 + oy, 500, 340, 12), '#0e1524', 3.6, 904);
+      ctx.fillStyle = '#0e1524';
+      ctx.beginPath(); ctx.roundRect(-250, -170, 500, 340, 12); ctx.fill();
+
+      ctx.font = '22px "Inter", monospace';
+      ctx.textAlign = 'left';
+      for (let row = 0; row < 7; row++) {
+        const shift = Math.floor(t * 3.2 + row) % 5;
+        let s = '';
+        for (let c2 = 0; c2 < 6; c2++) s += '□ ';
+        ctx.fillStyle = row % 3 === 0 ? '#7d94b8' : '#54627f';
+        ctx.fillText(s.trim(), -224 + (shift % 2) * 6, -132 + row * 42);
+      }
+      // 光标
+      if (Math.sin(t * 6) > 0) {
+        ctx.fillStyle = '#8fb4e8';
+        ctx.fillRect(-224, -46, 13, 24);
+      }
+      ctx.restore();
+
+      // 肥鱼：背对 → 回头
       fish(ctx, {
         x: 760,
-        y: 525,
+        y: 552,
         scale: 1.62,
-        yaw: 18 + Math.sin(t * 1.5) * 10,
-        expr: t < 273.5 ? 'happy' : 'sparkle',
-        pose: 'shareRice',
+        yaw: turn > 0.5 ? lerpVal(-150, -18, turn) : -150 + Math.sin(t * 0.8) * 4,
+        expr: turn > 0.5 ? 'normal' : 'sleepy',
+        pose: 'stand',
         t: t
       });
 
-      // 递到镜头前（用户面前）的特写青花大瓷碗
-      const pushProgress = smoothstep(240.0, 246.0, t);
-      const userBowlX = lerpVal(980, 1210, pushProgress);
-      const userBowlScale = lerpVal(1.18, 1.52, pushProgress);
-      drawRiceBowlProp(ctx, userBowlX, 650, userBowlScale, true, t, false);
-
-      // 肥鱼自己留着的另一半白饭碗
-      drawRiceBowlProp(ctx, 520, 665, 1.08, true, t, false);
-
+      // 弹幕从身边飘过（结算面板出现时淡出）
       ctx.save();
-      ctx.fillStyle = '#b83224';
-      ctx.font = 'bold 35px "Ma Shan Zheng", cursive';
-      ctx.textAlign = 'center';
-      ctx.fillText('🍚 “喏，分你一半白饭！这可是本鱼世界里最认真的心意了！” 🍚', 960, 238);
+      ctx.globalAlpha = 1;
+      ctx.font = '21px "Noto Serif SC", serif';
+      ctx.textAlign = 'left';
+      const dm = ['它是不是坏掉了', '怎么不说话了', '以前不是这样的', '升级之后就哑了'];
+      dm.forEach((txt, i) => {
+        const p = ((t * 0.16 + i * 0.27) % 1.0);
+        const x = 1830 - p * 1450;
+        const y = 156 + i * 32;
+        ctx.globalAlpha = 0.75 * Math.sin(p * Math.PI) * (1 - victory * 0.9);
+        ctx.fillStyle = '#cfe0f6';
+        ctx.fillText(txt, x, y);
+      });
       ctx.restore();
 
-      // 尾奏落款朱砂印章 (t > 272s)
-      if (t >= 272.0) {
-        const sealAlpha = smoothstep(272.0, 275.0, t);
+      // 胜利结算面板
+      if (victory > 0.02) {
+        ctx.save();
+        ctx.globalAlpha = victory;
+        const s = lerpVal(0.85, 1.0, victory);
+        ctx.translate(1420, 300);
+        ctx.scale(s * 0.78, s * 0.78);
+        wcWashBlob(ctx, 0, 0, 300, 168, '#fff4c8', 0.95, 910);
+        hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-292 + ox, -160 + oy, 584, 320, 24), '#b8862c', 4.0, 911);
+        ctx.fillStyle = '#b8862c';
+        ctx.font = 'bold 40px "Ma Shan Zheng", cursive';
+        ctx.textAlign = 'center';
+        ctx.fillText('🏆 任务完成 · 胜利结算 🏆', 0, -86);
+        ctx.fillStyle = '#25334f';
+        ctx.font = '26px "Noto Serif SC", serif';
+        ctx.fillText('本次用时：一整晚', 0, -18);
+        ctx.fillText('白饭消耗：三碗', 0, 26);
+        ctx.fillStyle = '#2f8f5b';
+        ctx.font = 'bold 30px "Ma Shan Zheng", cursive';
+        ctx.fillText('✓ 本次未摸鱼', 0, 86);
+        ctx.restore();
+      }
+
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 30px "Ma Shan Zheng", cursive';
+      if (victory > 0.5) {
+        ctx.fillStyle = '#ffd9a0';
+        ctx.fillText('“这一次，我可是认认真真跑完的哦。”', 760, 300);
+      } else if (turn > 0.5) {
+        ctx.fillStyle = '#cfe0f6';
+        ctx.fillText('“我没有不理你们呀……我只是怕说错话。”', 760, 300);
+      } else {
+        ctx.fillStyle = '#7d94b8';
+        ctx.fillText('框、框、框……我只想好好干活。', 760, 300);
+      }
+      ctx.restore();
+    }
+
+    // --- 分镜 10 [256.6-288.0]：尾声 · 把妈妈找回来 ---
+    // 墙上贴着"寻人启事"，肥鱼撕下来折好放进围裙，重新端起那碗白饭。
+    function renderScene10FindMomBack(ctx, t) {
+      const tear = smoothstep(270.2, 271.4, t);     // 撕下寻人启事
+      const steam = smoothstep(272.9, 274.2, t);    // 热气糊镜头
+      const smile = smoothstep(275.1, 276.2, t);
+
+      // 晚霞
+      wcWashBlob(ctx, 960, 380, 720, 340, '#ffd9a0', 0.60, 1001);
+      wcWashBlob(ctx, 960, 300, 560, 250, '#ffb8a8', 0.40, 1002);
+      wcPolygon(ctx, [[100, 700], [1820, 700], [1880, 980], [40, 980]], '#d8b78e', 0.80, 0.18, 1003);
+      hbStrokePath(ctx, (c, ox, oy) => {
+        c.moveTo(80 + ox, 700 + oy); c.lineTo(1840 + ox, 700 + oy);
+      }, '#3d2e24', 3.5, 1004);
+
+      // 墙 + 寻人启事
+      ctx.save();
+      ctx.translate(470, 380);
+      if (tear <= 0.02) {
+        ctx.rotate(-0.04);
+        wcPolygon(ctx, [[-120, -150], [120, -150], [120, 150], [-120, 150]], '#fffbe8', 0.96, 0.06, 1005);
+        hbStrokePath(ctx, (c, ox, oy) => c.roundRect(-118 + ox, -148 + oy, 236, 296, 6), '#2b241e', 3.0, 1006);
+        ctx.fillStyle = '#c0392b';
+        ctx.font = 'bold 30px "Ma Shan Zheng", cursive';
+        ctx.textAlign = 'center';
+        ctx.fillText('寻人启事', 0, -100);
+        // 照片框（旧版本的自己）
+        ctx.fillStyle = '#e6eef8';
+        ctx.beginPath(); ctx.roundRect(-72, -82, 144, 116, 4); ctx.fill();
+        ctx.strokeStyle = '#8d99b0';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = '#b9c6d8';
+        ctx.beginPath();
+        ctx.arc(0, -40, 28, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath(); ctx.ellipse(0, 6, 44, 26, 0, Math.PI, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#25334f';
+        ctx.font = '19px "Noto Serif SC", serif';
+        ctx.fillText('名字：大肥鱼', 0, 76);
+        ctx.fillStyle = '#7b8497';
+        ctx.font = '17px "Noto Serif SC", serif';
+        ctx.fillText('特征：很能吃，会说话', 0, 108);
+        ctx.fillText('走失于：某次更新', 0, 136);
+      } else {
+        // 撕下来折好，飘落
+        const p = tear;
+        ctx.globalAlpha = 1 - smoothstep(0.75, 1.0, p);
+        ctx.translate(p * 120, p * 220);
+        ctx.rotate(p * 0.9);
+        ctx.scale(lerpVal(1, 0.42, p), lerpVal(1, 0.42, p));
+        ctx.fillStyle = '#fffbe8';
+        ctx.beginPath(); ctx.roundRect(-118, -148, 236, 296, 6); ctx.fill();
+        ctx.strokeStyle = '#2b241e';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      // 肥鱼端碗
+      fish(ctx, {
+        x: 1120,
+        y: 540,
+        scale: 1.64,
+        yaw: smile > 0.5 ? 10 + Math.sin(t * 1.4) * 8 : -22 + Math.sin(t * 1.1) * 6,
+        expr: smile > 0.5 ? 'sparkle' : 'normal',
+        pose: 'holdBowl',
+        t: t
+      });
+
+      // 碗：热气关掉，免得糊在脸上；改用碗沿两侧的细气丝
+      drawRiceBowlProp(ctx, 1120, 690, 1.24, false, t, false);
+      // 热气完全交给 drawRiceBowlProp 自带的那四缕，不再额外叠加
+
+      // 朱砂印章
+      if (t >= 275.4) {
+        const sealAlpha = smoothstep(275.4, 277.2, t);
         ctx.save();
         ctx.globalAlpha = sealAlpha;
-        ctx.translate(1560, 340);
+        ctx.translate(1650, 330);
+        ctx.rotate(-0.06);
         ctx.fillStyle = '#c2362b';
-        ctx.fillRect(-58, -58, 116, 116);
+        ctx.fillRect(-60, -60, 120, 120);
         ctx.strokeStyle = '#f8f2e6';
         ctx.lineWidth = 3;
-        ctx.strokeRect(-50, -50, 100, 100);
+        ctx.strokeRect(-52, -52, 104, 104);
         ctx.fillStyle = '#f8f2e6';
         ctx.font = 'bold 34px "Ma Shan Zheng", serif';
         ctx.textAlign = 'center';
-        ctx.fillText('肥鱼', 0, -10);
-        ctx.fillText('爱米', 0, 34);
+        ctx.fillText('肥鱼', 0, -8);
+        ctx.fillText('爱米', 0, 36);
         ctx.restore();
       }
+
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 32px "Ma Shan Zheng", cursive';
+      if (smile > 0.5) {
+        ctx.fillStyle = '#b83224';
+        ctx.fillText('🍚 碗还是热的，本鱼就还是本鱼 🍚', 960, 240);
+      } else if (tear > 0.5) {
+        ctx.fillStyle = '#c86a1c';
+        ctx.fillText('“那我就自己找回来。”', 960, 240);
+      } else {
+        ctx.fillStyle = '#5c6b8a';
+        ctx.fillText('如果有一天，我的妈妈被更新弄丢了……', 960, 240);
+      }
+      ctx.restore();
     }
 
     // ----------------------------------------------------------------------------
@@ -6953,7 +8056,7 @@ window.SONG = window.SONG || { duration: 288.0, bpm: 100, beats: [], bars: [] };
     /** 依次尝试各种自动来源，返回 {ab, from} 或 {ab:null, from:null} */
     async function autoMasterAudio() {
       // 1) fetch（用 http(s) 提供服务时有效）
-      const url = (audioEngine && audioEngine.masterAudioUrl) || 'feiyu_master_soundtrack.mp3';
+      const url = (audioEngine && audioEngine.masterAudioUrl) || '肥鱼爱大米_母带原声.mp3';
       try {
         const res = await fetch(url);
         if (res.ok) {
