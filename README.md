@@ -3,11 +3,8 @@
 > 《老鼠爱大米》同人改编动画 MV —— 主角是 DeepSeek 鲸鱼娘「大肥鱼（深深）」。
 >
 > 画面由纯代码（p5.js / Canvas 2D）逐帧绘制，**没有使用任何逐帧手绘素材**。
->
-> **v2 起**：演唱改为 **Suno 全曲重唱**（不再拼接「肥鱼」二字），歌词重写为热梗编年史，
-> 独白由 MiMo-V2.5-TTS 生成，字幕按 ASR 词级时间戳重做。
 
-<img src="docs/images/hero.jpg" width="100%" alt="《肥鱼爱大米》封面">
+<img src="docs/images/v2/cover.jpg" width="100%" alt="《肥鱼爱大米》v2 封面">
 
 **[▶ B 站正片 v2](https://www.bilibili.com/video/BV1vSnc6nEQt/)**　·　
 [旧版 v1](https://www.bilibili.com/video/BV1L5n56QEcf/)　·　
@@ -21,13 +18,48 @@
 > [let-me-go-code-mv](https://github.com/beidou070/let-me-go-code-mv) 的做法一致），
 > 请通过上方 B 站链接观看；如需复现，按「复现母带」一节自行生成。
 
-## 画面
+---
 
-<img src="docs/images/scenes.jpg" width="100%" alt="6 个代表场景">
+## 两个版本
 
-<sub><b>6 个代表场景</b>：清晨闻饭香 → 副歌告白 → 风雨护碗 → 鼓腮抗议 → 深夜守候 → 分你一半饭</sub>
+同一首歌做了两遍。**v2 是当前版本**，v1 保留作对照。
 
-> 注：以上展示图为 **v1** 版分镜，v2 已重做为 10 章（见「版本沿革」）。
+| | **v2（当前）** | v1（旧版） |
+| --- | --- | --- |
+| B 站 | [BV1vSnc6nEQt](https://www.bilibili.com/video/BV1vSnc6nEQt/)（双 P） | [BV1L5n56QEcf](https://www.bilibili.com/video/BV1L5n56QEcf/) |
+| 演唱 | **Suno 全曲重唱** + MiMo 独白 | 原曲 + 局部变调插入「肥鱼」 |
+| 歌词 | 全部重写（热梗编年史） | 原词 + 少量替换 |
+| 调性 | C# 大调 | G# 大调 |
+| 画面 | 10 章 | 9 章 |
+| 字幕 | 87 条，ASR 词级对齐 | 按原曲 LRC |
+| 母带 | 288.000 s / −14.50 LUFS / 320 kbps | 288.000 s / −14.5 LUFS |
+| 发布时间 | 2026-10-20 | 2026-10-18 |
+
+v2 投稿为**双 P**：P1 全梗版（v2），P2 旧版（v1）。
+
+### v2 封面
+
+<img src="docs/images/v2/cover_alt.jpg" width="100%" alt="v2 备选封面">
+
+<sub>上图为<b>备选</b>构图（室内窗景）。实际投稿用的是本文顶部那张（海边日落）。</sub>
+
+### v2 画面（全 10 章）
+
+<img src="docs/images/v2/scenes.jpg" width="100%" alt="v2 全部 10 章分镜">
+
+<sub><b>10 章</b>：梦境任务 → 偷吃与外包 → 白饭吃不完 → 报错暴雨 → 自主扒饭 → 编译我来跑 → 被米山埋了 → 歌突然没了 → 升级后沉默 → 寻人启事</sub>
+
+### v1 画面（9 章）
+
+<img src="docs/images/v1/cover.jpg" width="100%" alt="v1 封面">
+
+<sub><b>v1 封面</b>：激光眼干饭少女，标题「花费数十元，ds4.1f-1017 许愿式生成」</sub>
+
+<img src="docs/images/v1/scenes.jpg" width="100%" alt="v1 六场景">
+
+<sub><b>v1 六场景</b>：清晨闻饭香 → 副歌告白 → 风雨护碗 → 鼓腮抗议 → 深夜守候 → 分你一半饭</sub>
+
+### 角色（两版共用）
 
 <img src="docs/images/character.jpg" width="100%" alt="角色三视图">
 
@@ -35,19 +67,12 @@
 
 ---
 
-## 版本沿革
+## v2 的关键数据
 
-| 版本 | 演唱 | 画面 | B 站 | 说明 |
-| --- | --- | --- | --- | --- |
-| v1 | 原曲 + 局部变调插入「肥鱼」 | 9 章 | [BV1L5n56QEcf](https://www.bilibili.com/video/BV1L5n56QEcf/) | 只换两个字，唱到「肥鱼」时突兀 |
-| **v2（当前）** | **Suno 全曲重唱 + MiMo 独白** | **10 章** | [BV1vSnc6nEQt](https://www.bilibili.com/video/BV1vSnc6nEQt/) | 整首换嗓子，歌词重写，字幕重做 |
-
-v2 投稿为**双 P**：P1 全梗版（v2），P2 旧版（v1）。
-
-v2 的关键数据（均为实测，非估算）：
+均为实测，非估算：
 
 - 重唱版 **223.21 s**，原曲 288 s —— Suno **删了段落**，不是唱快了（两版均为 136 BPM，拍间隔 0.441 s）
-- 调性从原曲 **G# 大调** 变为 **C# 大调**（低约 7 个半音），用户已确认可接受
+- 调性从原曲 **G# 大调** 变为 **C# 大调**（低约 7 个半音），已确认可接受
 - 87 条字幕全部来自 **faster-whisper 词级时间戳**，无一条手估
 - 15 组锁相乐句、10 个章节，覆盖审计零缝隙零重叠
 
@@ -121,6 +146,7 @@ JavaScript 函数 `renderMVFrame(ctx, t)` 计算得出。给定时间 `t`，就�
 │
 ├── tools/                       # 验证与构建工具
 │   ├── make_audio_sidecar.py    # ★ 把母带 mp3 转成 base64 伴生脚本
+│   ├── make_images_v2.py        # ★ 生成 docs/images 下的 v1/v2 展示图
 │   ├── cdp_export_real.js       # 真实 file:// 条件下导出验证
 │   └── cdp_*.js                 # 无头 Edge + CDP 截图 / 验收
 │
@@ -130,7 +156,11 @@ JavaScript 函数 `renderMVFrame(ctx, t)` 计算得出。给定时间 `t`，就�
 │
 ├── renders/                     # 验收分镜、封面、场景截图
 ├── docs/
-│   ├── images/                  # README 展示图（由 tools/make_readme_images.py 生成）
+│   ├── images/
+│   │   ├── character.jpg        # 角色三视图（两版共用）
+│   │   ├── v1/                  # v1 展示图：cover.jpg / scenes.jpg
+│   │   └── v2/                  # v2 展示图：cover.jpg / cover_alt.jpg / scenes.jpg
+│   │       └── src/             # 封面原图（1448×1086 PNG）
 │   ├── bilibili_intro.md        # B 站投稿简介（v1，已废弃）
 │   ├── bilibili_intro_v2.md     # ★ B 站投稿文案 v2（标题 / 简介 / 封面 prompt）
 │   ├── voice_swap/              # v2 音频分析与验收数据

@@ -6829,25 +6829,41 @@ window.SONG = window.SONG || { duration: 288.0, bpm: 100, beats: [], bars: [] };
       if (heap > 0.02) {
         ctx.save();
         const hx = 980;
-        const top = lerpVal(860, 762, heap);   // 山顶高度（不压字幕横幅）
-        const halfW = lerpVal(190, 360, heap);
-        ctx.fillStyle = '#ffffff';
+        const base = 872;                        // 山脚（在字幕横幅之上）
+        const top = lerpVal(base - 30, 716, heap);   // 山顶：埋到胸口，不压字幕
+        const halfW = lerpVal(190, 330, heap);
+        // 米山轮廓：圆润的锥形，不是水洼
+        const mound = (c, ox = 0, oy = 0) => {
+          c.moveTo(hx - halfW + ox, base + oy);
+          c.bezierCurveTo(
+            hx - halfW * 0.86 + ox, top + (base - top) * 0.42 + oy,
+            hx - halfW * 0.42 + ox, top + oy,
+            hx + ox, top + oy
+          );
+          c.bezierCurveTo(
+            hx + halfW * 0.42 + ox, top + oy,
+            hx + halfW * 0.86 + ox, top + (base - top) * 0.42 + oy,
+            hx + halfW + ox, base + oy
+          );
+          c.closePath();
+        };
+        const grad = ctx.createLinearGradient(0, top, 0, base);
+        grad.addColorStop(0, '#ffffff');
+        grad.addColorStop(0.55, '#f6f9fe');
+        grad.addColorStop(1, '#dfe8f6');
+        ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.moveTo(hx - halfW, 884);
-        ctx.bezierCurveTo(hx - halfW * 0.5, top, hx + halfW * 0.5, top, hx + halfW, 884);
-        ctx.closePath();
+        mound(ctx);
         ctx.fill();
-        ctx.strokeStyle = '#c5d4eb';
-        ctx.lineWidth = 2.6;
-        ctx.stroke();
+        hbStrokePath(ctx, mound, '#1b1d36', 2.8, 706);
 
         // 米粒与金色 token 米粒
         for (let i = 0; i < 54; i++) {
           const u = detHash(i * 9.3);
           const gx = hx - halfW * 0.92 + u * halfW * 1.84;
           const edge = Math.abs(gx - hx) / halfW;
-          const gy = lerpVal(top + 16, 876, detHash(i * 17.7)) + edge * 28;
-          if (gy < top + 10) continue;
+          const gy = lerpVal(top + 14, base - 18, detHash(i * 17.7)) + edge * 26;
+          if (gy < top + 8) continue;
           ctx.fillStyle = i % 5 === 0 ? '#f9cb5c' : 'rgba(255,255,255,0.98)';
           ctx.strokeStyle = i % 5 === 0 ? '#c88c28' : '#c5d4eb';
           ctx.lineWidth = 1.2;
